@@ -2,7 +2,7 @@ import { LinkButton } from "./components/ui/buttons/LinkButton";
 
 function App() {
   return <>
-    <LinkButton text="Mostrar tudo" route_link="https://www.google.com" additionalClasses="text-[10px]" />
+    <LinkButton text="Mostrar tudo" route_link="" additionalClasses="" fontSize="13.33px" defaultColor="blue" defaultHoverColor="red" />
   </>;
 }
 
