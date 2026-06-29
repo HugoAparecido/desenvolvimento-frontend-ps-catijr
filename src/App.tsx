@@ -5,7 +5,7 @@ function App() {
     <LinkButton
       text="Clique aqui"
       route_link="/home"
-      sizeClass="text-h1"
+      sizeClass="text-base"
       colorClass="green"
       hoverColorClass="hover:text-green-hover"
     />

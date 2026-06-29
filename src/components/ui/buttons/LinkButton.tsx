@@ -22,6 +22,7 @@ export const LinkButton: React.FC<LinkButtonProps> = ({
                 hover:underline 
                 transition-colors duration-200
                 text-decoration-none
+                font-poppins
                 bg-green
                 ${sizeClass} 
                 ${colorClass} 
