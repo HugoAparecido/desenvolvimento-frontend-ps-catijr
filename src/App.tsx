@@ -2,13 +2,53 @@ import { LinkButton } from "./components/ui/buttons/LinkButton";
 
 function App() {
   return <>
-    <LinkButton
-      text="Clique aqui"
-      route_link="/home"
-      sizeClass="text-base"
-      colorClass="green"
-      hoverColorClass="hover:text-green-hover"
-    />
+    <section className="test bg-black">
+      <LinkButton
+        text="Mostrar tudo"
+        route_link=""
+        sizeClass="text-xs"
+        colorClass="text-subdued"
+        hoverColorClass="text-white"
+        fontWeightClass="font-bold"
+        fontHoverWeightClass="font-extrabold"
+      />      <LinkButton
+        text="Mostrar tudo"
+        route_link=""
+        sizeClass="text-sm"
+        colorClass="text-subdued"
+        hoverColorClass="text-white"
+        fontWeightClass="font-bold"
+        fontHoverWeightClass="hover:font-bold"
+      />      <LinkButton
+        text="Mostrar tudo"
+        route_link=""
+        sizeClass="text-xs"
+        colorClass="text-subdued"
+        hoverColorClass="text-white"
+        fontWeightClass="font-bold"
+      />      <LinkButton
+        text="Mostrar tudo"
+        route_link=""
+        sizeClass="text-xs"
+        colorClass="text-subdued"
+        hoverColorClass="text-white"
+        fontWeightClass="font-bold"
+      />      <LinkButton
+        text="Mostrar tudo"
+        route_link=""
+        sizeClass="text-xs"
+        colorClass="text-subdued"
+        hoverColorClass="text-white"
+        fontWeightClass="font-bold"
+      />      <LinkButton
+        text="Mostrar tudo"
+        route_link=""
+        sizeClass="text-xs"
+        colorClass="text-subdued"
+        hoverColorClass="text-white"
+        fontWeightClass="font-bold"
+      />
+    </section>
   </>;
 }
 
