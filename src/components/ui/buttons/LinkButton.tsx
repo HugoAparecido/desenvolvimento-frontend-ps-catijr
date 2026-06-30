@@ -5,6 +5,8 @@ interface LinkButtonProps {
     sizeClass: string;      // Ex: "text-h1"
     colorClass: string;     // Ex: "text-green"
     hoverColorClass: string;// Ex: "hover:text-green-hover"
+    fontWeightClass?: string; // Ex: "font-bold"
+    fontHoverWeightClass?: string; // Ex: "hover:font-bold"
 }
 
 export const LinkButton: React.FC<LinkButtonProps> = ({
@@ -13,20 +15,24 @@ export const LinkButton: React.FC<LinkButtonProps> = ({
     additionalClasses = "",
     sizeClass,
     colorClass,
-    hoverColorClass
+    hoverColorClass,
+    fontWeightClass = "font-normal",
+    fontHoverWeightClass = "hover:font-bold",
 }) => {
     return (
         <a
             href={route_link}
             className={`
                 hover:underline 
-                transition-colors duration-200
+                transition-all duration-300
+                ease-in-out
                 text-decoration-none
-                font-poppins
-                bg-green
+                font-Inter
                 ${sizeClass} 
                 ${colorClass} 
-                ${hoverColorClass} 
+                hover:${hoverColorClass}
+                hover:${fontHoverWeightClass}
+                ${fontWeightClass}
                 ${additionalClasses}
             `}
         >
