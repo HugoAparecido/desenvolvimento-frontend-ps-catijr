@@ -17,9 +17,9 @@
     --color-gradient-init: #938D8E;
     --color-gradient-end: #3E3939;
     --color-popup-bg: #282828;
-    --options-button-hover: var(--color-gary);
+    --options-button-hover: var(--color-gray);
     --options-button-pressed: var(--color-gray-dark);
-    --text-base: var(--color-white);
+    --text-base-color: var(--color-white);
 
     --font-poppins: 'Poppins', sans-serif;
 
