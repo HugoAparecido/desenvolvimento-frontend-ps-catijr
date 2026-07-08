@@ -19,7 +19,7 @@
     --color-popup-bg: #282828;
     --color-options-hover: var(--color-gray);
     --color-options-pressed: var(--color-gray-dark);
-    --text-base-color: var(--color-white);
+    --color-text-base: var(--color-white);
 
     --font-poppins: 'Poppins', sans-serif;
 

@@ -39,8 +39,8 @@ export default {
                     pressed: 'var(--color-options-pressed)',
                 },
 
-                text_base: {
-                    DEFAULT: 'var(--text-base-color)',
+                text: {
+                    base: 'var(--color-text-base)',
                 },
             },
 
