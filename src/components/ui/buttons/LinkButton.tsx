@@ -1,40 +1,36 @@
-interface LinkButtonProps {
+import clsx from "clsx";
+
+interface LinkButtonProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     text: string;
     route_link: string;
-    additionalClasses?: string;
-    sizeClass: string;      // Ex: "text-h1"
-    colorClass: string;     // Ex: "text-green"
-    hoverColorClass: string;// Ex: "hover:text-green-hover"
-    fontWeightClass?: string; // Ex: "font-bold"
-    fontHoverWeightClass?: string; // Ex: "hover:font-bold"
+    variant: 'default_subdued_10' | 'default_white_12' | 'default_subdued_12' | 'default_white_10' | 'default_subdued_10_same_color' | 'default_white_12_bold';
 }
 
-export const LinkButton: React.FC<LinkButtonProps> = ({
+export const LinkButton = ({
     text,
     route_link,
-    additionalClasses = "",
-    sizeClass,
-    colorClass,
-    hoverColorClass,
-    fontWeightClass = "font-normal",
-    fontHoverWeightClass = "hover:font-bold",
-}) => {
+    variant,
+    className,
+    ...props
+}: LinkButtonProps) => {
+    const baseStyles = "hover:underline transition-all ease-out text-decoration-none font-poppins";
+
+    const variantsConfig = {
+        default_subdued_10: "text-subdued text-xs text-bold hover:text-text-base hover:font-extrabold duration-300",
+        default_white_12: "text-text-base text-sm text-medium hover:text-text-base hover:font-extrabold duration-500",
+        default_subdued_12: "text-subdued text-sm text-semibold hover:text-text-base duration-300",
+        default_white_10: "text-text-base text-xs text-bold hover:font-extrabold duration-500",
+        default_subdued_10_same_color: "text-subdued text-xs text-bold hover:font-extrabold duration-300",
+        default_white_12_bold: "text-base text-sm text-bold duration-500",
+    };
+
+    const currentVariant = variantsConfig[variant];
+
     return (
         <a
             href={route_link}
-            className={`
-                hover:underline 
-                transition-all duration-300
-                ease-in-out
-                text-decoration-none
-                font-Inter
-                ${sizeClass} 
-                ${colorClass} 
-                hover:${hoverColorClass}
-                hover:${fontHoverWeightClass}
-                ${fontWeightClass}
-                ${additionalClasses}
-            `}
+            className={clsx(baseStyles, currentVariant, className)}
+            {...props}
         >
             {text}
         </a>
