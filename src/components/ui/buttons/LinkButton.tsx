@@ -16,11 +16,11 @@ export const LinkButton = ({
     const baseStyles = "hover:underline transition-all ease-out text-decoration-none font-poppins";
 
     const variantsConfig = {
-        default_subdued_10: "text-subdued text-xs text-bold hover:text-text-base hover:font-extrabold duration-300",
+        default_subdued_10: "text-text-subdued text-xs text-bold hover:text-text-base hover:font-extrabold duration-300",
         default_white_12: "text-text-base text-sm text-medium hover:text-text-base hover:font-extrabold duration-500",
-        default_subdued_12: "text-subdued text-sm text-semibold hover:text-text-base duration-300",
+        default_subdued_12: "text-text-subdued text-sm text-semibold hover:text-text-base duration-300",
         default_white_10: "text-text-base text-xs text-bold hover:font-extrabold duration-500",
-        default_subdued_10_same_color: "text-subdued text-xs text-bold hover:font-extrabold duration-300",
+        default_subdued_10_same_color: "text-text-subdued text-xs text-bold hover:font-extrabold duration-300",
         default_white_12_bold: "text-base text-sm text-bold duration-500",
     };
 
