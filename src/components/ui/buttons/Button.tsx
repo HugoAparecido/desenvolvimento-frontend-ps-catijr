@@ -18,7 +18,7 @@ export const Button = ({
 
     const variantsConfig = {
         default: {
-            button: "h-auto bg-transparent border border-subdued hover:border-text-base hover:ring-[0.5px] hover:ring-text-base",
+            button: "h-auto bg-transparent border border-subdued-essential hover:border-text-base hover:ring-[0.5px] hover:ring-text-base",
             text: "text-xs text-text-base",
             icon: "invert",
         },

@@ -16,9 +16,8 @@ export default {
                     dark: 'var(--color-gray-dark)',    // Cria a classe: bg-gray-dark
                 },
 
-                subdued: {
-                    DEFAULT: 'var(--color-subdued)',   // Cria a classe: text-subdued
-                    light: 'var(--color-subdued-light)',// Cria a classe: text-subdued-light
+                essential: {
+                    subdued: 'var(--color-essential-subdued)', // Cria a classe: bg-essential-subdued
                 },
 
                 green: {
@@ -41,6 +40,7 @@ export default {
 
                 text: {
                     base: 'var(--color-text-base)',
+                    subdued: 'var(--color-text-subdued)',
                 },
             },
 
