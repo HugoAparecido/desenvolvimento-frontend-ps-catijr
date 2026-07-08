@@ -35,8 +35,8 @@ export default {
                 'popup-bg': 'var(--color-popup-bg)',
 
                 options: {
-                    hover: 'var(--options-button-hover)',
-                    pressed: 'var(--options-button-pressed)',
+                    hover: 'var(--color-options-hover)',
+                    pressed: 'var(--color-options-pressed)',
                 },
 
                 text_base: {
