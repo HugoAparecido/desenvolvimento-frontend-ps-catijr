@@ -12,9 +12,14 @@ export const useSearchBar = <T>(onSearch: (query: string) => T) => {
         onSearch(query);
     }
 
+    const handleClear = () => {
+        setQuery('');
+    }
+
     return {
         query,
         handleInputChange,
         handleSubmit,
+        handleClear,
     };
 }

@@ -9,7 +9,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
     const [selectedInput, setSelectedInput] = useState<string>('');
     const [closeHovered, setCloseHovered] = useState<boolean>(false);
 
-    const { query, handleInputChange, handleSubmit } = useSearchBar((q) => {
+    const { query, handleInputChange, handleSubmit, handleClear } = useSearchBar((q) => {
         const mockData = ["Flutter", "Raect", "Vue", "Angular", "Svelte"];
         const results = mockData.filter(item => item.toLowerCase().includes(q.toLowerCase()));
         onSearch(results);
@@ -26,10 +26,10 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
                     onChange={handleInputChange}
                     onFocus={() => setSelectedInput('search')}
                     onBlur={() => setSelectedInput('')}
-                    className={`w-full h-full py-2 pl-9.5 pr-5.5 bg-transparent text-sm border ring-1 ring-background-highlight border-background-highlight rounded-2xl focus:outline-none focus:border-text-base focus:ring-text-base ${query ? 'text-text-base' : 'text-text-subdued'} placeholder-text-subdued transition-colors`}
+                    className={`w-full h-full py-2 pl-9.5 pr-5.5 bg-transparent text-sm border ring-1 ${query ? 'ring-text-base' : 'ring-background-highlight'} border-background-highlight rounded-2xl focus:outline-none focus:border-text-base focus:ring-text-base ${query ? 'text-text-base' : 'text-text-subdued'} placeholder-text-subdued transition-colors`}
                 />
                 {query && (
-                    <button type="button" className="absolute inset-y-0 right-0 flex items-center pr-3.5" onClick={() => handleInputChange({ target: { value: '' } } as React.ChangeEvent<HTMLInputElement>)}
+                    <button type="button" className="absolute inset-y-0 right-0 flex items-center pr-3.5" onClick={handleClear}
                     ><img src={closeHovered ? "/search_bar/close_active.svg" : "/search_bar/close.svg"} alt="Close" className="h-4 cursor-pointer" onMouseEnter={() => setCloseHovered(true)} onMouseLeave={() => setCloseHovered(false)} /></button>
                 )}</div>
         </form>
