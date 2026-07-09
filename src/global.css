@@ -20,6 +20,8 @@
     --color-options-hover: var(--color-gray);
     --color-options-pressed: var(--color-gray-dark);
     --color-text-base: var(--color-white);
+    --color-divider: #2a2a2a;
+    --color-background-highlight: var(--color-gray-bg);
 
     --font-poppins: 'Poppins', sans-serif;
 
