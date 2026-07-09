@@ -44,6 +44,9 @@ export default {
                 },
 
                 divider: 'var(--color-divider)',
+                background: {
+                    highlight: 'var(--color-background-highlight)',
+                }
             },
 
             backgroundImage: {
