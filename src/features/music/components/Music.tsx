@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NumberToTimeString } from "../../../utils/formatters";
 
 interface MusicProps {
@@ -25,9 +26,12 @@ export function Music({
     onClick,
     onClickSave
 }: MusicProps) {
+    const [musicSaved, setMusicSaved] = useState(saved);
+    const [musicHovered, setMusicHovered] = useState(false);
+
     return (
-        <div className="flex items-center justify-between font-poppins bg-transparent py-1 px-2 gap-2.5 rounded-sm" onClick={onClick}>
-            <span className="font-medium text-xs text-text-subdued">{id}</span>
+        <div className="flex items-center justify-between font-poppins bg-transparent py-1 px-2 gap-2.5 rounded-sm hover:bg-divider" onClick={onClick} onMouseEnter={() => setMusicHovered(true)} onMouseLeave={() => setMusicHovered(false)}>
+            <div className="h-3 w-3 flex items-center justify-center ">{(!musicHovered ? <span className="font-medium text-xs text-text-subdued">{id}</span> : <img src="/player/play.svg" alt="Play" className="h-3" />)}</div>
             <div className="flex flex-1 flex-row items-center gap-2">
                 <img src={imageUrl} alt="foto do álbum" />
                 <div className="flex flex-col items-start justify-center gap-1">
@@ -38,12 +42,18 @@ export function Music({
                 </div>
             </div>
             <span className="flex items-center gap-2 font-poppins text-xs font-medium text-text-subdued">{NumberToTimeString(totalTime)}</span>
-            <button type="button" onClick={onClickSave} className="w-3.5 cursor-pointer">
-                <img src={saved ? "/tag/saved.svg" : "/tag/unsaved.svg"} alt={saved ? "Saved" : "Unsaved"} className="w-full" />
+            <button type="button" onClick={() => {
+                setMusicSaved(!musicSaved);
+                if (onClickSave) {
+                    onClickSave();
+                }
+            }} className="w-3.5 cursor-pointer" disabled={!musicHovered}>
+                {musicSaved && (<img src="/tag/saved.svg" alt="Saved" className="w-full" />)}
+                {!musicSaved && musicHovered && (<img src="/action/add_fill.svg" alt="Save" className="w-full" />)}
             </button>
             <span className="flex items-center gap-2 font-poppins text-xs font-medium text-text-subdued">{totalViews}</span>
-            <button type="button" className="w-3 cursor-pointer" onClick={onClick}>
-                <img src="/action/3dots.svg" alt="Mais ações" className="w-full" />
+            <button type="button" className="w-3 h-3 cursor-pointer" onClick={onClick} disabled={!musicHovered}>
+                {musicHovered && <img src="/action/3dots.svg" alt="Mais ações" className="w-full" />}
             </button>
         </div>
     );

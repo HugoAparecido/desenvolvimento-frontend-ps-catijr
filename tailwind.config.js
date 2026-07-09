@@ -42,6 +42,8 @@ export default {
                     base: 'var(--color-text-base)',
                     subdued: 'var(--color-text-subdued)',
                 },
+
+                divider: 'var(--color-divider)',
             },
 
             backgroundImage: {
