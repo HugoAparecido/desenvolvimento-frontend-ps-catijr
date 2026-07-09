@@ -14,20 +14,23 @@ export const useArtistSong = (artistId: string | number) => {
     console.log(artistId);
 
     const [visibleCount, setVisibleCount] = useState(5);
-    const [hasMore, setHasMore] = useState(false)
 
     const songs = ALL_SONGS;
 
+    const hasMore = visibleCount < songs.length;
+
     const displayedSongs = songs.slice(0, visibleCount);
 
-    const handleViewMoreClick = () => {
-        setVisibleCount(songs.length);
-        setHasMore(visibleCount < songs.length)
+    const handleViewClick = () => {
+        if (hasMore)
+            setVisibleCount(songs.length);
+        else
+            setVisibleCount(5);
     }
 
     return {
         songs: displayedSongs,
-        handleViewMoreClick,
+        handleViewClick,
         hasMore,
     }
 };
