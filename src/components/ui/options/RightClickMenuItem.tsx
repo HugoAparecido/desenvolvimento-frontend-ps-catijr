@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { RightClickMenu } from "./RightClickMenu";
 
 export interface RightClickMenuNode {
     iconPath?: string;
@@ -28,11 +29,7 @@ export function RightClickMenuItem({ item }: RightClickMenuItem) {
             </div>
             {hasDropdown && hasHovered && (
                 <div className="absolute left-full top-0 ml-1 z-10">
-                    {item.children?.map((child, index) => (
-                        <RightClickMenuItem
-                            key={index}
-                            item={child} />
-                    ))}
+                    {item.children && (<RightClickMenu options={item.children} />)}
                 </div>
             )}
         </div>

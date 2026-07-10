@@ -1,11 +1,11 @@
-import { RightClickMenu } from "../../../components/ui/options/RightClickMenu";
-import { type RightClickMenuNode } from "../../../components/ui/options/RightClickMenuItem";
+import { RightClickMenu } from "../../../../components/ui/options/RightClickMenu";
+import { type RightClickMenuNode } from "../../../../components/ui/options/RightClickMenuItem";
 
-const optionsItens: RightClickMenuNode[] = [
+const optionItems: RightClickMenuNode[] = [
     {
         iconPath: "/action/plus.svg",
         iconDescription: "Plus",
-        text: "Adicionar à Playlist",
+        text: "Adicionar à playlist",
     },
     {
         iconPath: "action/block.svg",
@@ -35,5 +35,5 @@ const optionsItens: RightClickMenuNode[] = [
 ];
 
 export function RightClickMusicOptions() {
-    return <RightClickMenu options={optionsItens} />
+    return <RightClickMenu options={optionItems} />
 }
