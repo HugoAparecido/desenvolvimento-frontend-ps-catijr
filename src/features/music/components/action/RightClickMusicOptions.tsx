@@ -19,6 +19,7 @@ const optionItems: RightClickMenuNode[] = [
         iconPath: "tag/saved.svg",
         iconDescription: "Saved",
         text: "Remover da sua biblioteca",
+        hasDivider: true,
     }, {
         iconPath: "artist/artist.svg",
         iconDescription: "Plus",
