@@ -6,6 +6,13 @@ const optionItems: RightClickMenuNode[] = [
         iconPath: "/action/plus.svg",
         iconDescription: "Plus",
         text: "Adicionar à playlist",
+        children: [{
+            text: "playlist 1",
+        },
+        {
+            text: "playlist 2",
+        },
+        ]
     },
     {
         iconPath: "action/block.svg",

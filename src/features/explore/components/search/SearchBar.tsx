@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useSearchBar } from "../hooks/useSearchBar";
+import { useSearchBar } from "../../hooks/useSearchBar.ts";
 
 interface SearchBarProps {
     onSearch: (results: string[]) => void;
@@ -9,7 +9,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
     const [selectedInput, setSelectedInput] = useState<string>('');
     const [closeHovered, setCloseHovered] = useState<boolean>(false);
 
-    const { query, handleInputChange, handleSubmit, handleClear } = useSearchBar((q) => {
+    const { query, handleInputChange, handleSubmit, handleClear } = useSearchBar((q: string) => {
         const mockData = ["Flutter", "Raect", "Vue", "Angular", "Svelte"];
         const results = mockData.filter(item => item.toLowerCase().includes(q.toLowerCase()));
         onSearch(results);
