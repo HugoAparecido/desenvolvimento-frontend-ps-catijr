@@ -1,9 +1,10 @@
 interface ImageItemLargeCardProp {
     imagePath: string | string[],
     imageDescription: string,
+    className?: string
 }
 
-export function ImageItemLargeCard({ imagePath, imageDescription }: ImageItemLargeCardProp) {
+export function ImageItemLargeCard({ imagePath, imageDescription, className }: ImageItemLargeCardProp) {
     const normalizedImage = Array.isArray(imagePath) ? imagePath : [imagePath];
     const quantitity = normalizedImage.length;
     const imagesForRendering = quantitity === 1 ? normalizedImage : Array.from({ length: 4 }).map((_, index) => normalizedImage[index] || null)
@@ -12,7 +13,7 @@ export function ImageItemLargeCard({ imagePath, imageDescription }: ImageItemLar
     const imageClass = 'w-full h-full';
 
     return (
-        <div className={`sm:w-33 sm:h-33 w-15 h-15 rounded-xs grid ${gridClass}`}>
+        <div className={`sm:w-33 sm:h-33 w-15 h-15 rounded-xs grid ${gridClass} ${className}`}>
             {imagesForRendering.map((img, index) => {
                 if (img) {
                     return (
