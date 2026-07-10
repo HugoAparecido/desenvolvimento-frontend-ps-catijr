@@ -1,55 +1,39 @@
-import { RightClickMenuItem, type RightClickMenuNode } from "../../../components/ui/options/RightClickMenuItem";
+import { RightClickMenu } from "../../../components/ui/options/RightClickMenu";
+import { type RightClickMenuNode } from "../../../components/ui/options/RightClickMenuItem";
 
 const optionsItens: RightClickMenuNode[] = [
     {
-        iconPath: "/public/action/plus.svg",
+        iconPath: "/action/plus.svg",
         iconDescription: "Plus",
         text: "Adicionar à Playlist",
-        children: [
-            {
-                iconPath: "/public/action/plus.svg",
-                iconDescription: "Plus",
-                text: "Adicionar à Playlist",
-            }
-        ]
     },
     {
-        iconPath: "/public/action/plus.svg",
-        iconDescription: "Plus",
+        iconPath: "action/block.svg",
+        iconDescription: "Block",
         text: "Remover desta Playlist",
     }, {
-        iconPath: "/public/action/plus.svg",
-        iconDescription: "Plus",
+        iconPath: "action/add_subdued.svg",
+        iconDescription: "Add fill",
         text: "Salvar em Músicas Curtidas",
     }, {
-        iconPath: "/public/action/plus.svg",
-        iconDescription: "Plus",
+        iconPath: "tag/saved.svg",
+        iconDescription: "Saved",
         text: "Remover da sua biblioteca",
     }, {
-        iconPath: "/public/action/plus.svg",
+        iconPath: "artist/artist.svg",
         iconDescription: "Plus",
         text: "Ir para o artista",
     }, {
-        iconPath: "/public/action/plus.svg",
-        iconDescription: "Plus",
+        iconPath: "tag/album.svg",
+        iconDescription: "Album",
         text: "Ir para o álbum",
     }, {
-        iconPath: "/public/action/plus.svg",
-        iconDescription: "Plus",
+        iconPath: "tag/credits.svg",
+        iconDescription: "Credits",
         text: "Ver créditos",
     },
 ];
 
 export function RightClickMusicOptions() {
-    return (
-        <div>
-            {
-                optionsItens.map((userOption, index) => (
-                    <RightClickMenuItem
-                        key={index}
-                        item={userOption} />
-                ))
-            }
-        </div>
-    )
+    return <RightClickMenu options={optionsItens} />
 }
