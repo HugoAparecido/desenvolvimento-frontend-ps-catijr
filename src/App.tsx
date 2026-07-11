@@ -7,7 +7,7 @@ function App() {
       <ItemLargeCard
         typeCard="Album"
         text="Random Access Memories"
-        imagePath="/path/to/album.jpg"
+        imagePath="/card/album.png"
         imageDescription="Capa do álbum"
         albumYear="2013"
         playAction={() => console.log("Play Album")}
@@ -17,7 +17,7 @@ function App() {
       <ItemLargeCard
         typeCard="Playlist"
         text="Daily Mix 1"
-        imagePath="/path/to/playlist.jpg"
+        imagePath={["/card/playlist1.png", "/card/playlist2.png", "/card/playlist3.png", "/card/playlist4.png",]}
         imageDescription="Capa da playlist"
         playlistOwner="Spotify"
         playAction={() => console.log("Play Playlist")}
@@ -27,7 +27,7 @@ function App() {
       <ItemLargeCard
         typeCard="Artist"
         text="Daft Punk"
-        imagePath="/path/to/artist.jpg"
+        imagePath="/card/artist.png"
         imageDescription="Foto do artista"
         playAction={() => console.log("Play Artist")}
       />
@@ -36,7 +36,7 @@ function App() {
       <ItemLargeCard
         typeCard="Person"
         text="Nome do Usuário"
-        imagePath="/path/to/avatar.jpg"
+        imagePath="/card/person.png"
         imageDescription="Foto de perfil"
         playAction={() => console.log("Play Person")}
       />

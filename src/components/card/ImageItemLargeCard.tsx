@@ -13,7 +13,7 @@ export function ImageItemLargeCard({ imagePath, imageDescription, className }: I
     const imageClass = 'w-full h-full';
 
     return (
-        <div className={`sm:w-33 sm:h-33 w-15 h-15 rounded-xs grid ${gridClass} ${className}`}>
+        <div className={`relative sm:w-33 sm:h-33 w-15 h-15  grid overflow-hidden ${gridClass} ${className}`}>
             {imagesForRendering.map((img, index) => {
                 if (img) {
                     return (
@@ -21,7 +21,7 @@ export function ImageItemLargeCard({ imagePath, imageDescription, className }: I
                             key={index}
                             src={img}
                             alt={`${imageDescription} ${index + 1}`}
-                            className={`${imageClass} object-cover`} />
+                            className={`${imageClass} object-cover block`} />
                     )
                 }
                 return (
