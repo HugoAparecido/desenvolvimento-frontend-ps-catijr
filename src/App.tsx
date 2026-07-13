@@ -3,7 +3,7 @@ import { HomePageRecentItem } from "./features/music/components/HomePageRecentIt
 function App() {
   return <>
     <div className="bg-black">
-      <HomePageRecentItem musicName="teste hhhhhhhhhhhhh hhhhhhhhhhh hhhhhhhhhhhhhhhhhh" musicImagePath="music/music.png" initialIsPlaying={false} />
+      <HomePageRecentItem musicName="teste hhhhhhhhhhhhh hhhhhhhhhhh hhhhhhhhhhhhhhhhhh" musicImagePath="music/music.png" initialIsPlaying={false} redirectTo="https://github.com/" />
     </div>
   </>;
 }

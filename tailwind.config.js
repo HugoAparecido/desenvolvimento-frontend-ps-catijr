@@ -49,7 +49,10 @@ export default {
                 },
 
                 recent: {
-                    item: 'var(--color-bg-recent-item)',
+                    item: {
+                        hover: 'var(--color-bg-recent-item-hover)',
+                        DEFAULT: 'var(--color-bg-recent-item)',
+                    },
                 },
             },
 
