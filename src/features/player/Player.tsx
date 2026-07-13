@@ -26,7 +26,7 @@ export function Player() {
     }
 
     return (
-        <div className="h-16 p-2.5 flex justify-between items-center w-full">
+        <div className="h-16 p-2.5 flex justify-between items-center w-full bg-black">
             <audio
                 ref={audioRef}
                 src={currentTrack.audioUrl}
