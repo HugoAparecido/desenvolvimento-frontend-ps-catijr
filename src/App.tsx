@@ -1,9 +1,9 @@
-import { VolumeControl } from "./features/player/components/VolumeControl";
+import { Player } from "./features/player/Player";
 
 function App() {
   return <>
     <div className="bg-black">
-      <VolumeControl />
+      <Player />
     </div>
   </>;
 }

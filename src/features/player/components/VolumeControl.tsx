@@ -8,7 +8,7 @@ export function VolumeControl() {
     const offsetTop = - (fillHeight - trackHeight) / 2;
 
     return (
-        <div className="w-max flex justify-between items-center gap-1 font-poppins font-medium text-xs text-text-subdued relative">
+        <div className="w-max md:flex hidden justify-between items-center gap-1 font-poppins font-medium text-xs text-text-subdued relative">
             <img src="/audio/audio.svg" alt="Áudio" className="w-3" />
             <div className="w-17.5 rounded-full bg-track-bar"
                 style={{ height: `${trackHeight}px` }}>

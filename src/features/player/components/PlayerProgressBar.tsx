@@ -1,11 +1,11 @@
 import { NumberToTimeString } from "../../../utils/formatters";
 
-interface ProgressBarProps {
+interface PlayerProgressBarProps {
     currentTime: number,
     fullTime: number,
 }
 
-export function ProgressBar({ currentTime, fullTime }: ProgressBarProps) {
+export function PlayerProgressBar({ currentTime, fullTime }: PlayerProgressBarProps) {
     const percentage = fullTime > 0 ? Math.min(Math.max((currentTime / fullTime) * 100, 0), 100) : 0;
 
     const trackHeight = 3;
@@ -17,7 +17,7 @@ export function ProgressBar({ currentTime, fullTime }: ProgressBarProps) {
             <span>{
                 NumberToTimeString(currentTime)
             }</span>
-            <div className="w-30 sm:w-113.5 rounded-full bg-track-bar"
+            <div className="w-30 md:w-113.5 rounded-full bg-track-bar"
                 style={{ height: `${trackHeight}px` }}>
                 <div className="bg-text-base rounded-full transition-all duration-300 ease-in-out ring-1 ring-text-base"
                     style={{

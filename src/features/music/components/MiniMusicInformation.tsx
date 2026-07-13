@@ -11,10 +11,10 @@ interface MiniMusicInformationProps {
 
 export function MiniMusicInformation({ musicName, toAlbum, artistName, toArtist, imagePath, parentIsFull }: MiniMusicInformationProps) {
     return (
-        <div className="flex gap-3 bg-transparent">
+        <div className="flex gap-3 bg-transparent w-max flex-1 min-w-0">
             <img src={imagePath} alt="Imagem do Álbum"
                 className={`w-9
-                ${parentIsFull ? "hidden sm:block" : "block"}
+                ${!parentIsFull ? "hidden md:block" : "block"}
                 `} />
             <div className="flex gap-1 flex-col">
                 <LinkButton text={musicName} variant='default_white_10' route_link={toAlbum} />
