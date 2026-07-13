@@ -49,6 +49,12 @@ export default {
                 },
 
                 'track-bar': 'var(--color-track-bar)',
+                recent: {
+                    item: {
+                        hover: 'var(--color-bg-recent-item-hover)',
+                        DEFAULT: 'var(--color-bg-recent-item)',
+                    },
+                },
             },
 
             backgroundImage: {

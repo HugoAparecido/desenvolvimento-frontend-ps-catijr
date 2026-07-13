@@ -24,6 +24,8 @@
     --color-background-highlight: var(--color-gray-bg);
     --color-track-bar: #4d4d4d;
 
+    --color-bg-recent-item: #2D2D2D;
+    --color-bg-recent-item-hover: #5B5A5A99;
     --font-poppins: 'Poppins', sans-serif;
 
     --text-xs: 0.694rem;
