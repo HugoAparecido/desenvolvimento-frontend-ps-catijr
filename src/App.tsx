@@ -5,7 +5,9 @@ function App() {
     <div className="bg-black">
       <MiniMusicInformation artistName="Hugo" imagePath="mock-images/image_20.png"
         musicName="Gol" toAlbum="https://github.com/"
-        toArtist="https://github.com/" />
+        toArtist="https://github.com/"
+        parentIsFull={false}
+      />
     </div>
   </>;
 }
