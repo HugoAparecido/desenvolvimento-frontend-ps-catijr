@@ -1,4 +1,5 @@
 import { MiniMusicInformation } from "./features/music/components/MiniMusicInformation";
+import { PlayButtonPlayer } from "./features/player/components/buttons/PlayButtonPlayer";
 
 function App() {
   return <>
@@ -8,6 +9,7 @@ function App() {
         toArtist="https://github.com/"
         parentIsFull={false}
       />
+      <PlayButtonPlayer isPlaying={true} onClick={() => { }} />
     </div>
   </>;
 }
