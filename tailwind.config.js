@@ -46,7 +46,14 @@ export default {
                 divider: 'var(--color-divider)',
                 background: {
                     highlight: 'var(--color-background-highlight)',
-                }
+                },
+
+                recent: {
+                    item: {
+                        hover: 'var(--color-bg-recent-item-hover)',
+                        DEFAULT: 'var(--color-bg-recent-item)',
+                    },
+                },
             },
 
             backgroundImage: {
