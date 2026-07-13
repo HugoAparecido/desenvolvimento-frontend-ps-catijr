@@ -2,21 +2,18 @@ import { useState } from "react"
 import { mockItemsArtistsCard } from "./mockArtistCard";
 
 export const useRecentArtists = (maximumNumberOfInlineItems: number) => {
-    console.log(maximumNumberOfInlineItems);
-
-    const [visibleCount, setVisibleCount] = useState(maximumNumberOfInlineItems);
+    const [isExpanded, setIsExpanded] = useState(false);
 
     const artists = mockItemsArtistsCard;
 
-    const hasMore = visibleCount < artists.length;
+    const visibleCount = isExpanded ? artists.length : maximumNumberOfInlineItems;
 
     const displayedArtists = artists.slice(0, visibleCount);
 
+    const hasMore = !isExpanded && artists.length > maximumNumberOfInlineItems;
+
     const handleViewClick = () => {
-        if (hasMore)
-            setVisibleCount(artists.length);
-        else
-            setVisibleCount(5);
+        setIsExpanded(!isExpanded);
     }
 
     return {
