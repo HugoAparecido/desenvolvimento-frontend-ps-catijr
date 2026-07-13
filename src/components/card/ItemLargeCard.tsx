@@ -17,7 +17,7 @@ export function ItemLargeCard({ imagePath, imageDescription, typeCard, text, alb
     const [hovered, setHovered] = useState(false);
 
     return (
-        <div className="max-w-35 h-max rounded-sm flex flex-col gap-2 p-1 overflow-hidden"
+        <div className="max-w-35 h-max rounded-sm flex flex-col gap-2 p-1 overflow-hidden shrink-0"
             onMouseOver={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}>
             <div className="relative">
