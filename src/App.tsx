@@ -1,5 +1,6 @@
 import { MiniMusicInformation } from "./features/music/components/MiniMusicInformation";
 import { ControlPlay } from "./features/player/components/ControlPlay";
+import { ProgressBar } from "./features/player/components/ProgressBar";
 
 function App() {
 
@@ -12,6 +13,7 @@ function App() {
       />
       <ControlPlay isPlaying={false} nextPathMusicClick={() => { }}
         onTogglePlay={() => { }} previousPathMusicClick={() => { }} />
+      <ProgressBar currentTime={90} fullTime={180} />
     </div>
   </>;
 }

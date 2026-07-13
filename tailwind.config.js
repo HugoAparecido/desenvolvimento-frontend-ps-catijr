@@ -46,7 +46,9 @@ export default {
                 divider: 'var(--color-divider)',
                 background: {
                     highlight: 'var(--color-background-highlight)',
-                }
+                },
+
+                'track-bar': 'var(--color-track-bar)',
             },
 
             backgroundImage: {
