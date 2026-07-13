@@ -5,6 +5,8 @@ import { PlayerProgressBar } from "./components/PlayerProgressBar";
 import { VolumeControl } from "./components/VolumeControl";
 import { usePlayerStore } from "./store/usePlayerStore";
 import { useAudioPlayer } from "./hooks/useAudioPlayer";
+import { PlayButtonPlayer } from "./components/buttons/PlayButtonPlayer";
+import { MdSkipNext } from "react-icons/md";
 
 export function Player() {
     const {
@@ -26,7 +28,7 @@ export function Player() {
     }
 
     return (
-        <div className="h-16 p-2.5 flex justify-between items-center w-full bg-black">
+        <div className={`h-16 p-2.5 flex justify-between items-center w-full bg-black`}>
             <audio
                 ref={audioRef}
                 src={currentTrack.audioUrl}
@@ -40,7 +42,7 @@ export function Player() {
                 toAlbum={`/album/${currentTrack.albumId}`}
                 toArtist={`/artist/${currentTrack.artistId}`}
             />
-            <div className="flex flex-col justify-center items-center gap-1 w-max">
+            <div className={`${isFullScreen ? "flex" : "hidden"}  md:flex flex-col justify-center items-center gap-1 w-max`}>
                 <PlayControl
                     isPlaying={isPlaying}
                     nextMusicClick={nextTrack}
@@ -52,7 +54,7 @@ export function Player() {
                     fullTime={fullTime}
                 />
             </div>
-            <div className="flex gap-2 flex-1 min-w-0 justify-end">
+            <div className={`${isFullScreen ? "flex" : "hidden"}  md:flex gap-2 flex-1 min-w-0 justify-end`}>
                 <VolumeControl />
                 <button onClick={toggleFullScreen}>
                     {isFullScreen ?
@@ -61,6 +63,18 @@ export function Player() {
                     }
                 </button>
             </div>
+            <div className={`${!isFullScreen ? "flex" : "hidden"}  md:hidden gap-2 flex-1 min-w-0 justify-end`}>
+                <PlayButtonPlayer
+                    isPlaying={isPlaying}
+                    onClick={togglePlay} />
+
+                <button onClick={previousTrack}
+                    className="cursor-pointer text-text-subdued hover:text-white" aria-label="Próxima música"
+                >
+                    <MdSkipNext size={20} />
+                </button>
+            </div>
+
         </div>
     )
 }
