@@ -1,12 +1,12 @@
-import { RightClickArtistOptions } from "./features/artist/components/action/RightClickArtistOptions";
-import { RightClickMusicOptions } from "./features/music/components/action/RightClickMusicOptions";
-import { RightClickPlaylistOptions } from "./features/playlist/components/action/RightClickPlaylistOptions";
+import { MiniMusicInformation } from "./features/music/components/MiniMusicInformation";
 
 function App() {
   return <>
-    <RightClickArtistOptions />
-    <RightClickPlaylistOptions />
-    <RightClickMusicOptions />
+    <div className="bg-black">
+      <MiniMusicInformation artistName="Hugo" imagePath="mock-images/image_20.png"
+        musicName="Gol" toAlbum="https://github.com/"
+        toArtist="https://github.com/" />
+    </div>
   </>;
 }
 
