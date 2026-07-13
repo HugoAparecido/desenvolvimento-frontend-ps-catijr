@@ -1,7 +1,8 @@
 import { MiniMusicInformation } from "./features/music/components/MiniMusicInformation";
-import { PlayButtonPlayer } from "./features/player/components/buttons/PlayButtonPlayer";
+import { ControlPlay } from "./features/player/components/ControlPlay";
 
 function App() {
+
   return <>
     <div className="bg-black">
       <MiniMusicInformation artistName="Hugo" imagePath="mock-images/image_20.png"
@@ -9,7 +10,8 @@ function App() {
         toArtist="https://github.com/"
         parentIsFull={false}
       />
-      <PlayButtonPlayer isPlaying={true} onClick={() => { }} />
+      <ControlPlay isPlaying={false} nextPathMusicClick={() => { }}
+        onTogglePlay={() => { }} previousPathMusicClick={() => { }} />
     </div>
   </>;
 }
