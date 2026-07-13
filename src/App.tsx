@@ -1,9 +1,9 @@
-import { HomePageRecentItem } from "./features/music/components/HomePageRecentItem";
+import { Player } from "./features/player/Player";
 
 function App() {
   return <>
     <div className="bg-black">
-      <HomePageRecentItem musicName="teste hhhhhhhhhhhhh hhhhhhhhhhh hhhhhhhhhhhhhhhhhh" musicImagePath="music/music.png" initialIsPlaying={false} redirectTo="https://github.com/" />
+      <Player />
     </div>
   </>;
 }
