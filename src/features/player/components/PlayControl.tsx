@@ -1,14 +1,14 @@
 import { MdSkipNext, MdSkipPrevious } from "react-icons/md";
 import { PlayButtonPlayer } from "./buttons/PlayButtonPlayer";
 
-interface ControlPlayProps {
+interface PlayControlProps {
     isPlaying: boolean,
     onTogglePlay: () => void;
     nextPathMusicClick: () => void,
     previousPathMusicClick: () => void,
 }
 
-export function ControlPlay({ isPlaying, onTogglePlay, nextPathMusicClick, previousPathMusicClick }: ControlPlayProps) {
+export function PlayControl({ isPlaying, onTogglePlay, nextPathMusicClick, previousPathMusicClick }: PlayControlProps) {
 
 
     return (
