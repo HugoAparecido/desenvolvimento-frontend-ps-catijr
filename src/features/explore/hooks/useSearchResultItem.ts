@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 type TagResultValue = 'musica' | 'playlist' | 'album' | 'artist';
 
 export interface ResultItem {
@@ -50,3 +52,44 @@ export const mockResultItems: ResultItem[] = [
         artistLink: "https://example.com/artist/queen" // Opcional, mas comum para artistas
     }
 ];
+
+export function useSearchResultItemActions(item: ResultItem) {
+    const [isFollowing, setIsFollowing] = useState(item.isFollowing ?? false);
+    const [isSaved, setIsSaved] = useState(item.isSaved ?? false);
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const handleRedirect = () => {
+        console.log("Redirecionando para:", item.itemToPath);
+    };
+
+    const handleContextMenu = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setIsMenuOpen(true);
+    };
+
+    const handleThreeDotsClick = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setIsMenuOpen((prev) => !prev);
+    };
+
+    const handleToggleFollow = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setIsFollowing((prev) => !prev);
+    };
+
+    const handleToggleSave = (e: React.MouseEvent) => {
+        e.stopPropagation();
+        setIsSaved((prev) => !prev);
+    };
+
+    return {
+        isFollowing,
+        isSaved,
+        isMenuOpen,
+        handleRedirect,
+        handleContextMenu,
+        handleThreeDotsClick,
+        handleToggleFollow,
+        handleToggleSave
+    };
+}
