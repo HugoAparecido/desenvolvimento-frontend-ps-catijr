@@ -26,7 +26,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
 
     return (
         <form onSubmit={handleSubmit} className="flex items-center gap-2">
-            <div className="relative w-full max-w-88.75 h-8 flex items-center justify-center rounded-2xl bg-background-highlight cursor-text">
+            <div className="relative hidden w-88.75 h-9 md:flex items-center justify-center rounded-2xl bg-background-highlight cursor-text">
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400" onClick={handleImageClick}>
                     <img
                         src={selectedInput === 'search' ? "/search_bar/search_active.svg" : "/search_bar/search.svg"}
@@ -43,7 +43,9 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
                     onChange={handleInputChange}
                     onFocus={() => setSelectedInput('search')}
                     onBlur={() => setSelectedInput('')}
-                    className={`w-full h-full py-2 pl-9.5 pr-5.5 bg-transparent text-sm border ring-1 ${query ? 'ring-text-base' : 'ring-background-highlight'} border-background-highlight rounded-2xl focus:outline-none focus:border-text-base focus:ring-text-base ${query ? 'text-text-base' : 'text-text-subdued'} placeholder-text-subdued transition-colors`}
+                    className={`hidden md:block w-full h-full py-2 pl-9.5 pr-5.5 bg-transparent text-sm border ring-1
+                         ${query ? 'ring-text-base' : 'ring-background-highlight'}
+                          border-background-highlight rounded-2xl focus:outline-none focus:border-text-base focus:ring-text-base ${query ? 'text-text-base' : 'text-text-subdued'} placeholder-text-subdued transition-colors`}
                 />
                 {query && (
                     <button type="button"
@@ -59,6 +61,17 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
                                 () => setCloseHovered(false)} />
                     </button>
                 )}</div>
+
+            <div className="md:hidden w-max h-9 flex px-3.5 gap-8 items-center justify-center rounded-2xl bg-background-highlight cursor-text">
+                <button className="flex items-center justify-center text-gray-400" onClick={handleImageClick}>
+                    <img
+                        src={selectedInput === 'search' ? "/search_bar/search_active.svg" : "/search_bar/search.svg"}
+                        alt="Search"
+                        className="h-4"
+
+                    />
+                </button>
+            </div>
         </form>
     );
 }
