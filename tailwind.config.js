@@ -50,6 +50,7 @@ export default {
                 },
 
                 'track-bar': 'var(--color-track-bar)',
+
                 recent: {
                     item: {
                         hover: 'var(--color-bg-recent-item-hover)',
@@ -57,9 +58,12 @@ export default {
                     },
                 },
 
-                'result-item': {
-                    text: 'var(--color-recent-item-text)',
-                    divider: 'var(--color-recent-item-divider)',
+                result:
+                {
+                    item: {
+                        text: 'var(--color-result-item-text)',
+                        divider: 'var(--color-result-item-divider)',
+                    },
                 }
             },
 
