@@ -1,4 +1,4 @@
-import { tagResultDisplayNames, type TagResultValue } from "../../hooks/useSearchResultItemTag";
+import { tagResultDisplayNames, type TagResultValue } from "../../../../hooks/useSearchResultItemTag";
 
 interface SearchResultItemTagProps {
     tagValue: TagResultValue,

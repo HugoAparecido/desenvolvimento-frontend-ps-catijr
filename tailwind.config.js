@@ -46,6 +46,7 @@ export default {
                 divider: 'var(--color-divider)',
                 background: {
                     highlight: 'var(--color-background-highlight)',
+                    elements: 'var(--color-background-elements)'
                 },
 
                 'track-bar': 'var(--color-track-bar)',
@@ -55,6 +56,11 @@ export default {
                         DEFAULT: 'var(--color-bg-recent-item)',
                     },
                 },
+
+                'result-item': {
+                    text: 'var(--color-recent-item-text)',
+                    divider: 'var(--color-recent-item-divider)',
+                }
             },
 
             backgroundImage: {
