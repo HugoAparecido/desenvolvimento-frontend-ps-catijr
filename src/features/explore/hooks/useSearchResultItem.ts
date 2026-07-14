@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type TagResultValue = 'musica' | 'playlist' | 'album' | 'artist';
 
@@ -18,7 +18,7 @@ export const mockResultItems: ResultItem[] = [
     {
         itemID: "1",
         itemName: "Bohemian Rhapsody",
-        itemToPath: "/track/bohemian-rhapsody",
+        itemToPath: "",
         imagePath: "/card/album.png",
         type: "musica",
         ownerName: "Queen",
@@ -27,7 +27,7 @@ export const mockResultItems: ResultItem[] = [
     {
         itemID: 2,
         itemName: "This Is Queen",
-        itemToPath: "/playlist/this-is-queen",
+        itemToPath: "",
         imagePath: "/card/album.png",
         type: "playlist",
         ownerName: "Spotify",
@@ -36,7 +36,7 @@ export const mockResultItems: ResultItem[] = [
     {
         itemID: "3",
         itemName: "A Night at the Opera",
-        itemToPath: "/album/a-night-at-the-opera",
+        itemToPath: "",
         imagePath: "/card/album.png",
         type: "album",
         ownerName: "Queen",
@@ -49,14 +49,32 @@ export const mockResultItems: ResultItem[] = [
         imagePath: "/card/album.png",
         type: "artist",
         isFollowing: false,
-        artistLink: "https://example.com/artist/queen" // Opcional, mas comum para artistas
+        artistLink: ""
     }
 ];
 
 export function useSearchResultItemActions(item: ResultItem) {
     const [isFollowing, setIsFollowing] = useState(item.isFollowing ?? false);
     const [isSaved, setIsSaved] = useState(item.isSaved ?? false);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+    const [menuState, setMenuState] = useState<{ isOpen: boolean; x: number, y: number }>({
+        isOpen: false,
+        x: 0,
+        y: 0,
+    })
+
+    useEffect(() => {
+        if (!menuState.isOpen) return;
+
+        const handleOutsideClick = () => {
+            setMenuState((prev) => ({
+                ...prev, isOpen: false
+            }));
+        };
+
+        window.addEventListener("click", handleOutsideClick);
+        return () => window.removeEventListener("click", handleOutsideClick);
+    }, [menuState.isOpen]);
 
     const handleRedirect = () => {
         console.log("Redirecionando para:", item.itemToPath);
@@ -64,20 +82,32 @@ export function useSearchResultItemActions(item: ResultItem) {
 
     const handleContextMenu = (e: React.MouseEvent) => {
         e.preventDefault();
-        setIsMenuOpen(true);
+        e.stopPropagation();
+        setMenuState({
+            isOpen: true,
+            x: e.clientX,
+            y: e.clientY,
+        });
     };
 
     const handleThreeDotsClick = (e: React.MouseEvent) => {
+        e.preventDefault();
         e.stopPropagation();
-        setIsMenuOpen((prev) => !prev);
+        setMenuState({
+            isOpen: true,
+            x: e.clientX,
+            y: e.clientY,
+        });
     };
 
     const handleToggleFollow = (e: React.MouseEvent) => {
+        e.preventDefault();
         e.stopPropagation();
         setIsFollowing((prev) => !prev);
     };
 
     const handleToggleSave = (e: React.MouseEvent) => {
+        e.preventDefault();
         e.stopPropagation();
         setIsSaved((prev) => !prev);
     };
@@ -85,7 +115,7 @@ export function useSearchResultItemActions(item: ResultItem) {
     return {
         isFollowing,
         isSaved,
-        isMenuOpen,
+        menuState,
         handleRedirect,
         handleContextMenu,
         handleThreeDotsClick,

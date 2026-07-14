@@ -8,7 +8,7 @@ function App() {
     <div className="bg-black">
       <Navbar />
       {mockResultItems.map((item) => (
-        <SearchResultItem item={item} />
+        <SearchResultItem item={item} key={item.itemID} />
       ))}
       <Player />
     </div>
