@@ -46,15 +46,25 @@ export default {
                 divider: 'var(--color-divider)',
                 background: {
                     highlight: 'var(--color-background-highlight)',
+                    elements: 'var(--color-background-elements)'
                 },
 
                 'track-bar': 'var(--color-track-bar)',
+
                 recent: {
                     item: {
                         hover: 'var(--color-bg-recent-item-hover)',
                         DEFAULT: 'var(--color-bg-recent-item)',
                     },
                 },
+
+                result:
+                {
+                    item: {
+                        text: 'var(--color-result-item-text)',
+                        divider: 'var(--color-result-item-divider)',
+                    },
+                }
             },
 
             backgroundImage: {

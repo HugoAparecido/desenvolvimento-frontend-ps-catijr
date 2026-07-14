@@ -13,7 +13,7 @@ export function Navbar() {
         setResults(filterData);
     };
     return (
-        <header className="w-full border-b flex justify-between items-center p-3">
+        <header className="w-full border-b flex justify-between items-center p-3 bg-black">
             <div className="hidden md:flex flex-1 min-w-0">
                 <Link to="#" className="w-7 cursor-pointer">
                     <img src="navbar/logo.svg" alt="Logo Spotfy" className="w-full" />
