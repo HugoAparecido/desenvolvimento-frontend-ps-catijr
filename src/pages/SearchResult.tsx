@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FilterButton } from "../components/ui/buttons/FilterButton";
 import { SearchResultItem } from "../features/explore/components/search/result/components/SearchResultItem";
 import { mockResultItems } from "../features/explore/hooks/useSearchResultItem";
@@ -8,6 +8,17 @@ export function SearchResult() {
     const [currentFilter, setCurrentFilter] = useState('all');
     const [searchParams] = useSearchParams();
     const query = searchParams.get("query") || "";
+
+    const [activeMenuId, setActiveMenuId] = useState<string | number | null>(null);
+
+    useEffect(() => {
+        const handleClickOutside = () => setActiveMenuId(null);
+        window.addEventListener('click', handleClickOutside);
+
+        return () => {
+            window.removeEventListener('click', handleClickOutside);
+        }
+    }, []);
 
     const filterOptions = [
         { value: 'all', text: 'Tudo' },
@@ -38,6 +49,8 @@ export function SearchResult() {
                         <SearchResultItem
                             key={item.itemID}
                             item={item}
+                            activeMenuId={activeMenuId}
+                            onContextMenuOpen={(id) => setActiveMenuId(id)}
                         />
                     ))
                 ) : <span className="text-text-subdued mt-4">Nenhum resultado encontrado para "{query}".</span>}
