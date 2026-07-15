@@ -7,7 +7,7 @@ export function AppLayout() {
         <Navbar />
         <div className='min-h-screen pb-24'>
             <aside></aside>
-            <main className='w-full h-full'>
+            <main className='w-full h-full flex justify-center items-start'>
                 <Outlet />
             </main>
             <aside></aside>
