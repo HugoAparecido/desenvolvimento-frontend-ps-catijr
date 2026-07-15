@@ -1,13 +1,12 @@
 import { useRef, useState } from "react";
 import { useSearchBar } from "../../hooks/useSearchBar.ts";
+import { useNavigate } from "react-router-dom";
 
-interface SearchBarProps {
-    onSearch: (results: string[]) => void;
-}
-
-export const SearchBar = ({ onSearch }: SearchBarProps) => {
+export const SearchBar = () => {
     const [selectedInput, setSelectedInput] = useState<string>('');
     const [closeHovered, setCloseHovered] = useState<boolean>(false);
+
+    const navigate = useNavigate();
 
     const inputRef = useRef<HTMLInputElement>(null);
 
@@ -17,11 +16,7 @@ export const SearchBar = ({ onSearch }: SearchBarProps) => {
     }
 
     const { query, handleInputChange, handleSubmit, handleClear } = useSearchBar((q: string) => {
-        const mockData = ["Flutter", "Raect", "Vue", "Angular", "Svelte"];
-        const results = mockData.filter(item =>
-            item.toLowerCase()
-                .includes(q.toLowerCase()));
-        onSearch(results);
+        navigate(`/searchResult?query=${encodeURIComponent(q)}`);
     });
 
     return (

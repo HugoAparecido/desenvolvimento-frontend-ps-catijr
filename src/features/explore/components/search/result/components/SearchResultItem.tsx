@@ -11,6 +11,8 @@ import { Link } from "react-router-dom";
 
 interface SearchResultItem {
     item: ResultItem,
+    activeMenuId: string | number | null;
+    onContextMenuOpen: (id: string | number) => void;
 }
 
 function renderRightClickMenu(type: string) {
@@ -28,15 +30,27 @@ function renderRightClickMenu(type: string) {
     }
 }
 
-export function SearchResultItem({ item }: SearchResultItem) {
+export function SearchResultItem({ item, activeMenuId, onContextMenuOpen }: SearchResultItem) {
     const actions = useSearchResultItemActions(item);
+
+    const handleContextMenu = (e: React.MouseEvent<HTMLAnchorElement>) => {
+        actions.handleContextMenu(e);
+        onContextMenuOpen(item.itemID);
+    }
+
+    const handleThreeDotsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+        actions.handleThreeDotsClick(e);
+        onContextMenuOpen(item.itemID);
+    }
+
+    const isMenuOpen = activeMenuId === item.itemID && actions.menuState.isOpen;
 
     return (
         <>
             <Link
                 to={item.itemToPath}
                 onClick={actions.handleRedirect}
-                onContextMenu={actions.handleContextMenu}
+                onContextMenu={handleContextMenu}
                 className="flex items-center justify-between w-full max-w-237 p-2 rounded-lg 
                 ease-out duration-300 hover:bg-background-elements group"
             >
@@ -76,7 +90,7 @@ export function SearchResultItem({ item }: SearchResultItem) {
                     <SearchResultItemTag tagValue={item.type} />
                     <div className="flex gap-8 justify-center items-center">
                         <button
-                            onClick={actions.handleThreeDotsClick}
+                            onClick={handleThreeDotsClick}
                             className="cursor-pointer w-6.25 h-6.25 p-1 flex items-center justify-center"
                             aria-label={actions.isSaved ? "Remover da biblioteca" : "Adicionar à biblioteca"}
                         ><img src="action/3dots.svg" alt="Three dots" className="w-full hover:scale-110 transition-transform"
@@ -98,7 +112,7 @@ export function SearchResultItem({ item }: SearchResultItem) {
                     </div>
                 </div>
             </Link>
-            {actions.menuState.isOpen && (
+            {isMenuOpen && (
                 <div
                     className="fixed z-50"
                     style={{
