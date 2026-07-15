@@ -1,15 +1,15 @@
 import { useRef, useState } from "react";
 import { useSearchBar } from "../../hooks/useSearchBar.ts";
 import { useNavigate } from "react-router-dom";
+import { SearchRecent } from "./result/SearchRecents.tsx";
 
 export const SearchBar = () => {
     const [selectedInput, setSelectedInput] = useState<string>('');
     const [closeHovered, setCloseHovered] = useState<boolean>(false);
-
     const [isMobileExpanded, setIsMobileExpanded] = useState<boolean>(false);
+    const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
     const navigate = useNavigate();
-
     const inputRef = useRef<HTMLInputElement>(null);
 
     const handleImageClick = () => {
@@ -25,7 +25,12 @@ export const SearchBar = () => {
         }, 0);
     }
 
+    const handleRecentItemClick = () => {
+        setShowDropdown(false);
+    }
+
     const { query, handleInputChange, handleSubmit, handleClear } = useSearchBar((q: string) => {
+        setShowDropdown(false)
         navigate(`/searchResult?query=${encodeURIComponent(q)}`);
     });
 
@@ -48,9 +53,13 @@ export const SearchBar = () => {
                     ref={inputRef}
                     value={query}
                     onChange={handleInputChange}
-                    onFocus={() => setSelectedInput('search')}
+                    onFocus={() => {
+                        setSelectedInput('search')
+                        setShowDropdown(true);
+                    }}
                     onBlur={() => {
-                        setSelectedInput('')
+                        setSelectedInput('');
+                        setShowDropdown(false);
                         if (!query)
                             setIsMobileExpanded(false);
                     }
@@ -74,6 +83,11 @@ export const SearchBar = () => {
                             onMouseLeave={
                                 () => setCloseHovered(false)} />
                     </button>
+                )}
+                {showDropdown && (
+                    <div className="absolute top-full left-0 right-0 mt-2">
+                        <SearchRecent />
+                    </div>
                 )}
             </div>
 
