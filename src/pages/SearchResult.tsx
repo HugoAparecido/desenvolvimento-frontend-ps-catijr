@@ -2,17 +2,24 @@ import { useState } from "react";
 import { FilterButton } from "../components/ui/buttons/FilterButton";
 import { SearchResultItem } from "../features/explore/components/search/result/components/SearchResultItem";
 import { mockResultItems } from "../features/explore/hooks/useSearchResultItem";
+import { useSearchParams } from "react-router-dom";
 
 export function SearchResult() {
     const [currentFilter, setCurrentFilter] = useState('all');
-
-    const allItems = mockResultItems;
+    const [searchParams] = useSearchParams();
+    const query = searchParams.get("query") || "";
 
     const filterOptions = [
         { value: 'all', text: 'Tudo' },
         { value: 'music', text: 'Música' },
         { value: 'playlist', text: 'Playlist' },
     ]
+
+    const filteredResults = mockResultItems.filter((item) => {
+        const matchQuery = item.itemName.toLowerCase().includes(query.toLowerCase());
+        const matchCategory = currentFilter === 'all' || item.type === currentFilter;
+        return matchQuery && matchCategory;
+    })
 
     return (
         <div className="flex flex-col w-full max-w-237 gap-3">
@@ -26,12 +33,14 @@ export function SearchResult() {
                     />
                 ))}</div>
             <div className="w-full">
-                {allItems.map((item) => (
-                    <SearchResultItem
-                        key={item.itemID}
-                        item={item}
-                    />
-                ))}
+                {filteredResults.length > 0 ? (
+                    filteredResults.map((item) => (
+                        <SearchResultItem
+                            key={item.itemID}
+                            item={item}
+                        />
+                    ))
+                ) : <span className="text-text-subdued mt-4">Nenhum resultado encontrado para "{query}".</span>}
             </div>
         </div>)
 }
