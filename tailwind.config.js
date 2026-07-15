@@ -64,11 +64,12 @@ export default {
                         text: 'var(--color-result-item-text)',
                         divider: 'var(--color-result-item-divider)',
                     },
-                }
+                },
             },
 
             backgroundImage: {
                 'custom-gradient': 'linear-gradient(to right, var(--color-gradient-init), var(--color-gradient-end))',
+                'home-bg-gradient-variant': 'linear-gradient(to right, var(--color-gradient-init-home), var(--color-gradient-end-home))',
             },
 
             fontFamily: {

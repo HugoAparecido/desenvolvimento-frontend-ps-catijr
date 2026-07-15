@@ -49,7 +49,7 @@ export function ItemLargeCard({ imagePath, imageDescription, typeCard, text, alb
                     {typeCard === 'Album' || typeCard === 'Playlist' && (<div className="w-0.75 h-0.75 bg-text-subdued rounded-full" />)}
 
                     {typeCard === 'Album' && (<span>Album</span>)}
-                    {typeCard === 'Playlist' && (<span>{playlistOwner}</span>)}
+                    {typeCard === 'Playlist' && (<span className="text-nowrap overflow-hidden">{playlistOwner}</span>)}
                 </div>
             </div>
         </div>

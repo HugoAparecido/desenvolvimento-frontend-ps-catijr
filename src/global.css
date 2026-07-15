@@ -16,6 +16,8 @@
     --color-danger-dark: #8A0800;
     --color-gradient-init: #938D8E;
     --color-gradient-end: #3E3939;
+    --color-gradient-init-home: #202020;
+    --color-gradient-end-home: #121212;
     --color-popup-bg: #282828;
     --color-options-hover: var(--color-gray);
     --color-options-pressed: var(--color-gray-dark);

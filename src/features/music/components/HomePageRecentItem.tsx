@@ -5,13 +5,12 @@ import { PlayButton } from "../../player/components/buttons/PlayButton";
 interface HomePageRecentItemProps {
     musicImagePath: string,
     musicName: string,
-    initialIsPlaying: boolean,
+    isPlaying: boolean,
     redirectTo: string,
-    onClick?: () => void,
+    onPlayClick: () => void,
 }
 
-export function HomePageRecentItem({ musicName, musicImagePath, initialIsPlaying, redirectTo, onClick }: HomePageRecentItemProps) {
-    const [isPlaying, setIsPlaying] = useState(initialIsPlaying);
+export function HomePageRecentItem({ musicName, musicImagePath, isPlaying, redirectTo, onPlayClick }: HomePageRecentItemProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (<Link
@@ -19,7 +18,6 @@ export function HomePageRecentItem({ musicName, musicImagePath, initialIsPlaying
         className="w-43.5 sm:w-73.75 flex justify-between items-center pr-1 rounded-sm ease-out duration-300 bg-bg-recent-item hover:bg-bg-recent-item-hover"
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
-        onClick={() => onClick}
     >
         <div className="flex gap-2.5 justify-between items-center">
             <img src={musicImagePath} alt="Capa da música"
@@ -28,7 +26,7 @@ export function HomePageRecentItem({ musicName, musicImagePath, initialIsPlaying
         </div>
 
         {isHovered ?
-            (<PlayButton isPlaying={isPlaying} onClick={() => setIsPlaying(!isPlaying)} />) :
+            (<PlayButton isPlaying={isPlaying} onClick={onPlayClick} />) :
             isPlaying ?
                 (<img src="playing/sound_init.svg"
                     alt="Sound bars"

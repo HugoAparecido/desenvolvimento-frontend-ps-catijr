@@ -3,11 +3,11 @@ import { Player } from '../../features/player/Player';
 import { Navbar } from '../../features/explore/NavBar';
 
 export function AppLayout() {
-    return (<div className="flex min-h-screen flex-col">
+    return (<div className="flex min-h-screen flex-col bg-black">
         <Navbar />
-        <div className='min-h-screen'>
+        <div className='min-h-screen pb-24'>
             <aside></aside>
-            <main>
+            <main className='w-full h-full'>
                 <Outlet />
             </main>
             <aside></aside>

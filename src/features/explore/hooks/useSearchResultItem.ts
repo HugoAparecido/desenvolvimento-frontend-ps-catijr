@@ -50,6 +50,38 @@ export const mockResultItems: ResultItem[] = [
         type: "artist",
         isFollowing: false,
         artistLink: ""
+    },
+    {
+        itemID: '5',
+        type: 'artist',
+        itemName: 'Daft Punk',
+        imagePath: 'https://i.scdn.co/image/ab6761610000e5ebf30c30983a45330a103c6130',
+        itemToPath: '/artist/daft-punk',
+        // ownerName não é renderizado para o tipo 'artist' no seu componente
+    },
+    {
+        itemID: '6',
+        type: 'musica',
+        itemName: 'One More Time',
+        ownerName: 'Daft Punk',
+        imagePath: 'https://i.scdn.co/image/ab67616d0000b273413cb17eb05b76f2f211d211',
+        itemToPath: '/music/one-more-time',
+    },
+    {
+        itemID: '7',
+        type: 'album',
+        itemName: 'Discovery',
+        ownerName: 'Daft Punk',
+        imagePath: 'https://i.scdn.co/image/ab67616d0000b273413cb17eb05b76f2f211d211',
+        itemToPath: '/album/discovery',
+    },
+    {
+        itemID: '8',
+        type: 'playlist',
+        itemName: 'This Is Daft Punk',
+        ownerName: 'Spotify',
+        imagePath: 'https://i.scdn.co/image/ab67706f000000030048e5b41052de62fba2cae1',
+        itemToPath: '/playlist/this-is-daft-punk',
     }
 ];
 
