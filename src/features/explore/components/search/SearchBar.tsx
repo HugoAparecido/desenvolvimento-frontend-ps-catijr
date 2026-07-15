@@ -6,6 +6,8 @@ export const SearchBar = () => {
     const [selectedInput, setSelectedInput] = useState<string>('');
     const [closeHovered, setCloseHovered] = useState<boolean>(false);
 
+    const [isMobileExpanded, setIsMobileExpanded] = useState<boolean>(false);
+
     const navigate = useNavigate();
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -15,13 +17,23 @@ export const SearchBar = () => {
             inputRef.current.focus();
     }
 
+    const toggleMobileSearch = () => {
+        setIsMobileExpanded(true);
+        setTimeout(() => {
+            if (inputRef.current)
+                inputRef.current.focus();
+        }, 0);
+    }
+
     const { query, handleInputChange, handleSubmit, handleClear } = useSearchBar((q: string) => {
         navigate(`/searchResult?query=${encodeURIComponent(q)}`);
     });
 
     return (
         <form onSubmit={handleSubmit} className="flex items-center gap-2">
-            <div className="relative hidden w-88.75 h-9 md:flex items-center justify-center rounded-2xl bg-background-highlight cursor-text">
+            <div className={`relative 
+                ${isMobileExpanded ? 'flex w-full' : 'hidden'}
+                md:w-88.75 h-9 md:flex items-center justify-center rounded-2xl bg-background-highlight cursor-text`}>
                 <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400" onClick={handleImageClick}>
                     <img
                         src={selectedInput === 'search' ? "/search_bar/search_active.svg" : "/search_bar/search.svg"}
@@ -37,11 +49,18 @@ export const SearchBar = () => {
                     value={query}
                     onChange={handleInputChange}
                     onFocus={() => setSelectedInput('search')}
-                    onBlur={() => setSelectedInput('')}
-                    className={`hidden md:block w-full h-full py-2 pl-9.5 pr-5.5 bg-transparent text-sm border ring-1
+                    onBlur={() => {
+                        setSelectedInput('')
+                        if (!query)
+                            setIsMobileExpanded(false);
+                    }
+
+                    }
+                    className={`w-full h-full py-2 pl-9.5 pr-5.5 bg-transparent text-sm border ring-1
                          ${query ? 'ring-text-base' : 'ring-background-highlight'}
-                          border-background-highlight rounded-2xl focus:outline-none focus:border-text-base focus:ring-text-base ${query ? 'text-text-base' : 'text-text-subdued'} placeholder-text-subdued transition-colors`}
-                />
+                         border-background-highlight rounded-2xl focus:outline-none focus:border-text-base focus:ring-text-base 
+                         ${query ? 'text-text-base' : 'text-text-subdued'} 
+                         placeholder-text-subdued transition-colors`} />
                 {query && (
                     <button type="button"
                         className="absolute inset-y-0 right-0 flex items-center pr-3.5"
@@ -55,18 +74,19 @@ export const SearchBar = () => {
                             onMouseLeave={
                                 () => setCloseHovered(false)} />
                     </button>
-                )}</div>
-
-            <div className="md:hidden w-max h-9 flex px-3.5 gap-8 items-center justify-center rounded-2xl bg-background-highlight cursor-text">
-                <button className="flex items-center justify-center text-gray-400" onClick={handleImageClick}>
-                    <img
-                        src={selectedInput === 'search' ? "/search_bar/search_active.svg" : "/search_bar/search.svg"}
-                        alt="Search"
-                        className="h-4"
-
-                    />
-                </button>
+                )}
             </div>
+
+            {!isMobileExpanded && (
+                <div className="md:hidden w-max h-9 flex px-3.5 gap-8 items-center justify-center rounded-2xl bg-background-highlight cursor-text">
+                    <button className="flex items-center justify-center text-gray-400" onClick={toggleMobileSearch}>
+                        <img
+                            src={selectedInput === 'search' ? "/search_bar/search_active.svg" : "/search_bar/search.svg"}
+                            alt="Search"
+                            className="h-4"
+                        />
+                    </button>
+                </div>)}
         </form>
     );
 }
