@@ -6,6 +6,13 @@ const optionItems: RightClickMenuNode[] = [
         iconPath: "/action/plus.svg",
         iconDescription: "Plus",
         text: "Adicionar à playlist",
+        children: [{
+            text: "playlist 1",
+        },
+        {
+            text: "playlist 2",
+        },
+        ]
     },
     {
         iconPath: "action/block.svg",
@@ -19,6 +26,7 @@ const optionItems: RightClickMenuNode[] = [
         iconPath: "tag/saved.svg",
         iconDescription: "Saved",
         text: "Remover da sua biblioteca",
+        hasDivider: true,
     }, {
         iconPath: "artist/artist.svg",
         iconDescription: "Plus",

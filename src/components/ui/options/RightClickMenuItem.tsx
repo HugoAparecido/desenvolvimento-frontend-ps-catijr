@@ -7,6 +7,7 @@ export interface RightClickMenuNode {
     text: string;
     onClick?: () => void;
     children?: RightClickMenuNode[];
+    hasDivider?: boolean;
 }
 
 interface RightClickMenuItem {
@@ -27,6 +28,7 @@ export function RightClickMenuItem({ item }: RightClickMenuItem) {
                 </div>
                 {hasDropdown && (<img src="/public/action/dropdown_arrow.svg" alt="Dropdown arrow" className="h-3.5" />)}
             </div>
+            {item.hasDivider && (<div className="w-full border border-0.5 border-essential-subdued" />)}
             {hasDropdown && hasHovered && (
                 <div className="absolute left-full top-0 ml-1 z-10">
                     {item.children && (<RightClickMenu options={item.children} />)}

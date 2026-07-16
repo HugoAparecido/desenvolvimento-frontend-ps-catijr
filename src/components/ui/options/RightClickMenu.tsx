@@ -3,6 +3,7 @@ import { RightClickMenuItem, type RightClickMenuNode } from "./RightClickMenuIte
 interface RightClickMenuProps {
     options: RightClickMenuNode[];
     className?: string;
+    hasDivider?: boolean;
 }
 
 export function RightClickMenu({ options, className = "" }: RightClickMenuProps) {

@@ -46,11 +46,33 @@ export default {
                 divider: 'var(--color-divider)',
                 background: {
                     highlight: 'var(--color-background-highlight)',
-                }
+                    elements: 'var(--color-background-elements)'
+                },
+
+                'track-bar': 'var(--color-track-bar)',
+
+                recent: {
+                    item: {
+                        hover: 'var(--color-bg-recent-item-hover)',
+                        DEFAULT: 'var(--color-bg-recent-item)',
+                        result: {
+                            hover: 'var(--color-recent-result-hover)',
+                        },
+                    },
+                },
+
+                result:
+                {
+                    item: {
+                        text: 'var(--color-result-item-text)',
+                        divider: 'var(--color-result-item-divider)',
+                    },
+                },
             },
 
             backgroundImage: {
                 'custom-gradient': 'linear-gradient(to right, var(--color-gradient-init), var(--color-gradient-end))',
+                'home-bg-gradient-variant': 'linear-gradient(to right, var(--color-gradient-init-home), var(--color-gradient-end-home))',
             },
 
             fontFamily: {

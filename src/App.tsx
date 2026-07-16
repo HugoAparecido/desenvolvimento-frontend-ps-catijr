@@ -1,11 +1,23 @@
-import { RightClickArtistOptions } from "./features/artist/components/action/RightClickArtistOptions";
-import { RightClickPlaylistOptions } from "./features/playlist/components/action/RightClickPlaylistOptions";
+import { Route, Routes } from "react-router-dom";
+import { AppLayout } from "./components/Layout/AppLayout";
+import { Home } from "./pages/Home";
+import { Perfil } from "./pages/Perfil";
+import { SearchResult } from "./pages/SearchResult";
+import { Artist } from "./pages/Artist";
+import { Playlist } from "./pages/Playlist";
 
 function App() {
-  return <>
-    <RightClickArtistOptions />
-    <RightClickPlaylistOptions />
-  </>;
+  return (
+    <Routes>
+      <Route path="/" element={<AppLayout />}>
+        <Route path="/" element={<Home />} />
+        <Route path="perfil" element={<Perfil />} />
+        <Route path="searchResult" element={<SearchResult />} />
+
+        <Route path="artist/:artistId" element={<Artist />} />
+        <Route path="playlist/:playlistId" element={<Playlist />} />
+      </Route>
+    </Routes>);
 }
 
 export default App;
