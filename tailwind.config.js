@@ -55,6 +55,9 @@ export default {
                     item: {
                         hover: 'var(--color-bg-recent-item-hover)',
                         DEFAULT: 'var(--color-bg-recent-item)',
+                        result: {
+                            hover: 'var(--color-recent-result-hover)',
+                        },
                     },
                 },
 

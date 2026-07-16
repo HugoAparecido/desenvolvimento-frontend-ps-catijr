@@ -25,10 +25,6 @@ export const SearchBar = () => {
         }, 0);
     }
 
-    const handleRecentItemClick = () => {
-        setShowDropdown(false);
-    }
-
     const { query, handleInputChange, handleSubmit, handleClear } = useSearchBar((q: string) => {
         setShowDropdown(false)
         navigate(`/searchResult?query=${encodeURIComponent(q)}`);
@@ -85,7 +81,7 @@ export const SearchBar = () => {
                     </button>
                 )}
                 {showDropdown && (
-                    <div className="absolute top-full left-0 right-0 mt-2">
+                    <div className="absolute top-full left-0 right-0 mt-2 z-50">
                         <SearchRecent />
                     </div>
                 )}

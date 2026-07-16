@@ -1,7 +1,7 @@
-export type TagResultValue = 'musica' | 'playlist' | 'album' | 'artist';
+export type TagResultValue = 'music' | 'playlist' | 'album' | 'artist';
 
 export const tagResultDisplayNames: Record<TagResultValue, string> = {
-    musica: 'Música',
+    music: 'Música',
     playlist: 'Playlist',
     album: 'Álbum',
     artist: 'Artista'

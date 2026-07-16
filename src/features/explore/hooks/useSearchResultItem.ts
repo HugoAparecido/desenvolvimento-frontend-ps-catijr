@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-
-type TagResultValue = 'musica' | 'playlist' | 'album' | 'artist';
+import type { TagResultValue } from "./useSearchResultItemTag";
 
 export interface ResultItem {
     itemID: string | number,
@@ -20,7 +19,7 @@ export const mockResultItems: ResultItem[] = [
         itemName: "Bohemian Rhapsody",
         itemToPath: "",
         imagePath: "/card/album.png",
-        type: "musica",
+        type: "music",
         ownerName: "Queen",
         isSaved: true
     },
@@ -61,7 +60,7 @@ export const mockResultItems: ResultItem[] = [
     },
     {
         itemID: '6',
-        type: 'musica',
+        type: 'music',
         itemName: 'One More Time',
         ownerName: 'Daft Punk',
         imagePath: '/card/album.png',
