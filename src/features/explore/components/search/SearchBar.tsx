@@ -11,6 +11,7 @@ export const SearchBar = () => {
 
     const navigate = useNavigate();
     const inputRef = useRef<HTMLInputElement>(null);
+    const containerRef = useRef<HTMLFormElement>(null);
 
     const handleImageClick = () => {
         if (inputRef.current)
@@ -25,13 +26,29 @@ export const SearchBar = () => {
         }, 0);
     }
 
+    const onBlurHandler = (e: React.FocusEvent) => {
+        if (e.relatedTarget && e.currentTarget.contains(e.relatedTarget)) {
+            return;
+        }
+
+        setSelectedInput('');
+        setShowDropdown(false);
+        if (!query)
+            setIsMobileExpanded(false);
+    }
+
     const { query, handleInputChange, handleSubmit, handleClear } = useSearchBar((q: string) => {
         setShowDropdown(false)
         navigate(`/searchResult?query=${encodeURIComponent(q)}`);
     });
 
     return (
-        <form onSubmit={handleSubmit} className="flex items-center gap-2">
+        <form
+            onSubmit={handleSubmit}
+            className="flex items-center gap-2"
+            ref={containerRef}
+            onBlur={onBlurHandler}
+        >
             <div className={`relative 
                 ${isMobileExpanded ? 'flex w-full' : 'hidden'}
                 md:w-88.75 h-9 md:flex items-center justify-center rounded-2xl bg-background-highlight cursor-text`}>
@@ -53,14 +70,8 @@ export const SearchBar = () => {
                         setSelectedInput('search')
                         setShowDropdown(true);
                     }}
-                    onBlur={() => {
-                        setSelectedInput('');
-                        setShowDropdown(false);
-                        if (!query)
-                            setIsMobileExpanded(false);
-                    }
+                    onBlur={onBlurHandler}
 
-                    }
                     className={`w-full h-full py-2 pl-9.5 pr-5.5 bg-transparent text-sm border ring-1
                          ${query ? 'ring-text-base' : 'ring-background-highlight'}
                          border-background-highlight rounded-2xl focus:outline-none focus:border-text-base focus:ring-text-base 
@@ -81,7 +92,9 @@ export const SearchBar = () => {
                     </button>
                 )}
                 {showDropdown && (
-                    <div className="absolute top-full left-0 right-0 mt-2 z-50">
+                    <div className="absolute top-full left-0 right-0 mt-2 z-50"
+                        onMouseDown={(e) => e.preventDefault()}
+                    >
                         <SearchRecent />
                     </div>
                 )}
