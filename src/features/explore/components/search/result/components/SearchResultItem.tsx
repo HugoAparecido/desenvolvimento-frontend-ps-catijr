@@ -19,7 +19,7 @@ function renderRightClickMenu(type: string) {
     switch (type) {
         case 'album':
             return <RightClickAlbumOptions />;
-        case 'musica':
+        case 'music':
             return <RightClickMusicOptions />;
         case 'artist':
             return <RightClickArtistOptions />;
