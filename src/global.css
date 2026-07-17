@@ -2,6 +2,7 @@
 @import "tailwindcss";
 
 @theme {
+    /* CORES */
     --color-white: #ffffff;
     --color-black: #000000;
     --color-gray: #4e4e4e;
@@ -33,9 +34,15 @@
     --color-result-item-divider: #D9D9D9;
     --color-recent-result-hover: #404040;
 
+    /* IMAGENS DE FUNDO / GRADIENTES */
+    --background-image-custom-gradient: linear-gradient(to right, var(--color-gradient-init), var(--color-gradient-end));
+    --background-image-home-bg-gradient-variant: linear-gradient(to right, var(--color-gradient-init-home), var(--color-gradient-end-home));
+
+    /* FONTES */
     --font-poppins: 'Poppins', sans-serif;
     --font-default-font: var(--font-poppins);
 
+    /* TAMANHOS DE TEXTO */
     --text-xs: 0.694rem;
     --text-sm: 0.833rem;
     --text-base: 1rem;
@@ -45,19 +52,16 @@
     --text-h3: 2.074rem;
     --text-h2: 2.488rem;
     --text-h1: 2.986rem;
-}
 
-@keyframes scrollTextAnimation {
-    0% {
-        transform: translateX(0);
+    --animate-scroll-text: scroll-text 4s linear infinite alternate;
+
+    @keyframes scroll-text {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(var(--scroll-dist));
+        }
     }
-
-    100% {
-        transform: translateX(var(--scroll-dist));
-    }
-}
-
-/* Criamos a classe que ativa no hover do pai (group) */
-.group:hover .meu-scroll-animado {
-    animation: scrollTextAnimation 4s linear infinite alternate;
 }
