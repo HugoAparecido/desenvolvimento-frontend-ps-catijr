@@ -49,7 +49,7 @@ export function SongPanelLongArtistList({ artistsOwners, className = "" }: SongP
             <span
                 ref={textRef}
                 className={`w-max shrink-0 text-text-subdued text-sm font-semibold font-default-font
-                ${scrollDist > 0 ? 'group-hover:meu-scroll-animado' : ''}`}
+                ${scrollDist > 0 ? 'group-hover:animate-scroll-text' : ''}`}
             >
                 {artistsOwners.map((artist, index) => (
                     <React.Fragment key={artist.id}>
