@@ -4,6 +4,7 @@ import { FilterButton } from "../components/ui/buttons/FilterButton";
 import { RecentArtists } from "../features/artist/components/RecentArtists";
 import { HomePageRecentItem } from "../features/music/components/HomePageRecentItem";
 import { mockAlbums, mockPlaylists, mockRecentItems } from "../mockData/mockHome";
+import { DeletePlaylistPopup } from "../features/playlist/components/action/DeletePlaylistPopup";
 
 export function Home() {
     const [currentFilter, setCurrentFilter] = useState('all');
