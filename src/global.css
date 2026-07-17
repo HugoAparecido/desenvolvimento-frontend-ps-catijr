@@ -46,3 +46,18 @@
     --text-h2: 2.488rem;
     --text-h1: 2.986rem;
 }
+
+@keyframes scrollTextAnimation {
+    0% {
+        transform: translateX(0);
+    }
+
+    100% {
+        transform: translateX(var(--scroll-dist));
+    }
+}
+
+/* Criamos a classe que ativa no hover do pai (group) */
+.group:hover .meu-scroll-animado {
+    animation: scrollTextAnimation 4s linear infinite alternate;
+}

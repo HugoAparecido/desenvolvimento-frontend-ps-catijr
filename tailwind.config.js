@@ -92,6 +92,16 @@ export default {
                 'h3': 'var(--text-h3)',
                 'h2': 'var(--text-h2)',
                 'h1': 'var(--text-h1)',
+            },
+
+            keyframes: {
+                'scroll-text': {
+                    '0%': { transform: 'translateX(0)' },
+                    '100%': { transform: 'translateX(var(--scroll-dist))' },
+                }
+            },
+            animation: {
+                'scroll-text': 'scroll-text 4s linear infinite alternate',
             }
         },
     },
