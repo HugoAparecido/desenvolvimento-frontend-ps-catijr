@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 interface LinkButtonProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     text: string;
@@ -15,7 +16,7 @@ export const LinkButton = ({
     onClick,
     ...props
 }: LinkButtonProps) => {
-    const baseStyles = "hover:underline transition-all ease-out text-decoration-none font-poppins";
+    const baseStyles = "hover:underline transition-all ease-out text-decoration-none font-default-font text-nowrap";
 
     const variantsConfig = {
         default_subdued_10: "text-text-subdued text-xs text-bold hover:text-text-base hover:font-extrabold duration-300",
@@ -29,13 +30,12 @@ export const LinkButton = ({
     const currentVariant = variantsConfig[variant];
 
     return (
-        <a
-            href={route_link}
+        <Link to={route_link}
             className={clsx(baseStyles, currentVariant, className)}
             onClick={onClick}
             {...props}
         >
             {text}
-        </a>
+        </Link>
     );
 }
