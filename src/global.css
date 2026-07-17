@@ -25,6 +25,7 @@
     --color-divider: #2a2a2a;
     --color-background-highlight: var(--color-gray-bg);
     --color-background-elements: var(--color-bg-recent-item);
+    --color-background-base: #121212;
     --color-track-bar: #4d4d4d;
     --color-bg-recent-item: #2D2D2D;
     --color-bg-recent-item-hover: #5B5A5A99;
@@ -33,6 +34,7 @@
     --color-recent-result-hover: #404040;
 
     --font-poppins: 'Poppins', sans-serif;
+    --font-default-font: var(--font-poppins);
 
     --text-xs: 0.694rem;
     --text-sm: 0.833rem;

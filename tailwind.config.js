@@ -44,9 +44,11 @@ export default {
                 },
 
                 divider: 'var(--color-divider)',
+
                 background: {
                     highlight: 'var(--color-background-highlight)',
-                    elements: 'var(--color-background-elements)'
+                    elements: 'var(--color-background-elements)',
+                    base: 'var(--color-background-base)',
                 },
 
                 'track-bar': 'var(--color-track-bar)',
@@ -77,6 +79,7 @@ export default {
 
             fontFamily: {
                 poppins: ['var(--font-poppins)'],
+                default: ['var(--font-default-font)']
             },
 
             fontSize: {
