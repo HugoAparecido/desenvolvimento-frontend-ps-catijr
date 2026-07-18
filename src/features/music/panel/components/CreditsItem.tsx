@@ -8,14 +8,15 @@ interface CreditsItemProps {
     artist: {
         name: string,
         id: string | number,
-        typesCreditbyArtist: TypeCredit[],
+        typesCreditbyArtist: TypeCredit[] | TypeCredit,
         hasProfile: boolean
         isFollowing?: boolean,
     }
 }
 
 export function CreditsItem({ artist }: CreditsItemProps) {
-    const unicsTypesCreditbyArtist = [...new Set(artist.typesCreditbyArtist)];
+    const normalizedTypesCreditbyArtist = Array.isArray(artist.typesCreditbyArtist) ? artist.typesCreditbyArtist : [artist.typesCreditbyArtist];
+    const unicsTypesCreditbyArtist = [...new Set(normalizedTypesCreditbyArtist)];
 
     const TypeCreditDisplayNames: Record<TypeCredit, string> = {
         "principal artist": 'Artista Principal',
