@@ -4,7 +4,6 @@ import { FilterButton } from "../components/ui/buttons/FilterButton";
 import { RecentArtists } from "../features/artist/components/RecentArtists";
 import { HomePageRecentItem } from "../features/music/components/HomePageRecentItem";
 import { mockAlbums, mockPlaylists, mockRecentItems } from "../mockData/mockHome";
-import { SongPanelEventItem } from "../features/music/panel/components/SongPanelEventItem";
 
 export function Home() {
     const [currentFilter, setCurrentFilter] = useState('all');
@@ -19,38 +18,10 @@ export function Home() {
         { value: 'playlist', text: 'Playlist' },
     ]
 
-    const mockEventData = {
-        eventInfos: {
-            date: {
-                day: 24,
-                month: "Maio",
-                weekDay: "domingo",
-                hour: 18,
-                minutes: 0
-            },
-            local: "Los Angeles",
-            artists: [
-                {
-                    id: "1",
-                    name: "LNGSHOT"
-                },
-                {
-                    id: "2",
-                    name: "P1Harmony"
-                },
-                {
-                    id: "3",
-                    name: "Jay Park"
-                }
-            ]
-        }
-    };
-
     return (<div
         className="flex flex-col w-full min-h-screen px-5 py-6 gap-8 justify-start items-start bg-black rounded-lg overflow-hidden">
         <div className="flex w-full flex-col justify-start items-start gap-3">
             <div>
-                <SongPanelEventItem eventInfos={mockEventData.eventInfos} />
             </div>
             <div className="flex gap-3">
                 {filterOptions.map((filter) => (
