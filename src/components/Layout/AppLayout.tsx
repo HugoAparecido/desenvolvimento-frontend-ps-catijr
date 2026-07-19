@@ -1,18 +1,22 @@
 import { Outlet } from 'react-router-dom';
 import { Player } from '../../features/player/Player';
 import { Navbar } from '../../features/explore/NavBar';
+import { SongPanel } from '../../features/music/panel/SongPanel';
 
 export function AppLayout() {
     return (<div className="flex min-h-screen flex-col bg-black">
         <Navbar />
-        <div className='min-h-screen pb-24'>
-            <aside></aside>
-            <main className='w-full h-full flex justify-center items-start'>
+        <div className='flex w-full h-screen overflow-hidden pb-24'>
+            <aside className='shrink-0 h-full overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none'>
+            </aside>
+            <main className='flex-1 h-full overflow-y-auto flex justify-center items-start [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none'>
                 <Outlet />
             </main>
-            <aside></aside>
+            <aside className='w-max'>
+                <SongPanel />
+            </aside>
         </div>
-        <footer className='fixed bottom-0 w-full'>
+        <footer className='shrink-0 h-full overflow-y-auto'>
             <Player />
         </footer>
     </div>)
