@@ -4,7 +4,7 @@ import { mockSongPanel } from "../../../mockData/mockSongPanel";
 import { RightClickAlbumOptions } from "../../album/action/RightClickAlbumOptions";
 import { RightClickPlaylistOptions } from "../../playlist/components/action/RightClickPlaylistOptions";
 import { useSongPanelActions } from "./hooks/useSongPanelActions";
-import { artist1, mockEventData } from "../../../mockData/mockEvent";
+import { mockEventData } from "../../../mockData/mockEvent";
 import { SongPanelLongArtistList } from "./components/SongPanelLongArtistList";
 import { FollowingButton } from "../../../components/ui/buttons/FollowingButton";
 import { FormatIntegersToBrazilianFormat } from "../../../utils/formatters";
@@ -12,6 +12,9 @@ import { truncate } from "../../../utils/delimiters";
 import { CreditsItem } from "./components/CreditsItem";
 import { SongPanelEventItem } from "./components/SongPanelEventItem";
 import { SongPanelNextSong } from "./components/SongPanelNextSong";
+import { usePopup } from "../../../components/popup/hook/usePopup";
+import { CreditsPopup } from "./components/popup/CreditsPopup";
+import { ArtistInfo } from "./components/popup/ArtistInfo";
 
 export type OriginMusic = 'search' | 'album' | 'playlist';
 
@@ -30,6 +33,8 @@ function renderRightClickMenu(type: string) {
 
 export function SongPanel() {
     const actions = useSongPanelActions();
+
+    const { openPopup } = usePopup();
 
     const handleThreeDotsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         actions.handleThreeDotsClick(e);
@@ -74,15 +79,30 @@ export function SongPanel() {
                         } />
                     </div>
                 </div>
-                <div className="w-full flex flex-col rounded-lg">
-                    <Link to={`artist/${artist1.id}`} className="relative w-full h-45 rounded-t-lg">
+                <div className="w-full flex flex-col rounded-lg bg-background-highlight">
+                    <Link to={`artist/${principalArtist.id}`} className="relative w-full h-45 rounded-t-lg">
                         <img
                             src="card/artist.png" alt="Imagem do Artista"
                             className="w-full h-full object-cover rounded-t-lg"
                         />
                         <span className="absolute font-default-font font-bold text-sm text-text-base top-3 left-3">Sobre o artista</span>
                     </Link>
-                    <div className="flex flex-col w-full p-3 gap-3 items-start justify-start">
+                    <div className="flex flex-col w-full p-3 gap-3 items-start justify-start"
+                        onClick={() => openPopup(
+                            <ArtistInfo
+                                artist={
+                                    {
+                                        id: principalArtist.id,
+                                        name: principalArtist.name,
+                                        description: principalArtist.description ?? '',
+                                        isFollowing: principalArtist.isFollowing ?? false,
+                                        qtdListeners: principalArtist.qtdListeners ?? 0,
+                                        isVerified: principalArtist.isVerified ?? false,
+                                    }
+                                }
+                            />
+                        )}
+                    >
                         <div className="flex gap-1 items-center">
                             <LinkButton
                                 variant="default_white_12_bold"
@@ -114,7 +134,11 @@ export function SongPanel() {
                         <LinkButton
                             text="Mostrar tudo"
                             variant="default_subdued_10"
-                            onClick={() => { }}
+                            onClick={() => openPopup(
+                                <CreditsPopup
+                                    artists={mockSongPanel.artists}
+                                />
+                            )}
                         />
                     </div>
                     {mockSongPanel.artists.slice(0, 3).map((artist, index) => (
@@ -124,7 +148,7 @@ export function SongPanel() {
                         />
                     ))}
                 </div>
-                {!(events.length <= 0) && (<div className="flex flex-col w-full h-max justify-start items-start gap-3 p-3 rounded-xl bg-background-highlight">
+                {!(events.length <= 0) && (<Link to="#" className="flex flex-col w-full h-max justify-start items-start gap-3 p-3 rounded-xl bg-background-highlight">
                     <span className="font-bold font-default-font text-text-base text-sm">Em turnê</span>
                     {events.slice(0, 3).map((event, index) => (
                         <SongPanelEventItem
@@ -132,7 +156,7 @@ export function SongPanel() {
                             key={index}
                         />
                     ))}
-                </div>)}
+                </Link>)}
                 <div className="flex flex-col w-full h-max justify-start items-start gap-3 p-3 rounded-xl bg-background-highlight">
                     <span className="font-bold font-default-font text-text-base text-sm">Em turnê</span>
                     <SongPanelNextSong
