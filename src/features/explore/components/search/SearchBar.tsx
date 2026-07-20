@@ -3,7 +3,7 @@ import { useSearchBar } from "../../hooks/useSearchBar.ts";
 import { useNavigate } from "react-router-dom";
 import { SearchRecent } from "./result/SearchRecents.tsx";
 
-export const SearchBar = () => {
+export function SearchBar() {
     const [selectedInput, setSelectedInput] = useState<string>('');
     const [closeHovered, setCloseHovered] = useState<boolean>(false);
     const [isMobileExpanded, setIsMobileExpanded] = useState<boolean>(false);
