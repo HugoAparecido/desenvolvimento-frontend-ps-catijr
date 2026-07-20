@@ -1,13 +1,15 @@
 import { FaHeart } from "react-icons/fa";
 
 interface CoversProps {
-    imagePath: string;
-    isArtist?: boolean;
-    isLiked?: boolean
-    isHovered: boolean
+    imagePath: string,
+    isArtist?: boolean,
+    isLiked?: boolean,
+    isHovered: boolean,
+    onClickPlay: () => void,
+    isPlaying?: boolean
 }
 
-export function Covers({ imagePath, isArtist = false, isLiked = false, isHovered }: CoversProps) {
+export function Covers({ imagePath, isArtist = false, isLiked = false, isHovered, onClickPlay, isPlaying = false }: CoversProps) {
     return (
         <div
             className={`w-9 h-9 relative ${isArtist ? 'rounded-full' : 'rounded-xs'} overflow-hidden`}
@@ -22,8 +24,13 @@ export function Covers({ imagePath, isArtist = false, isLiked = false, isHovered
                 />
             )
             }
-            <div className={`absolute z-50 top-0 left-0 w-9 h-9 ${isHovered ? 'flex' : 'hidden'} items-center justify-center bg-black/45`}>
-                <img src="/player/play.svg" alt="Play"
+            <div
+                className={`absolute z-50 top-0 left-0 w-9 h-9 ${isHovered ? 'flex' : 'hidden'} items-center justify-center bg-black/45`}
+                onClick={onClickPlay}
+            >
+                <img
+                    src={isPlaying ? "/player/pause.svg" : "/player/play.svg"}
+                    alt="Play"
                     className="h-4"
                 />
             </div>

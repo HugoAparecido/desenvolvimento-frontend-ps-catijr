@@ -1,5 +1,6 @@
-import { Covers } from "./components/item/components/Covers";
+import { LibraryItemText } from "./components/item/components/LibraryItemText";
 import { LibrarySearch } from "./components/search/LibrarySearch";
+import { libraryItems } from "./mock/mockTextItemLibrary";
 
 export function Library() {
     return (
@@ -8,20 +9,12 @@ export function Library() {
                 <LibrarySearch />
             </div>
             <div className="flex flex-col w-max h-full gap-3">
-                <Covers
-                    imagePath="/card/album.png"
-                    isHovered={true}
-                />
-                <Covers
-                    imagePath=""
-                    isLiked={true}
-                    isHovered={false}
-                />
-                <Covers
-                    imagePath="/card/album.png"
-                    isArtist={true}
-                    isHovered={true}
-                />
+                {libraryItems.map((item) => (
+                    <LibraryItemText
+                        key={item.id}
+                        {...item}
+                    />
+                ))}
             </div>
         </div>
     )
