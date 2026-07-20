@@ -1,3 +1,4 @@
+import { Covers } from "./components/item/components/Covers";
 import { LibrarySearch } from "./components/search/LibrarySearch";
 
 export function Library() {
@@ -5,6 +6,22 @@ export function Library() {
         <div className="flex flex-col w-max h-full pb-3 gap-3 overflow-y-scroll items-center justify-start bg-background-base rounded-lg [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
             <div className="flex w-max h-max flex-col justify-start items-center gap-3 p-3">
                 <LibrarySearch />
+            </div>
+            <div className="flex flex-col w-max h-full gap-3">
+                <Covers
+                    imagePath="/card/album.png"
+                    isHovered={true}
+                />
+                <Covers
+                    imagePath=""
+                    isLiked={true}
+                    isHovered={false}
+                />
+                <Covers
+                    imagePath="/card/album.png"
+                    isArtist={true}
+                    isHovered={true}
+                />
             </div>
         </div>
     )
