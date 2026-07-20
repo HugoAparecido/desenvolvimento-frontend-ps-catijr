@@ -4,7 +4,6 @@ import { FilterButton } from "../components/ui/buttons/FilterButton";
 import { RecentArtists } from "../features/artist/components/RecentArtists";
 import { HomePageRecentItem } from "../features/music/components/HomePageRecentItem";
 import { mockAlbums, mockPlaylists, mockRecentItems } from "../mockData/mockHome";
-import { SongPanelLongArtistList } from "../features/music/panel/components/SongPanelLongArtistList";
 
 export function Home() {
     const [currentFilter, setCurrentFilter] = useState('all');
@@ -19,17 +18,10 @@ export function Home() {
         { value: 'playlist', text: 'Playlist' },
     ]
 
-    const mockArtists = [
-        { id: '1', name: 'Ana Carolina' },
-        { id: 2, name: 'Seu Jorge' },
-        { id: '3', name: 'Djavan' },
-    ];
-
     return (<div
         className="flex flex-col w-full min-h-screen px-5 py-6 gap-8 justify-start items-start bg-black rounded-lg overflow-hidden">
         <div className="flex w-full flex-col justify-start items-start gap-3">
             <div>
-                <SongPanelLongArtistList artistsOwners={mockArtists} className="w-20" />
             </div>
             <div className="flex gap-3">
                 {filterOptions.map((filter) => (
