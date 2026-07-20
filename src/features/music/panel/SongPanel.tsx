@@ -41,6 +41,8 @@ export function SongPanel() {
 
     const principalArtist = normalizedHasProfile[0];
 
+    const events = [mockEventData.eventInfos];
+
     return (
         <>
             <div className="flex flex-col w-78.75 h-full px-3 py-4 gap-6 overflow-y-scroll items-center justify-start bg-background-base rounded-lg [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
@@ -115,19 +117,22 @@ export function SongPanel() {
                             onClick={() => { }}
                         />
                     </div>
-                    {mockSongPanel.artists.map((artist, index) => (
+                    {mockSongPanel.artists.slice(0, 3).map((artist, index) => (
                         <CreditsItem
                             artist={artist}
                             key={index}
                         />
                     ))}
                 </div>
-                <div className="flex flex-col w-full h-max justify-start items-start gap-3 p-3 rounded-xl bg-background-highlight">
+                {!(events.length <= 0) && (<div className="flex flex-col w-full h-max justify-start items-start gap-3 p-3 rounded-xl bg-background-highlight">
                     <span className="font-bold font-default-font text-text-base text-sm">Em turnê</span>
-                    <SongPanelEventItem
-                        eventInfos={mockEventData.eventInfos}
-                    />
-                </div>
+                    {events.slice(0, 3).map((event, index) => (
+                        <SongPanelEventItem
+                            eventInfos={event}
+                            key={index}
+                        />
+                    ))}
+                </div>)}
                 <div className="flex flex-col w-full h-max justify-start items-start gap-3 p-3 rounded-xl bg-background-highlight">
                     <span className="font-bold font-default-font text-text-base text-sm">Em turnê</span>
                     <SongPanelNextSong
