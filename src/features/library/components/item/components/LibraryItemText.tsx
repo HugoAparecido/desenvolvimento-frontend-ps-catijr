@@ -16,9 +16,9 @@ export function LibraryItemText({ itemName, fixed, owner = "", type, isPlaying }
 
     return (
         <div className="flex flex-col w-35.75 gap-1 text-nowrap overflow-hidden">
-            <div>
+            <div className="w-full h-max leading-none">
                 <span
-                    className={`font-arial text-xs font-bold ${isPlaying ? 'text-accent' : 'text-text-base'}`}
+                    className={`leading-none font-arial text-xs font-bold ${isPlaying ? 'text-accent' : 'text-text-base'}`}
                 >{itemName}</span>
             </div>
             <div className="flex w-full justify-start items-center gap-1 text-xs text-text-subdued font-default-font font-normal">

@@ -1,3 +1,4 @@
+import type React from "react";
 import { FaHeart } from "react-icons/fa";
 
 interface CoversProps {
@@ -10,6 +11,12 @@ interface CoversProps {
 }
 
 export function Covers({ imagePath, isArtist = false, isLiked = false, isHovered, onClickPlay, isPlaying = false }: CoversProps) {
+    const handleClickPlay = (e: React.MouseEvent) => {
+        e.preventDefault();
+        e.stopPropagation();
+        onClickPlay();
+    }
+
     return (
         <div
             className={`w-9 h-9 relative ${isArtist ? 'rounded-full' : 'rounded-xs'} overflow-hidden`}
@@ -26,7 +33,7 @@ export function Covers({ imagePath, isArtist = false, isLiked = false, isHovered
             }
             <div
                 className={`absolute z-50 top-0 left-0 w-9 h-9 ${isHovered ? 'flex' : 'hidden'} items-center justify-center bg-black/45`}
-                onClick={onClickPlay}
+                onClick={handleClickPlay}
             >
                 <img
                     src={isPlaying ? "/player/pause.svg" : "/player/play.svg"}

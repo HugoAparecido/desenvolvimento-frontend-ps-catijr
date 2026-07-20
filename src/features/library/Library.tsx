@@ -1,4 +1,4 @@
-import { LibraryItemText } from "./components/item/components/LibraryItemText";
+import { LibraryItem } from "./components/item/LibraryItem";
 import { LibrarySearch } from "./components/search/LibrarySearch";
 import { libraryItems } from "./mock/mockTextItemLibrary";
 
@@ -10,9 +10,25 @@ export function Library() {
             </div>
             <div className="flex flex-col w-max h-full gap-3">
                 {libraryItems.map((item) => (
-                    <LibraryItemText
-                        key={item.id}
-                        {...item}
+                    <LibraryItem key={item.id}
+                        isPlaying={item.isPlaying}
+                        onClick={() => { }}
+                        isSelected={item.id === 1}
+                        cover={{
+                            imagePath: "/card/album.png", // Substitua pelo caminho real da imagem
+                            isArtist: item.type === "artist",
+                            isLiked: item.id === 3, // Exemplo para "Músicas curtidas"
+                            onClickPlay: () => {
+                                // Lógica específica para o botão de play da capa, se houver
+                                console.log(`Play clicado para: ${item.itemName}`);
+                            },
+                        }}
+                        text={{
+                            itemName: item.itemName,
+                            type: item.type,
+                            owner: item.owner,
+                            fixed: item.fixed,
+                        }}
                     />
                 ))}
             </div>
