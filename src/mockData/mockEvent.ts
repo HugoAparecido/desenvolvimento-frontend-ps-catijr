@@ -28,17 +28,38 @@ export const mockEventData = {
     }
 };
 
-export const artist1 = {
+export type Artist = {
+    name: string,
+    id: number | string,
+    hasProfile: boolean,
+    typesCreditbyArtist: TypeCredit[],
+    isFollowing?: boolean,
+    isVerified?: boolean,
+    description?: string,
+    qtdListeners?: number,
+}
+
+export const artist1: Artist = {
     name: "LNGSHOT",
     id: 1,
     hasProfile: true,
     typesCreditbyArtist: ['principal artist'] as TypeCredit[],
-    isFollowing: true
+    isFollowing: true,
+    isVerified: true,
+    description: "LNGSHOT is the first boy group introduced by Jay Park, a defining figure in hiphop, R&B, and Korean pop culture, and the executive producer shaping MORE lorem ipsum dolor etc",
+    qtdListeners: 4965405,
 };
 
-export const artist2 = {
+export const artist2: Artist = {
     name: "WOOJIN of LNGSHOT",
     id: '2',
     hasProfile: false,
-    typesCreditbyArtist: ['arrangements', 'authors', 'songwriter'] as TypeCredit[]
+    typesCreditbyArtist: ['arrangements', 'authors', 'songwriter'] as TypeCredit[],
+};
+
+export const artist3: Artist = {
+    name: "LOUIS of LNGSHOT",
+    id: '2',
+    hasProfile: false,
+    typesCreditbyArtist: ['arrangements', 'authors', 'songwriter'] as TypeCredit[],
 };

@@ -52,7 +52,7 @@ export function SongPanelEventItem({ eventInfos }: SongPanelEventItemProps) {
 
     return (
         <div
-            className="group w-66.75 flex gap-3 items-center justify-start duration-500 ease-out rounded-lg border-4 hover:bg-textbox-bg hover:border-textbox-bg"
+            className="group w-66.75 flex gap-3 items-center justify-start duration-500 ease-out rounded-lg ring-4 ring-transparent hover:bg-textbox-bg hover:ring-textbox-bg"
         >
             <div className="w-10.5 h-10.5 flex flex-col items-center justify-center gap-0.5 rounded-sm bg-background-base text-text-base font-bold font-default-font shrink-0">
                 <span className="text-xs">{truncateShort(eventInfos.date.month.toString(), 3)}</span>
