@@ -34,7 +34,7 @@ function renderRightClickMenu(type: string) {
 export function SongPanel() {
     const actions = useSongPanelActions();
 
-    const { openPopup } = usePopup();
+    const { openPopup, closePopup } = usePopup();
 
     const handleThreeDotsClick = (e: React.MouseEvent<HTMLButtonElement>) => {
         actions.handleThreeDotsClick(e);
@@ -137,6 +137,9 @@ export function SongPanel() {
                             onClick={() => openPopup(
                                 <CreditsPopup
                                     artists={mockSongPanel.artists}
+                                    musicName={mockSongPanel.musicName}
+                                    fonts="MORE VISION"
+                                    onClickClose={closePopup}
                                 />
                             )}
                         />
