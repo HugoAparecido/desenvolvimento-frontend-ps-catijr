@@ -5,7 +5,7 @@ interface HomePageFilterProps {
     initialFilter: string;
 }
 
-export const HomePageFilter: React.FC<HomePageFilterProps> = ({ initialFilter }) => {
+export function HomePageFilter({ initialFilter }: HomePageFilterProps) {
     const filters = [{ filter: 'tudo', text: 'Tudo' }, { filter: 'musica', text: 'Música' }, { filter: 'playlists', text: 'Playlists' }];
 
     const { selectedFilter, handleFilterChange } = usePageFilter(initialFilter);

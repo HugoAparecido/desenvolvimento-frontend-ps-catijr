@@ -13,9 +13,7 @@ export function RecentArtists() {
         const container = containerRef.current;
         if (!container) return;
 
-        // 2. O ResizeObserver reage ao tamanho REAL do container assim que ele é renderizado
         const observer = new ResizeObserver(() => {
-            // 3. Afirmamos que é um HTMLElement para acessar o offsetWidth sem o VSCode reclamar
             const primeiroItem = container.firstElementChild as HTMLElement | null;
             if (!primeiroItem) return;
 
@@ -27,16 +25,13 @@ export function RecentArtists() {
 
             const novaQuantidade = calculateQuantityOfItems(larguraContainer, larguraItem, gap) + 1;
 
-            // Evita re-renderizações infinitas atualizando apenas se o valor realmente mudou
             setMaximumNumberOfInlineItems((prev) =>
                 prev !== novaQuantidade ? novaQuantidade : prev
             );
         });
 
-        // Manda o observer ficar vigiando o tamanho da div do container
         observer.observe(container);
 
-        // Limpeza do observer quando o componente desmontar
         return () => observer.disconnect();
     }, []);
     const { artists, handleViewClick, hasMore } = useRecentArtists(maximumNumberOfInlineItems);
