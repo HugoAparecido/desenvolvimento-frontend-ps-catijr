@@ -18,9 +18,10 @@ export interface LibraryItemProps {
     isPlaying: boolean,
     onClick: () => void,
     isSelected: boolean,
+    query: string,
 }
 
-export function LibraryItem({ cover, text, isPlaying, onClick, isSelected }: LibraryItemProps) {
+export function LibraryItem({ cover, text, isPlaying, onClick, query, isSelected }: LibraryItemProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
@@ -46,6 +47,7 @@ export function LibraryItem({ cover, text, isPlaying, onClick, isSelected }: Lib
                     itemName={text.itemName}
                     type={text.type}
                     owner={text.owner}
+                    query={query}
                 />
             </div>
             {isPlaying && (

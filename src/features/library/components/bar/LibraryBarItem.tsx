@@ -41,6 +41,7 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
     const renderLibraryItem = (item: LibraryItem) => (
         <LibraryItem
             key={item.id}
+            query={query}
             isPlaying={item.id === playingId}
             isSelected={item.id === selectedId}
             onClick={() => {

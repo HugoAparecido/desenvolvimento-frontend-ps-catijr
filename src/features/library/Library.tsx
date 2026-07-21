@@ -9,6 +9,8 @@ import { Button } from "../../components/ui/buttons/Button";
 export function Library() {
     const [currentFilter, setCurrentFilter] = useState<LibraryFilterValue>('all');
 
+    const [searchQuery, setSearchQuery] = useState("");
+
     return (
         <div className="flex flex-col w-max h-full pb-3 gap-3 overflow-y-scroll items-center justify-start bg-background-base rounded-lg [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
             <div className="flex w-max h-max flex-col justify-start items-center gap-3 p-3 shadow-[0_4px_4px_0_rgba(0,0,0,0.25)]">
@@ -21,10 +23,10 @@ export function Library() {
                     </Link>
                 </div>
                 <LibraryFilter selectedFilter={currentFilter} onSelectFilter={setCurrentFilter} />
-                <LibrarySearch />
+                <LibrarySearch query={searchQuery} onQueryChange={setSearchQuery} />
             </div>
             <LibraryBarItem
-                query=""
+                query={searchQuery}
                 filter={currentFilter}
             />
         </div>

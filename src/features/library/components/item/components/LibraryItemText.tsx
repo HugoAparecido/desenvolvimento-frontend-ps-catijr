@@ -1,3 +1,5 @@
+import { HighlightText } from "../../search/HighLightText";
+
 export type TypeLibraryItem = 'playlist' | 'album' | 'artist';
 
 interface LibraryItemTextProp {
@@ -6,8 +8,9 @@ interface LibraryItemTextProp {
     owner?: string,
     fixed: boolean,
     isPlaying: boolean,
+    query: string,
 }
-export function LibraryItemText({ itemName, fixed, owner = "", type, isPlaying }: LibraryItemTextProp) {
+export function LibraryItemText({ itemName, fixed, owner = "", query, type, isPlaying }: LibraryItemTextProp) {
     const itemTypeDisplayNames: Record<TypeLibraryItem, string> = {
         playlist: 'Playlist',
         album: 'Álbum',
@@ -19,7 +22,9 @@ export function LibraryItemText({ itemName, fixed, owner = "", type, isPlaying }
             <div className="w-full h-max leading-none">
                 <span
                     className={`leading-none font-arial text-xs font-bold ${isPlaying ? 'text-accent' : 'text-text-base'}`}
-                >{itemName}</span>
+                >
+                    <HighlightText text={itemName} query={query} />
+                </span>
             </div>
             <div className="flex w-full justify-start items-center gap-1 text-xs text-text-subdued font-default-font font-normal">
                 {fixed && (

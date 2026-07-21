@@ -1,12 +1,14 @@
-import { useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { useLibrarySearch } from "../../hooks/useLibrarySearch";
+import React, { useRef, useState } from "react";
 
-export function LibrarySearch() {
+interface LibrarySearchProps {
+    query: string,
+    onQueryChange: (query: string) => void,
+}
+
+export function LibrarySearch({ query, onQueryChange }: LibrarySearchProps) {
     const [selectedInput, setSelectedInput] = useState<string>('');
     const [closeHovered, setCloseHovered] = useState<boolean>(false);
 
-    const navigate = useNavigate();
     const inputRef = useRef<HTMLInputElement>(null);
     const containerRef = useRef<HTMLFormElement>(null);
 
@@ -19,13 +21,20 @@ export function LibrarySearch() {
         if (e.relatedTarget && e.currentTarget.contains(e.relatedTarget)) {
             return;
         }
-
         setSelectedInput('');
     }
 
-    const { query, handleInputChange, handleSubmit, handleClear } = useLibrarySearch((q: string) => {
-        navigate(`/searchResult?query=${encodeURIComponent(q)}`);
-    });
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        onQueryChange(e.target.value);
+    }
+
+    const handleClear = () => {
+        onQueryChange('');
+    }
+
+    const handleSubmit = (e: React.SubmitEvent) => {
+        e.preventDefault();
+    }
 
     return (
         <form
@@ -43,7 +52,7 @@ export function LibrarySearch() {
             </span>
             <input
                 type="text"
-                placeholder="O que você quer ouvir?"
+                placeholder="Buscar em Sua Biblioteca"
                 ref={inputRef}
                 value={query}
                 onChange={handleInputChange}
@@ -64,9 +73,12 @@ export function LibrarySearch() {
                         alt="Close"
                         className="w-2 cursor-pointer"
                         onMouseEnter={
-                            () => setCloseHovered(true)}
+                            () => setCloseHovered(true)
+                        }
                         onMouseLeave={
-                            () => setCloseHovered(false)} />
+                            () => setCloseHovered(false)
+                        }
+                    />
                 </button>
             )}
         </form>
