@@ -2,6 +2,7 @@
 @import "tailwindcss";
 
 @theme {
+    /* CORES */
     --color-white: #ffffff;
     --color-black: #000000;
     --color-gray: #4e4e4e;
@@ -29,13 +30,26 @@
     --color-track-bar: #4d4d4d;
     --color-bg-recent-item: #2D2D2D;
     --color-bg-recent-item-hover: #5B5A5A99;
+    --color-textbox-bg: #3E3E3E;
     --color-result-item-text: #AAAAAA;
     --color-result-item-divider: #D9D9D9;
     --color-recent-result-hover: #404040;
+    --color-accent: #67C260;
 
+    /* IMAGENS DE FUNDO / GRADIENTES */
+    --background-image-custom-gradient: linear-gradient(to right, var(--color-gradient-init), var(--color-gradient-end));
+    --background-image-home-bg-gradient-variant: linear-gradient(to right, var(--color-gradient-init-home), var(--color-gradient-end-home));
+    --background-image-song-full: linear-gradient(to bottom, #8F0313, #3D0007);
+
+    /* Sombras */
+    --shadow-song-full: 0px 28px 41.7px 0px rgba(0, 0, 0, 0.25);
+
+    /* FONTES */
     --font-poppins: 'Poppins', sans-serif;
     --font-default-font: var(--font-poppins);
+    --font-arial: var(--font-sans);
 
+    /* TAMANHOS DE TEXTO */
     --text-xs: 0.694rem;
     --text-sm: 0.833rem;
     --text-base: 1rem;
@@ -45,4 +59,16 @@
     --text-h3: 2.074rem;
     --text-h2: 2.488rem;
     --text-h1: 2.986rem;
+
+    --animate-scroll-text: scroll-text 4s linear infinite alternate;
+
+    @keyframes scroll-text {
+        0% {
+            transform: translateX(0);
+        }
+
+        100% {
+            transform: translateX(var(--scroll-dist));
+        }
+    }
 }

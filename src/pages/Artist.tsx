@@ -1,3 +1,4 @@
 export function Artist() {
-    return (<></>)
+    return (<>
+        teste</>)
 }

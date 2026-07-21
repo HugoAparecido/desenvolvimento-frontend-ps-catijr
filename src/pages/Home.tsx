@@ -4,7 +4,6 @@ import { FilterButton } from "../components/ui/buttons/FilterButton";
 import { RecentArtists } from "../features/artist/components/RecentArtists";
 import { HomePageRecentItem } from "../features/music/components/HomePageRecentItem";
 import { mockAlbums, mockPlaylists, mockRecentItems } from "../mockData/mockHome";
-import { DeletePlaylistPopup } from "../features/playlist/components/action/DeletePlaylistPopup";
 
 export function Home() {
     const [currentFilter, setCurrentFilter] = useState('all');
@@ -22,6 +21,8 @@ export function Home() {
     return (<div
         className="flex flex-col w-full min-h-screen px-5 py-6 gap-8 justify-start items-start bg-black rounded-lg overflow-hidden">
         <div className="flex w-full flex-col justify-start items-start gap-3">
+            <div>
+            </div>
             <div className="flex gap-3">
                 {filterOptions.map((filter) => (
                     <FilterButton
