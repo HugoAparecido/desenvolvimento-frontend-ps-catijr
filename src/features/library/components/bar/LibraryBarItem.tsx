@@ -39,6 +39,8 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
         isPlaying: boolean;
     }
 
+    const [activeMenuId, setActiveMenuId] = useState<string | number | null>(null);
+
     const [selectedId, setSelectedId] = useState<number | string | null>(1);
     const [playingId, setPlayingId] = useState<number | string | null>(5);
     const [isPlaying, setIsPlaying] = useState(true);
@@ -83,6 +85,7 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
 
         return (
             <LibraryItem
+                id={item.id}
                 key={item.id}
                 query={query}
                 isPlaying={item.id === playingId && isPlaying}
@@ -111,6 +114,8 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
                     fixed: item.fixed,
                 }}
                 rightClickMenu={renderRightClickMenu(domainData)}
+                activeMenuId={activeMenuId}
+                onContextMenuOpen={(id) => setActiveMenuId(id)}
             />
         );
     };

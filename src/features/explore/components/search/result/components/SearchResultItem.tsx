@@ -75,8 +75,13 @@ export function SearchResultItem({ item, activeMenuId, onContextMenuOpen, rightC
                             onClick={handleThreeDotsClick}
                             className="cursor-pointer w-6.25 h-6.25 p-1 flex items-center justify-center"
                             aria-label={actions.isSaved ? "Remover da biblioteca" : "Adicionar à biblioteca"}
-                        ><img src="action/3dots.svg" alt="Three dots" className="w-full hover:scale-110 transition-transform"
-                            /></button>
+                        >
+                            <img
+                                src="action/3dots.svg"
+                                alt="Three dots"
+                                className="w-full hover:scale-110 transition-transform"
+                            />
+                        </button>
 
                         <button
                             onClick={actions.handleToggleSave}

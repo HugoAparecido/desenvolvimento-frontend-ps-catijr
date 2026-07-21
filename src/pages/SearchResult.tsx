@@ -32,7 +32,7 @@ function renderRightClickMenu(domain: ItemDomainData) {
 
 function getDomainData(item: ResultItem): ItemDomainData {
     if (item.type === 'playlist') {
-        return { // 2. Adicionado o return
+        return {
             type: 'playlist',
             data: {
                 id: item.itemID,

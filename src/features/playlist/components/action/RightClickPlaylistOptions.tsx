@@ -16,14 +16,16 @@ export function RightClickPlaylistOptions({ playlist }: RightClickPlaylistOption
             iconPath: "/action/pencil.svg",
             iconDescription: "Pencil",
             text: "Editar os detalhes",
-            onClick: () => openPopup(
-                <EditPlaylistCard
-                    playlist={playlist}
-                    onSaveClick={() => {
-                        closePopup();
-                    }}
-                />
-            ),
+            onClick: () => {
+                openPopup(
+                    <EditPlaylistCard
+                        playlist={playlist}
+                        onSaveClick={() => {
+                            closePopup();
+                        }}
+                    />
+                )
+            },
         }, {
             iconPath: "/action/block.svg",
             iconDescription: "Block",

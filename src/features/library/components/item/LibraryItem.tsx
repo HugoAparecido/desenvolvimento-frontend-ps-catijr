@@ -4,6 +4,7 @@ import { LibraryItemText, type TypeLibraryItem } from "./components/LibraryItemT
 import { useLibraryItemAction } from "../../hooks/useLibraryItemAction"
 
 export interface LibraryItemProps {
+    id: number | string
     cover: {
         imagePath: string,
         isArtist?: boolean,
@@ -20,17 +21,22 @@ export interface LibraryItemProps {
     onClick: () => void,
     isSelected: boolean,
     query: string,
-    rightClickMenu?: React.ReactNode
+    activeMenuId: string | number | null,
+    rightClickMenu?: React.ReactNode,
+    onContextMenuOpen: (id: string | number) => void,
 }
 
-export function LibraryItem({ cover, text, isPlaying, onClick, query, isSelected, rightClickMenu }: LibraryItemProps) {
+export function LibraryItem({ id, cover, text, isPlaying, onClick, query, isSelected, rightClickMenu, activeMenuId, onContextMenuOpen }: LibraryItemProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     const actions = useLibraryItemAction();
 
     const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
         actions.handleContextMenu(e)
+        onContextMenuOpen(id)
     }
+
+    const isMenuOpen = activeMenuId === id && actions.menuState.isOpen;
 
     return (<>
         <div
@@ -67,7 +73,7 @@ export function LibraryItem({ cover, text, isPlaying, onClick, query, isSelected
                 </div>
             )}
         </div>
-        {actions.menuState.isOpen && (
+        {isMenuOpen && (
             <div
                 className="fixed z-50"
                 style={{
