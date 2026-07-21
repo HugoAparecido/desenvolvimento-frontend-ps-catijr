@@ -1,6 +1,10 @@
 import { useState } from "react"
 import { Covers } from "./components/Covers"
 import { LibraryItemText, type TypeLibraryItem } from "./components/LibraryItemText"
+import { useLibraryItemAction } from "../../hooks/useLibraryItemAction"
+import { RightClickAlbumOptions } from "../../../album/action/RightClickAlbumOptions"
+import { RightClickArtistOptions } from "../../../artist/components/action/RightClickArtistOptions"
+import { RightClickPlaylistOptions } from "../../../playlist/components/action/RightClickPlaylistOptions"
 
 export interface LibraryItemProps {
     cover: {
@@ -21,16 +25,36 @@ export interface LibraryItemProps {
     query: string,
 }
 
+function renderRightClickMenu(type: string) {
+    switch (type) {
+        case 'album':
+            return <RightClickAlbumOptions />;
+        case 'artist':
+            return <RightClickArtistOptions />;
+        case 'playlist':
+            return <RightClickPlaylistOptions />;
+        default:
+            return null; // Caso não tenha menu específico
+    }
+}
+
 export function LibraryItem({ cover, text, isPlaying, onClick, query, isSelected }: LibraryItemProps) {
     const [isHovered, setIsHovered] = useState(false);
 
-    return (
+    const actions = useLibraryItemAction();
+
+    const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+        actions.handleContextMenu(e)
+    }
+
+    return (<>
         <div
             className={`flex w-72 h-max items-center justify-between ease-out duration-500 hover:bg-divider hover:rounded-sm hover:ring-4 hover:ring-divider cursor-pointer
                 ${isSelected ? 'bg-divider rounded-sm ring-4 ring-divider' : 'bg-transparent'}`}
             onClick={onClick}
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
+            onContextMenu={handleContextMenu}
         >
             <div className="flex w-max h-max justify-start items-center gap-2">
                 <Covers
@@ -58,5 +82,18 @@ export function LibraryItem({ cover, text, isPlaying, onClick, query, isSelected
                 </div>
             )}
         </div>
+        {actions.menuState.isOpen && (
+            <div
+                className="fixed z-50"
+                style={{
+                    top: actions.menuState.y,
+                    left: actions.menuState.x,
+                }}
+
+                onClick={(e) => e.stopPropagation()}
+            >
+                {renderRightClickMenu(text.type)}
+            </div>
+        )}</>
     )
 }

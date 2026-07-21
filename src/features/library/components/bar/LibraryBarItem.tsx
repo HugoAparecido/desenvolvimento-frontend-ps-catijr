@@ -19,6 +19,7 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
 
     const [selectedId, setSelectedId] = useState<number | string | null>(1);
     const [playingId, setPlayingId] = useState<number | string | null>(5);
+    const [isPlaying, setIsPlaying] = useState(true);
 
     const libraryItems: LibraryItem[] = [
         { id: 1, itemName: 'LEMONADE - The 2nd Album', type: 'album' as const, owner: 'aespa', fixed: true, isPlaying: false },
@@ -42,7 +43,7 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
         <LibraryItem
             key={item.id}
             query={query}
-            isPlaying={item.id === playingId}
+            isPlaying={item.id === playingId && isPlaying}
             isSelected={item.id === selectedId}
             onClick={() => {
                 setSelectedId(item.id);
@@ -53,8 +54,12 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
                 isLiked: item.id === 3,
                 onClickPlay: (e?: React.MouseEvent) => {
                     if (e) e.stopPropagation();
-
-                    setPlayingId(item.id);
+                    if (playingId === item.id)
+                        setIsPlaying(!isPlaying)
+                    else {
+                        setPlayingId(item.id);
+                        setIsPlaying(true)
+                    }
                 },
             }}
             text={{
