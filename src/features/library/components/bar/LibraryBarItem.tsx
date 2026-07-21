@@ -1,3 +1,4 @@
+import { useState } from "react";
 import type { TypeLibraryItem } from "../item/components/LibraryItemText";
 import { LibraryItem } from "../item/LibraryItem";
 
@@ -16,6 +17,9 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
         isPlaying: boolean;
     }
 
+    const [selectedId, setSelectedId] = useState<number | string | null>(1);
+    const [playingId, setPlayingId] = useState<number | string | null>(5);
+
     const libraryItems: LibraryItem[] = [
         { id: 1, itemName: 'LEMONADE - The 2nd Album', type: 'album' as const, owner: 'aespa', fixed: true, isPlaying: false },
         { id: 2, itemName: 'Kendrick Lamar', type: 'artist' as const, fixed: true, isPlaying: false },
@@ -24,72 +28,47 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
         { id: 5, itemName: 'LEMONADE - The 2nd Album', type: 'album' as const, owner: 'aespa', fixed: false, isPlaying: true }, // Item tocando
     ];
 
-    const fixedItemWithFilter = libraryItems.filter((item) => {
-        const matchName = query !== '' ? item.itemName.toLowerCase().includes(query.toLowerCase()) : true;
-        const matchOwner = query !== '' ? item.owner?.toLocaleLowerCase().includes(query.toLocaleLowerCase()) : true;
+    const filteredItems = libraryItems.filter((item) => {
+        const matchName = query ? item.itemName.toLowerCase().includes(query.toLowerCase()) : true;
+        const matchOwner = query ? item.owner?.toLowerCase().includes(query.toLowerCase()) : true;
         const matchType = filter !== 'all' ? item.type.includes(filter) : true;
-        const matchFixed = (item.fixed);
-
-        return (matchName || matchOwner) && matchType && matchFixed;
+        return (matchName || matchOwner) && matchType;
     });
 
-    const nonFixedItemWithFilter = libraryItems.filter((item) => {
-        const matchName = query !== '' ? item.itemName.toLowerCase().includes(query.toLowerCase()) : true;
-        const matchOwner = query !== '' ? item.owner?.toLocaleLowerCase().includes(query.toLocaleLowerCase()) : true;
-        const matchType = filter !== 'all' ? item.type.includes(filter) : true;
-        const matchFixed = !(item.fixed);
+    const fixedItemWithFilter = filteredItems.filter(item => item.fixed);
+    const nonFixedItemWithFilter = filteredItems.filter(item => !item.fixed);
 
-        return (matchName || matchOwner) && matchType && matchFixed;
-    });
+    const renderLibraryItem = (item: LibraryItem) => (
+        <LibraryItem
+            key={item.id}
+            isPlaying={item.id === playingId}
+            isSelected={item.id === selectedId}
+            onClick={() => {
+                setSelectedId(item.id);
+            }}
+            cover={{
+                imagePath: "/card/album.png",
+                isArtist: item.type === "artist",
+                isLiked: item.id === 3,
+                onClickPlay: (e?: React.MouseEvent) => {
+                    if (e) e.stopPropagation();
+
+                    setPlayingId(item.id);
+                },
+            }}
+            text={{
+                itemName: item.itemName,
+                type: item.type,
+                owner: item.owner,
+                fixed: item.fixed,
+            }}
+        />
+    );
 
     return (
         <div className="flex flex-col w-max h-full gap-3">
-            {fixedItemWithFilter.map((item) => (
-                <LibraryItem
-                    key={item.id}
-                    isPlaying={item.isPlaying}
-                    onClick={() => { }}
-                    isSelected={item.id === 1}
-                    cover={{
-                        imagePath: "/card/album.png", // Substitua pelo caminho real da imagem
-                        isArtist: item.type === "artist",
-                        isLiked: item.id === 3, // Exemplo para "Músicas curtidas"
-                        onClickPlay: () => {
-                            // Lógica específica para o botão de play da capa, se houver
-                            console.log(`Play clicado para: ${item.itemName}`);
-                        },
-                    }}
-                    text={{
-                        itemName: item.itemName,
-                        type: item.type,
-                        owner: item.owner,
-                        fixed: item.fixed,
-                    }}
-                />
-            ))}
-            {nonFixedItemWithFilter.map((item) => (
-                <LibraryItem
-                    key={item.id}
-                    isPlaying={item.isPlaying}
-                    onClick={() => { }}
-                    isSelected={item.id === 1}
-                    cover={{
-                        imagePath: "/card/album.png", // Substitua pelo caminho real da imagem
-                        isArtist: item.type === "artist",
-                        isLiked: item.id === 3, // Exemplo para "Músicas curtidas"
-                        onClickPlay: () => {
-                            // Lógica específica para o botão de play da capa, se houver
-                            console.log(`Play clicado para: ${item.itemName}`);
-                        },
-                    }}
-                    text={{
-                        itemName: item.itemName,
-                        type: item.type,
-                        owner: item.owner,
-                        fixed: item.fixed,
-                    }}
-                />
-            ))}
+            {fixedItemWithFilter.map(renderLibraryItem)}
+            {nonFixedItemWithFilter.map(renderLibraryItem)}
         </div>
-    )
+    );
 }
