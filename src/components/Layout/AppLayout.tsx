@@ -9,12 +9,12 @@ import { usePlayerStore } from '../../features/player/store/usePlayerStore';
 export function AppLayout() {
     const isFullScreen = usePlayerStore((state) => state.isFullScreen);
 
-    return (<div className="flex min-h-screen flex-col bg-black">
+    return (<div className="flex h-screen flex-col bg-black overflow-hidden">
         <PopupProvider>
             {!isFullScreen && (
                 <Navbar />
             )}
-            <div className='flex w-full h-full overflow-hidden'>
+            <div className='flex w-full flex-1 overflow-hidden p-1'>
                 {!isFullScreen && (
                     <aside className='w-max'>
                         <Library />
@@ -29,7 +29,7 @@ export function AppLayout() {
                     </aside>
                 )}
             </div>
-            <footer className='shrink-0 h-full overflow-y-auto'>
+            <footer className='shrink-0 w-full'>
                 <Player />
             </footer>
         </PopupProvider>
