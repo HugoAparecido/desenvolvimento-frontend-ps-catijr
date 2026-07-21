@@ -6,6 +6,7 @@ import { SearchResult } from "./pages/SearchResult";
 import { Artist } from "./pages/Artist";
 import { Playlist } from "./pages/Playlist";
 import { NewPlaylist } from "./pages/NewPlaylist";
+import { SongFull } from "./pages/SongFull";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="artist/:artistId" element={<Artist />} />
         <Route path="playlist/:playlistId" element={<Playlist />} />
         <Route path="new-playlist/" element={<NewPlaylist />} />
+        <Route path="song/" element={<SongFull />} />
       </Route>
     </Routes>);
 }

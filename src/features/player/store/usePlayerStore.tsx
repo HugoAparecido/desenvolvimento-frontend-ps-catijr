@@ -1,6 +1,5 @@
 import { create } from 'zustand';
 
-// Tipagem baseada no que o MiniMusicInformation precisa
 export interface Track {
     id: string;
     musicName: string;
@@ -8,18 +7,18 @@ export interface Track {
     imagePath: string;
     albumId: string;
     artistId: string;
-    audioUrl?: string; // Necessário para tocar o áudio real depois
+    audioUrl?: string;
 }
 
 interface PlayerState {
-    // === ESTADO ===
+    // === State ===
     currentTrack: Track | null;
     isPlaying: boolean;
     currentTime: number;
     fullTime: number;
-    isFullScreen: boolean; // Para o parentIsFull e os ícones
+    isFullScreen: boolean;
 
-    // === AÇÕES ===
+    // === Actoins ===
     playTrack: (track: Track) => void;
     togglePlay: () => void;
     nextTrack: () => void;
@@ -40,21 +39,18 @@ const mockTrack: Track = {
 };
 
 export const usePlayerStore = create<PlayerState>((set) => ({
-    // Valores Iniciais
     currentTrack: mockTrack,
     isPlaying: true,
     currentTime: 45,
     fullTime: 245,
     isFullScreen: false,
 
-    // Implementação das Ações
     playTrack: (track) => set({ currentTrack: track, isPlaying: true }),
 
     togglePlay: () => set((state) => ({ isPlaying: !state.isPlaying })),
 
-    // Em um app real, essas duas funções manipulariam uma array de "Fila" (Queue)
-    nextTrack: () => console.log('Lógica para pular para a próxima música'),
-    previousTrack: () => console.log('Lógica para voltar a música'),
+    nextTrack: () => console.log('Next Music'),
+    previousTrack: () => console.log('Previous music'),
 
     setCurrentTime: (time) => set({ currentTime: time }),
 

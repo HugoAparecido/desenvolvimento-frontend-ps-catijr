@@ -39,6 +39,10 @@
     /* IMAGENS DE FUNDO / GRADIENTES */
     --background-image-custom-gradient: linear-gradient(to right, var(--color-gradient-init), var(--color-gradient-end));
     --background-image-home-bg-gradient-variant: linear-gradient(to right, var(--color-gradient-init-home), var(--color-gradient-end-home));
+    --background-image-song-full: linear-gradient(to bottom, #8F0313, #3D0007);
+
+    /* Sombras */
+    --shadow-song-full: 0px 28px 41.7px 0px rgba(0, 0, 0, 0.25);
 
     /* FONTES */
     --font-poppins: 'Poppins', sans-serif;
