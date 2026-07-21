@@ -2,9 +2,6 @@ import { useState } from "react"
 import { Covers } from "./components/Covers"
 import { LibraryItemText, type TypeLibraryItem } from "./components/LibraryItemText"
 import { useLibraryItemAction } from "../../hooks/useLibraryItemAction"
-import { RightClickAlbumOptions } from "../../../album/action/RightClickAlbumOptions"
-import { RightClickArtistOptions } from "../../../artist/components/action/RightClickArtistOptions"
-import { RightClickPlaylistOptions } from "../../../playlist/components/action/RightClickPlaylistOptions"
 
 export interface LibraryItemProps {
     cover: {
@@ -23,22 +20,10 @@ export interface LibraryItemProps {
     onClick: () => void,
     isSelected: boolean,
     query: string,
+    rightClickMenu?: React.ReactNode
 }
 
-function renderRightClickMenu(type: string) {
-    switch (type) {
-        case 'album':
-            return <RightClickAlbumOptions />;
-        case 'artist':
-            return <RightClickArtistOptions />;
-        case 'playlist':
-            return <RightClickPlaylistOptions />;
-        default:
-            return null; // Caso não tenha menu específico
-    }
-}
-
-export function LibraryItem({ cover, text, isPlaying, onClick, query, isSelected }: LibraryItemProps) {
+export function LibraryItem({ cover, text, isPlaying, onClick, query, isSelected, rightClickMenu }: LibraryItemProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     const actions = useLibraryItemAction();
@@ -92,7 +77,7 @@ export function LibraryItem({ cover, text, isPlaying, onClick, query, isSelected
 
                 onClick={(e) => e.stopPropagation()}
             >
-                {renderRightClickMenu(text.type)}
+                {rightClickMenu}
             </div>
         )}</>
     )

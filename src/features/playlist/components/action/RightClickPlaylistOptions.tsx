@@ -1,9 +1,14 @@
 import { usePopup } from "../../../../components/popup/hook/usePopup";
 import { RightClickMenu } from "../../../../components/ui/options/RightClickMenu";
 import type { RightClickMenuNode } from "../../../../components/ui/options/RightClickMenuItem";
+import type { PlaylistInfo } from "../../types/playlist";
 import { EditPlaylistCard } from "./EditPlaylistCard";
 
-export function RightClickPlaylistOptions() {
+interface RightClickPlaylistOptionsProp {
+    playlist: PlaylistInfo,
+}
+
+export function RightClickPlaylistOptions({ playlist }: RightClickPlaylistOptionsProp) {
     const { openPopup, closePopup } = usePopup();
 
     const optionItems: RightClickMenuNode[] = [
@@ -13,13 +18,7 @@ export function RightClickPlaylistOptions() {
             text: "Editar os detalhes",
             onClick: () => openPopup(
                 <EditPlaylistCard
-                    playlist={{
-                        id: 1,
-                        description: "Descrição da playlist preenchida",
-                        imagePath: ["/card/playlist1.png", "/card/playlist2.png", "/card/playlist3.png", "/card/playlist4.png"],
-                        isPublic: true,
-                        name: "you know",
-                    }}
+                    playlist={playlist}
                     onSaveClick={() => {
                         closePopup();
                     }}

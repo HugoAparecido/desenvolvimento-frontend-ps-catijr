@@ -1,18 +1,13 @@
 import React, { useState } from "react";
 import { Button } from "../../../../components/ui/buttons/Button";
+import type { PlaylistInfo } from "../../types/playlist";
 
 interface EditPlaylistCardProps {
-    playlist: {
-        id: string | number,
-        imagePath: string | string[],
-        name: string,
-        description: string,
-        isPublic: boolean,
-    }
-    onSaveClick: () => void
+    playlist: PlaylistInfo,
+    onSaveClick: () => void,
 }
 
-export function EditPlaylistCard({ playlist }: EditPlaylistCardProps) {
+export function EditPlaylistCard({ playlist, onSaveClick }: EditPlaylistCardProps) {
     const [nameValue, setNameValue] = useState(playlist.name);
     const [descriptionValue, setDescriptionValue] = useState(playlist.description);
     const [isPublicValue, setIsPublicValue] = useState(playlist.isPublic);
@@ -34,6 +29,7 @@ export function EditPlaylistCard({ playlist }: EditPlaylistCardProps) {
 
     const handleSubmit = (e: React.SubmitEvent) => {
         e.preventDefault();
+        onSaveClick();
     }
 
     return (
@@ -84,7 +80,7 @@ export function EditPlaylistCard({ playlist }: EditPlaylistCardProps) {
                 <Button text={isPublicValue ? "Tornar privada" : "Tornar pública"}
                     onClick={() => setIsPublicValue(!isPublicValue)}
                 />
-                <Button variant="CTA" text="Salvar" withIcon={false} />
+                <Button variant="CTA" text="Salvar" withIcon={false} type="submit" />
             </div>
             <span className="w-89 text-[8px] font-default-font font-bold lining-none text-white">Ao continuar, você autoriza o Spotify a acessar a imagem enviada. Certifique-se de que você tem o direito de fazer o upload dessa imagem.</span>
         </form>
