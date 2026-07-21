@@ -28,7 +28,11 @@ export function CreditsItem({ artist }: CreditsItemProps) {
         <div className="flex w-full justify-between items-center ease-out duration-500 hover:rounded-lg hover:bg-textbox-bg hover:ring-4 hover:ring-textbox-bg">
             <div className="flex flex-col gap-1 items-start justify-between">
                 <span className="text-text-base font-default-font text-sm font-medium">
-                    <LinkButton text={artist.name} variant="default_white_12" route_link={`artist/${artist.id}`} />
+                    {artist.hasProfile ? (
+                        <LinkButton text={artist.name} variant="default_white_12" route_link={`artist/${artist.id}`} />
+                    ) : (
+                        <span className="">{artist.name}</span>
+                    )}
                 </span>
                 <span className="text-text-subdued font-default-font text-xs font-medium flex items-center gap-1">
                     {orderedDisplayNames.map((type, index) =>
