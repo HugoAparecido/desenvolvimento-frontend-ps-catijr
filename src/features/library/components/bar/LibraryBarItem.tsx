@@ -66,7 +66,7 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
     );
 
     return (
-        <div className="flex flex-col w-max h-full gap-3">
+        <div className="flex flex-col w-max h-full gap-3 p-3">
             {fixedItemWithFilter.map(renderLibraryItem)}
             {nonFixedItemWithFilter.map(renderLibraryItem)}
         </div>
