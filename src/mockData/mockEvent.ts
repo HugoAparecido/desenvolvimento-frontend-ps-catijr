@@ -1,4 +1,4 @@
-import type { TypeCredit } from "../features/music/panel/components/CreditsItem";
+import type { Artist, TypeCredit } from "../features/music/panel/hooks/useCreditItem";
 
 
 export const mockEventData = {
@@ -28,17 +28,6 @@ export const mockEventData = {
     }
 };
 
-export type Artist = {
-    name: string,
-    id: number | string,
-    hasProfile: boolean,
-    typesCreditbyArtist: TypeCredit[],
-    isFollowing?: boolean,
-    isVerified?: boolean,
-    description?: string,
-    qtdListeners?: number,
-}
-
 export const artist1: Artist = {
     name: "LNGSHOT",
     id: 1,
@@ -62,4 +51,12 @@ export const artist3: Artist = {
     id: '2',
     hasProfile: false,
     typesCreditbyArtist: ['arrangements', 'authors', 'songwriter'] as TypeCredit[],
+};
+
+
+export const artist4: Artist = {
+    name: "Mehti of LNGSHOT",
+    id: '2',
+    hasProfile: false,
+    typesCreditbyArtist: ['authors'] as TypeCredit[],
 };
