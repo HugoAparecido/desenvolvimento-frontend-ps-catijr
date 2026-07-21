@@ -1,3 +1,14 @@
+import type { TypeLibraryItem } from "../components/item/components/LibraryItemText";
+
+export interface LibraryItem {
+    id: number;
+    itemName: string;
+    type: TypeLibraryItem;
+    owner?: string;
+    fixed: boolean;
+    isPlaying: boolean;
+}
+
 export const libraryItems = [
     { id: 1, itemName: 'LEMONADE - The 2nd Album', type: 'album' as const, owner: 'aespa', fixed: true, isPlaying: false },
     { id: 2, itemName: 'Kendrick Lamar', type: 'artist' as const, fixed: true, isPlaying: false },

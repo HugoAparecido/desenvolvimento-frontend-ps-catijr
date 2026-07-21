@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Covers } from "./components/Covers"
 import { LibraryItemText, type TypeLibraryItem } from "./components/LibraryItemText"
 
-interface LibraryItensProps {
+export interface LibraryItemProps {
     cover: {
         imagePath: string,
         isArtist?: boolean,
@@ -20,7 +20,7 @@ interface LibraryItensProps {
     isSelected: boolean,
 }
 
-export function LibraryItem({ cover, text, isPlaying, onClick, isSelected }: LibraryItensProps) {
+export function LibraryItem({ cover, text, isPlaying, onClick, isSelected }: LibraryItemProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     return (
