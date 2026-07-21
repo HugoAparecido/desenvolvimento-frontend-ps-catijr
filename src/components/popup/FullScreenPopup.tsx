@@ -16,7 +16,7 @@ export function FullScreenPopup({ isOpen, children, onClose }: FullScreenPopupPr
             onClick={onClose}
         >
             <div
-                className="w-full overflow-y-auto max-w-lg rounded-xl bg-gray-900 p-6 shadow-2xl"
+                className="w-full flex items-center justify-center overflow-y-auto max-w-lg rounded-xl p-6 shadow-2xl"
                 onClick={(e) => e.stopPropagation()}
             >
                 {children}
