@@ -56,7 +56,7 @@ export function Player() {
             </div>
             <div className={`${isFullScreen ? "flex" : "hidden"}  md:flex gap-2 flex-1 min-w-0 justify-end`}>
                 <VolumeControl />
-                <button onClick={toggleFullScreen}>
+                <button className="cursor-pointer" onClick={toggleFullScreen}>
                     {isFullScreen ?
                         <GoScreenFull className="text-white" /> :
                         <GoScreenNormal className="text-white" />
