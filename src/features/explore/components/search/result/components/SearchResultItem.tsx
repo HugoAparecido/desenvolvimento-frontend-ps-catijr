@@ -1,8 +1,4 @@
 import { FollowingButton } from "../../../../../../components/ui/buttons/FollowingButton";
-import { RightClickAlbumOptions } from "../../../../../album/action/RightClickAlbumOptions";
-import { RightClickArtistOptions } from "../../../../../artist/components/action/RightClickArtistOptions";
-import { RightClickMusicOptions } from "../../../../../music/components/action/RightClickMusicOptions";
-import { RightClickPlaylistOptions } from "../../../../../playlist/components/action/RightClickPlaylistOptions";
 import { useSearchResultItemActions, type ResultItem } from "../../../../hooks/useSearchResultItem";
 import { tagResultDisplayNames } from "../../../../hooks/useSearchResultItemTag";
 import { SearchResultItemTag } from "./SearchResultItemTag";
@@ -13,24 +9,10 @@ interface SearchResultItem {
     item: ResultItem,
     activeMenuId: string | number | null;
     onContextMenuOpen: (id: string | number) => void;
+    rightClickMenu?: React.ReactNode
 }
 
-function renderRightClickMenu(type: string) {
-    switch (type) {
-        case 'album':
-            return <RightClickAlbumOptions />;
-        case 'music':
-            return <RightClickMusicOptions />;
-        case 'artist':
-            return <RightClickArtistOptions />;
-        case 'playlist':
-            return <RightClickPlaylistOptions />;
-        default:
-            return null; // Caso não tenha menu específico
-    }
-}
-
-export function SearchResultItem({ item, activeMenuId, onContextMenuOpen }: SearchResultItem) {
+export function SearchResultItem({ item, activeMenuId, onContextMenuOpen, rightClickMenu }: SearchResultItem) {
     const actions = useSearchResultItemActions(item);
 
     const handleContextMenu = (e: React.MouseEvent<HTMLAnchorElement>) => {
@@ -93,8 +75,13 @@ export function SearchResultItem({ item, activeMenuId, onContextMenuOpen }: Sear
                             onClick={handleThreeDotsClick}
                             className="cursor-pointer w-6.25 h-6.25 p-1 flex items-center justify-center"
                             aria-label={actions.isSaved ? "Remover da biblioteca" : "Adicionar à biblioteca"}
-                        ><img src="action/3dots.svg" alt="Three dots" className="w-full hover:scale-110 transition-transform"
-                            /></button>
+                        >
+                            <img
+                                src="action/3dots.svg"
+                                alt="Three dots"
+                                className="w-full hover:scale-110 transition-transform"
+                            />
+                        </button>
 
                         <button
                             onClick={actions.handleToggleSave}
@@ -122,7 +109,7 @@ export function SearchResultItem({ item, activeMenuId, onContextMenuOpen }: Sear
 
                     onClick={(e) => e.stopPropagation()}
                 >
-                    {renderRightClickMenu(item.type)}
+                    {rightClickMenu}
                 </div>
             )}
         </>

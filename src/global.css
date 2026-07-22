@@ -39,6 +39,15 @@
     /* IMAGENS DE FUNDO / GRADIENTES */
     --background-image-custom-gradient: linear-gradient(to right, var(--color-gradient-init), var(--color-gradient-end));
     --background-image-home-bg-gradient-variant: linear-gradient(to right, var(--color-gradient-init-home), var(--color-gradient-end-home));
+    --background-image-song-full: linear-gradient(to bottom, #8F0313, #3D0007);
+    --background-image-profile-header: linear-gradient(to bottom, #938D8E, #3E3939);
+    --background-image-artist-header: linear-gradient(to bottom, #41414100, #00000040);
+    --background-image-playlist-header: linear-gradient(to bottom, #938D8E, #3E3939);
+    --background-image-home-bg-gradient-variant: linear-gradient(to bottom, #202020, #121212);
+
+    /* Sombras */
+    --shadow-song-full: 0px 28px 41.7px 0px rgba(0, 0, 0, 0.25);
+    --shadow-profile-header: 0px 12px 22.2px 0px rgba(0, 0, 0, 0.25);
 
     /* FONTES */
     --font-poppins: 'Poppins', sans-serif;

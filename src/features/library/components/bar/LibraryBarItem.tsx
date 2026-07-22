@@ -1,10 +1,32 @@
 import { useState } from "react";
 import type { TypeLibraryItem } from "../item/components/LibraryItemText";
 import { LibraryItem } from "../item/LibraryItem";
+import type { PlaylistInfo } from "../../../playlist/types/playlist";
+import { RightClickPlaylistOptions } from "../../../playlist/components/action/RightClickPlaylistOptions";
+import { RightClickAlbumOptions } from "../../../album/action/RightClickAlbumOptions";
+import { RightClickArtistOptions } from "../../../artist/components/action/RightClickArtistOptions";
 
 interface LibraryBarItemProps {
     query: string,
     filter: string,
+}
+
+type ItemDomainData =
+    | { type: 'playlist'; data: PlaylistInfo }
+    | { type: 'album'; data: null }
+    | { type: 'artist'; data: null };
+
+function renderRightClickMenu(domain: ItemDomainData) {
+    switch (domain.type) {
+        case 'playlist':
+            return <RightClickPlaylistOptions playlist={domain.data} />;
+        case 'album':
+            return <RightClickAlbumOptions />;
+        case 'artist':
+            return <RightClickArtistOptions />;
+        default:
+            return null;
+    }
 }
 
 export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
@@ -16,6 +38,8 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
         fixed: boolean;
         isPlaying: boolean;
     }
+
+    const [activeMenuId, setActiveMenuId] = useState<string | number | null>(null);
 
     const [selectedId, setSelectedId] = useState<number | string | null>(1);
     const [playingId, setPlayingId] = useState<number | string | null>(5);
@@ -39,37 +63,63 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
     const fixedItemWithFilter = filteredItems.filter(item => item.fixed);
     const nonFixedItemWithFilter = filteredItems.filter(item => !item.fixed);
 
-    const renderLibraryItem = (item: LibraryItem) => (
-        <LibraryItem
-            key={item.id}
-            query={query}
-            isPlaying={item.id === playingId && isPlaying}
-            isSelected={item.id === selectedId}
-            onClick={() => {
-                setSelectedId(item.id);
-            }}
-            cover={{
-                imagePath: "/card/album.png",
-                isArtist: item.type === "artist",
-                isLiked: item.id === 3,
-                onClickPlay: (e?: React.MouseEvent) => {
-                    if (e) e.stopPropagation();
-                    if (playingId === item.id)
-                        setIsPlaying(!isPlaying)
-                    else {
-                        setPlayingId(item.id);
-                        setIsPlaying(true)
-                    }
-                },
-            }}
-            text={{
-                itemName: item.itemName,
-                type: item.type,
-                owner: item.owner,
-                fixed: item.fixed,
-            }}
-        />
-    );
+    const renderLibraryItem = (item: LibraryItem) => {
+        let domainData: ItemDomainData;
+
+        if (item.type === 'playlist') {
+            domainData = {
+                type: 'playlist',
+                data: {
+                    id: item.id,
+                    name: item.itemName,
+                    description: "Descrição da playlist",
+                    imagePath: ["/card/album.png"],
+                    isPublic: true,
+                }
+            };
+        } else if (item.type === 'album') {
+            domainData = { type: 'album', data: null };
+        } else {
+            domainData = { type: 'artist', data: null };
+        }
+
+        return (
+            <LibraryItem
+                id={item.id}
+                toPath={`${item.type}/${item.id}`}
+                key={item.id}
+                query={query}
+                isPlaying={item.id === playingId && isPlaying}
+                isSelected={item.id === selectedId}
+                onClick={() => {
+                    setSelectedId(item.id);
+                }}
+                cover={{
+                    imagePath: "/card/album.png",
+                    isArtist: item.type === "artist",
+                    isLiked: item.id === 3,
+                    onClickPlay: (e?: React.MouseEvent) => {
+                        if (e) e.stopPropagation();
+                        if (playingId === item.id)
+                            setIsPlaying(!isPlaying)
+                        else {
+                            setPlayingId(item.id);
+                            setIsPlaying(true)
+                        }
+                    },
+                }}
+                text={{
+                    itemName: item.itemName,
+                    type: item.type,
+                    owner: item.owner,
+                    fixed: item.fixed,
+                }}
+                rightClickMenu={renderRightClickMenu(domainData)}
+                activeMenuId={activeMenuId}
+                onContextMenuOpen={(id) => setActiveMenuId(id)}
+            />
+        );
+    };
 
     return (
         <div className="hidden md:flex flex-col w-max h-full gap-3 p-3">
