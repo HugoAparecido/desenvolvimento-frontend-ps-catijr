@@ -3,7 +3,7 @@ export interface RecentAlbums {
     title: string,
     year: string,
     artistId: string,
-    artistNaME: string,
+    artistName: string,
     createdAt: string,
     updatedAt: string | null,
 }
