@@ -86,6 +86,7 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
         return (
             <LibraryItem
                 id={item.id}
+                toPath={`${item.type}/${item.id}`}
                 key={item.id}
                 query={query}
                 isPlaying={item.id === playingId && isPlaying}
