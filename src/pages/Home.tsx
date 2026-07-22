@@ -3,9 +3,10 @@ import { ItemLargeCard } from "../components/card/ItemLargeCard";
 import { FilterButton } from "../components/ui/buttons/FilterButton";
 import { RecentArtists } from "../features/artist/components/RecentArtists";
 import { HomePageRecentItem } from "../features/music/components/HomePageRecentItem";
-import { mockAlbums, mockRecentItems } from "../mockData/mockHome";
+import { mockRecentItems } from "../mockData/mockHome";
 import { useUserPlaylists } from "../hooks/usePlaylist";
 import { mockUser } from "../mockData/mockUserInfos";
+import { useRecentAlbums } from "../hooks/useAlbum";
 
 export function Home() {
     const [currentFilter, setCurrentFilter] = useState('all');
@@ -14,7 +15,8 @@ export function Home() {
 
     const [idPlaying, setIdPlaying] = useState(initialItemPlaying);
 
-    const { data: userPlaylists = [], isLoading } = useUserPlaylists();
+    const { data: userPlaylists = [], isLoadingPlaylists } = useUserPlaylists();
+    const { data: recentAlbums = [], isLoadingAlbum } = useRecentAlbums();
 
     const filterOptions = [
         { value: 'all', text: 'Tudo' },
@@ -76,15 +78,15 @@ export function Home() {
                 <span className="text-white text-base font-bold">Álbuns recentes</span>
             </div>
             <div className="w-max flex gap-2.5 justify-start items-start">
-                {mockAlbums.map((album) => (
+                {recentAlbums.map((album) => (
                     <ItemLargeCard
                         key={album.id}
-                        imagePath={album.imagePath}
-                        imageDescription={album.imageDescription}
-                        typeCard={album.typeCard}
-                        text={album.text}
-                        albumYear={album.albumYear}
-                        playAction={() => console.log(`Tocando o álbum: ${album.text}`)}
+                        imagePath="/card/album.png"
+                        imageDescription="Capa Album"
+                        typeCard='Album'
+                        text={album.title}
+                        albumYear={album.year}
+                        playAction={() => { }}
                     />
                 ))}
             </div>
