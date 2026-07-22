@@ -45,7 +45,6 @@ export function RightClickPlaylistOptions({ playlist, actions }: RightClickPlayl
             iconPath: "/tag/pin.svg",
             iconDescription: "Pin",
             text: "Fixar playlist",
-
             onClick: () => {
                 actions.onToggleFixed();
             },

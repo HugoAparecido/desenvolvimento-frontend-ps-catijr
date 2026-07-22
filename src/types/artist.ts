@@ -5,8 +5,3 @@ export interface RecentArtist {
     createdAt: string,
     updatedAt: string,
 }
-
-export interface ArtistActionInfo {
-    id: string | number,
-    isfixed: boolean
-}

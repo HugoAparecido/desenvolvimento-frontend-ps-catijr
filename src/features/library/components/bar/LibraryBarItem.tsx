@@ -19,8 +19,8 @@ interface LibraryBarItemProps {
 
 type ItemDomainData =
     | { type: 'playlist'; data: PlaylistInfo & { isFixed: boolean }; onToggleFixed: () => void }
-    | { type: 'album'; data: null }
-    | { type: 'artist'; data: null };
+    | { type: 'album'; data: { isFixed: boolean }; onToggleFixed: () => void }
+    | { type: 'artist'; data: { isFixed: boolean }; onToggleFixed: () => void };
 
 function renderRightClickMenu(domain: ItemDomainData) {
     switch (domain.type) {
@@ -32,9 +32,9 @@ function renderRightClickMenu(domain: ItemDomainData) {
                 }}
             />;
         case 'album':
-            return <RightClickAlbumOptions />;
+            return <RightClickAlbumOptions actions={{ onToggleFixed: domain.onToggleFixed }} />;
         case 'artist':
-            return <RightClickArtistOptions />;
+            return <RightClickArtistOptions actions={{ onToggleFixed: domain.onToggleFixed }} />;
         default:
             return null;
     }
@@ -165,9 +165,9 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
                 onToggleFixed: () => handleToggleFixed(item.id)
             };
         } else if (item.type === 'album') {
-            domainData = { type: 'album', data: null };
+            domainData = { type: 'album', data: { isFixed: false }, onToggleFixed: () => handleToggleFixed(item.id) };
         } else {
-            domainData = { type: 'artist', data: null };
+            domainData = { type: 'artist', data: { isFixed: false }, onToggleFixed: () => handleToggleFixed(item.id) };
         }
 
         return (

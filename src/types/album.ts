@@ -7,8 +7,3 @@ export interface RecentAlbums {
     createdAt: string,
     updatedAt: string | null,
 }
-
-export interface AlbumActionInfo {
-    id: string | number,
-    isfixed: boolean
-}
