@@ -4,14 +4,9 @@ import { LinkButton } from "../../components/ui/buttons/LinkButton";
 import { Link } from "react-router-dom";
 
 export function Navbar() {
-    const [results, setResults] = useState<string[]>([]);
     const [homeIsHovered, setHomeIsHovered] = useState(false);
     const [notificatioIsHovered, setNotificationIsHovered] = useState(false);
-    console.log(results)
 
-    const handleSearch = (filterData: string[]) => {
-        setResults(filterData);
-    };
     return (
         <header className="w-full border-b flex justify-between items-center p-3 bg-black">
             <div className="hidden md:flex flex-1 min-w-0">
@@ -28,8 +23,7 @@ export function Navbar() {
                         src={`${!homeIsHovered ? "navbar/home-outline.svg" : "navbar/home-fill.svg"}`}
                         alt="Home" className="w-auto" />
                 </Link>
-                <SearchBar
-                    onSearch={handleSearch} />
+                <SearchBar />
             </div>
             <div className="flex flex-1 min-w-0 gap-8 justify-end">
                 <Link to="" className="hidden md:flex gap-1.5 items-center justify-center cursor-pointer">
@@ -46,8 +40,8 @@ export function Navbar() {
                             alt="Notification"
                             className="w-full" />
                     </Link>
-                    <Link to="" className="w-9 h-9 flex items-center justify-center rounded-full cursor-pointer bg-gray-bg">
-                        <img src="mock-images/navbar_image.png" alt="User"
+                    <Link to="profile" className="w-9 h-9 flex items-center justify-center rounded-full cursor-pointer bg-gray-bg">
+                        <img src="profile/profile.png" alt="User"
                             className="w-6 h-6 object-cover rounded-full " />
                     </Link>
                 </div>

@@ -7,3 +7,9 @@ export function NumberToTimeString(totalTime: number): string {
 export function FormatIntegersToBrazilianFormat(unformattedInteger: number): string {
     return unformattedInteger.toLocaleString('pt-BR');
 }
+
+export function FormatPlaylistTime(playlistTime: number): string {
+    const hours = Math.floor(playlistTime / 60)
+    const minutes = playlistTime % 60
+    return `${hours > 0 ? hours + 'h' : ''}${Math.floor(minutes).toString().padStart(2, '0')}min`;
+}

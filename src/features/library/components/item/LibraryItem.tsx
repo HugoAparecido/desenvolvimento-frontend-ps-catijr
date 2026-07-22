@@ -2,11 +2,10 @@ import { useState } from "react"
 import { Covers } from "./components/Covers"
 import { LibraryItemText, type TypeLibraryItem } from "./components/LibraryItemText"
 import { useLibraryItemAction } from "../../hooks/useLibraryItemAction"
-import { RightClickAlbumOptions } from "../../../album/action/RightClickAlbumOptions"
-import { RightClickArtistOptions } from "../../../artist/components/action/RightClickArtistOptions"
-import { RightClickPlaylistOptions } from "../../../playlist/components/action/RightClickPlaylistOptions"
+import { Link } from "react-router-dom"
 
 export interface LibraryItemProps {
+    id: number | string
     cover: {
         imagePath: string,
         isArtist?: boolean,
@@ -23,32 +22,26 @@ export interface LibraryItemProps {
     onClick: () => void,
     isSelected: boolean,
     query: string,
+    activeMenuId: string | number | null,
+    rightClickMenu?: React.ReactNode,
+    onContextMenuOpen: (id: string | number) => void,
+    toPath: string,
 }
 
-function renderRightClickMenu(type: string) {
-    switch (type) {
-        case 'album':
-            return <RightClickAlbumOptions />;
-        case 'artist':
-            return <RightClickArtistOptions />;
-        case 'playlist':
-            return <RightClickPlaylistOptions />;
-        default:
-            return null; // Caso não tenha menu específico
-    }
-}
-
-export function LibraryItem({ cover, text, isPlaying, onClick, query, isSelected }: LibraryItemProps) {
+export function LibraryItem({ id, cover, text, isPlaying, onClick, query, isSelected, rightClickMenu, activeMenuId, onContextMenuOpen, toPath }: LibraryItemProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     const actions = useLibraryItemAction();
 
-    const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleContextMenu = (e: React.MouseEvent<HTMLAnchorElement>) => {
         actions.handleContextMenu(e)
+        onContextMenuOpen(id)
     }
 
+    const isMenuOpen = activeMenuId === id && actions.menuState.isOpen;
+
     return (<>
-        <div
+        <Link to={toPath}
             className={`flex w-72 h-max items-center justify-between ease-out duration-500 hover:bg-divider hover:rounded-sm hover:ring-4 hover:ring-divider cursor-pointer
                 ${isSelected ? 'bg-divider rounded-sm ring-4 ring-divider' : 'bg-transparent'}`}
             onClick={onClick}
@@ -81,8 +74,8 @@ export function LibraryItem({ cover, text, isPlaying, onClick, query, isSelected
                     />
                 </div>
             )}
-        </div>
-        {actions.menuState.isOpen && (
+        </Link>
+        {isMenuOpen && (
             <div
                 className="fixed z-50"
                 style={{
@@ -92,7 +85,7 @@ export function LibraryItem({ cover, text, isPlaying, onClick, query, isSelected
 
                 onClick={(e) => e.stopPropagation()}
             >
-                {renderRightClickMenu(text.type)}
+                {rightClickMenu}
             </div>
         )}</>
     )
