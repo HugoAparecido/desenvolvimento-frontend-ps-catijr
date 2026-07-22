@@ -3,7 +3,14 @@ import { ItemLargeCard } from "../components/card/ItemLargeCard";
 import { FilterButton } from "../components/ui/buttons/FilterButton";
 import { RecentArtists } from "../features/artist/components/RecentArtists";
 import { HomePageRecentItem } from "../features/music/components/HomePageRecentItem";
-import { mockAlbums, mockPlaylists, mockRecentItems } from "../mockData/mockHome";
+import { mockRecentItems } from "../mockData/mockHome";
+import { useUserPlaylists } from "../hooks/usePlaylist";
+import { mockUser } from "../mockData/mockUserInfos";
+import { useRecentAlbums } from "../hooks/useAlbum";
+import type { UserPlaylist } from "../types/playlist";
+import type { RecentAlbums } from "../types/album";
+import type { RecentArtist } from "../types/artist";
+import { useRecentArtistsQuery } from "../hooks/useArtist";
 
 export function Home() {
     const [currentFilter, setCurrentFilter] = useState('all');
@@ -11,6 +18,42 @@ export function Home() {
     const initialItemPlaying = mockRecentItems.find(item => item.initialIsPlaying)?.id || null;
 
     const [idPlaying, setIdPlaying] = useState(initialItemPlaying);
+
+    const { data: userPlaylists = [], isLoadingPlaylists } = useUserPlaylists();
+    const { data: recentAlbums = [], isLoadingAlbum } = useRecentAlbums();
+    const { data: recentArtists = [], isLoadingArtists } = useRecentArtistsQuery();
+
+    type RecentItem = UserPlaylist | RecentAlbums | RecentArtist;
+
+    const recentItems: RecentItem[] = [
+        ...userPlaylists,
+        ...recentAlbums,
+        ...recentArtists,
+    ]
+        .filter((item): item is RecentItem & { updatedAt: string | Date } => item.updatedAt != null)
+        .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
+        .slice(0, 8)
+        .map(item => {
+            let path = '';
+            let displayName = '';
+
+            if ('description' in item) {
+                displayName = item.name;
+                path = '/playlist/';
+            } else if ('title' in item) {
+                displayName = item.title;
+                path = '/song/';
+            } else {
+                displayName = item.name;
+                path = '/artist/'
+            }
+
+            return {
+                ...item,
+                itemName: displayName,
+                redirectPath: path,
+            }
+        })
 
     const filterOptions = [
         { value: 'all', text: 'Tudo' },
@@ -34,12 +77,12 @@ export function Home() {
                 ))}
             </div>
             <div className="flex gap-2 flex-wrap">
-                {mockRecentItems.map((item) => (
+                {recentItems.map((item) => (
                     <HomePageRecentItem
                         key={item.id}
-                        musicName={item.musicName}
-                        musicImagePath={item.musicImagePath}
-                        redirectTo={item.redirectTo}
+                        musicName={item.itemName}
+                        musicImagePath="/music/music.png"
+                        redirectTo={item.redirectPath}
                         isPlaying={idPlaying === item.id}
                         onPlayClick={() => {
                             setIdPlaying(idPlaying === item.id ? null : item.id);
@@ -53,15 +96,15 @@ export function Home() {
                 <span className="text-white text-base font-bold">Suas Playlists</span>
             </div>
             <div className="w-max flex gap-2.5 justify-start items-start">
-                {mockPlaylists.map((playlist) => (
+                {userPlaylists.map((playlist) => (
                     <ItemLargeCard
                         key={playlist.id}
-                        imagePath={playlist.imagePath}
-                        imageDescription={playlist.imageDescription}
-                        typeCard={playlist.typeCard}
-                        text={playlist.text}
-                        playlistOwner={playlist.playlistOwner}
-                        playAction={() => console.log(`Tocando a playlist: ${playlist.text}`)}
+                        imagePath={["/card/playlist1.png", "/card/playlist2.png", "/card/playlist3.png", "/card/playlist4.png"]}
+                        imageDescription="Playlist musics"
+                        typeCard='Playlist'
+                        text={playlist.name}
+                        playlistOwner={mockUser.name}
+                        playAction={() => { }}
                     />
                 ))}
             </div>
@@ -72,15 +115,15 @@ export function Home() {
                 <span className="text-white text-base font-bold">Álbuns recentes</span>
             </div>
             <div className="w-max flex gap-2.5 justify-start items-start">
-                {mockAlbums.map((album) => (
+                {recentAlbums.map((album) => (
                     <ItemLargeCard
                         key={album.id}
-                        imagePath={album.imagePath}
-                        imageDescription={album.imageDescription}
-                        typeCard={album.typeCard}
-                        text={album.text}
-                        albumYear={album.albumYear}
-                        playAction={() => console.log(`Tocando o álbum: ${album.text}`)}
+                        imagePath="/card/album.png"
+                        imageDescription="Capa Album"
+                        typeCard='Album'
+                        text={album.title}
+                        albumYear={album.year}
+                        playAction={() => { }}
                     />
                 ))}
             </div>
