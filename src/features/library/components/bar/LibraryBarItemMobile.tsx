@@ -29,6 +29,7 @@ export function LibraryBarItemMobile() {
     const renderLibraryItem = (item: LibraryItem) => (
 
         <Covers
+            key={item.id}
             imagePath="card/album.png"
             isHovered={false}
             onClickPlay={(e?: React.MouseEvent) => {
