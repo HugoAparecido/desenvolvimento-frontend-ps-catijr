@@ -1,16 +1,17 @@
 import { useState } from "react"
-import { mockItemsArtistsCard } from "./mockArtistCard";
+import { useRecentArtistsQuery } from "../../../hooks/useArtist";
 
 export const useRecentArtists = (maximumNumberOfInlineItems: number) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const artists = mockItemsArtistsCard;
+    const { data: recentArtists = [], isLoading } = useRecentArtistsQuery();
+    console.log(recentArtists)
 
-    const visibleCount = isExpanded ? artists.length : maximumNumberOfInlineItems;
+    const visibleCount = isExpanded ? recentArtists?.length : maximumNumberOfInlineItems;
 
-    const displayedArtists = artists.slice(0, visibleCount);
+    const displayedArtists = recentArtists?.slice(0, visibleCount);
 
-    const hasMore = !isExpanded && artists.length > maximumNumberOfInlineItems;
+    const hasMore = !isExpanded && (recentArtists?.length > maximumNumberOfInlineItems);
 
     const handleViewClick = () => {
         setIsExpanded(!isExpanded);

@@ -46,13 +46,13 @@ export function RecentArtists() {
                 {artists.map((artist, index) =>
                     <ItemLargeCard
                         key={index}
-                        imageDescription={artist.imageDescription}
-                        imagePath={artist.imagePath}
-                        playAction={artist.playAction}
-                        text={artist.text}
+                        imageDescription="Foto do artista"
+                        imagePath="/card/artist.png"
+                        playAction={() => { }}
+                        text={artist.name}
                         typeCard="Artist"
                     />
-                )}
+                ) ?? ''}
             </div>
         </div>
     )

@@ -1,3 +1,5 @@
+import { FormatIntegersToBrazilianFormat } from "../../utils/formatters"
+
 interface ProfileHeaderProps {
     profile: {
         name: string,
@@ -21,11 +23,11 @@ export function ProfileHeader({ profile }: ProfileHeaderProps) {
                         {profile.name}
                     </span>
                     <div className="flex gap-1 items-center text-xs font-medium font-default-font text-text-subdued lining-none">
-                        <span>{profile.qtdPlaylists} playlists públicas</span>
+                        <span>{FormatIntegersToBrazilianFormat(profile.qtdPlaylists)} playlists públicas</span>
                         <div className="bg-text-subdued h-0.75 w-0.75 rounded-full" />
-                        <span>{profile.qtdFollowers} seguidores</span>
+                        <span>{FormatIntegersToBrazilianFormat(profile.qtdFollowers)} seguidores</span>
                         <div className="bg-text-subdued h-0.75 w-0.75 rounded-full" />
-                        <span>{profile.qtdFollowing} seguindo</span>
+                        <span>{FormatIntegersToBrazilianFormat(profile.qtdFollowing)} seguindo</span>
                     </div>
                 </div>
             </div>
