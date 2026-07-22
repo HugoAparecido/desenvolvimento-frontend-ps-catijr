@@ -2,6 +2,7 @@ import { useState } from "react"
 import { Covers } from "./components/Covers"
 import { LibraryItemText, type TypeLibraryItem } from "./components/LibraryItemText"
 import { useLibraryItemAction } from "../../hooks/useLibraryItemAction"
+import { Link } from "react-router-dom"
 
 export interface LibraryItemProps {
     id: number | string
@@ -24,14 +25,15 @@ export interface LibraryItemProps {
     activeMenuId: string | number | null,
     rightClickMenu?: React.ReactNode,
     onContextMenuOpen: (id: string | number) => void,
+    toPath: string,
 }
 
-export function LibraryItem({ id, cover, text, isPlaying, onClick, query, isSelected, rightClickMenu, activeMenuId, onContextMenuOpen }: LibraryItemProps) {
+export function LibraryItem({ id, cover, text, isPlaying, onClick, query, isSelected, rightClickMenu, activeMenuId, onContextMenuOpen, toPath }: LibraryItemProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     const actions = useLibraryItemAction();
 
-    const handleContextMenu = (e: React.MouseEvent<HTMLDivElement>) => {
+    const handleContextMenu = (e: React.MouseEvent<HTMLAnchorElement>) => {
         actions.handleContextMenu(e)
         onContextMenuOpen(id)
     }
@@ -39,7 +41,7 @@ export function LibraryItem({ id, cover, text, isPlaying, onClick, query, isSele
     const isMenuOpen = activeMenuId === id && actions.menuState.isOpen;
 
     return (<>
-        <div
+        <Link to={toPath}
             className={`flex w-72 h-max items-center justify-between ease-out duration-500 hover:bg-divider hover:rounded-sm hover:ring-4 hover:ring-divider cursor-pointer
                 ${isSelected ? 'bg-divider rounded-sm ring-4 ring-divider' : 'bg-transparent'}`}
             onClick={onClick}
@@ -72,7 +74,7 @@ export function LibraryItem({ id, cover, text, isPlaying, onClick, query, isSele
                     />
                 </div>
             )}
-        </div>
+        </Link>
         {isMenuOpen && (
             <div
                 className="fixed z-50"
