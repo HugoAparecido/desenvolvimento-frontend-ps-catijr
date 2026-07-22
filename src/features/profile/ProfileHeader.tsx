@@ -12,7 +12,7 @@ interface ProfileHeaderProps {
 
 export function ProfileHeader({ profile }: ProfileHeaderProps) {
     return (
-        <div className="w-full h-max flex bg-profile-header pt-10 px-5 pb-4 gap-2.5">
+        <div className="w-full h-max flex bg-profile-header pt-10 px-5 pb-4 gap-2.5 rounded-t-xl">
             <div className="w-max h-max flex gap-3 items-center">
                 <img src={profile.imagePath} alt="User"
                     className="w-43.75 h-43.75 object-cover rounded-full shadow-profile-header"
