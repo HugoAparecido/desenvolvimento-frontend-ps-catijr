@@ -46,6 +46,7 @@ type LibraryItemDisplay = (UserPlaylist | RecentAlbums | RecentArtist) & {
     owner?: string;
     fixed?: boolean;
     imagePath: string;
+    routeData?: Record<string, unknown>;
 };
 
 export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
@@ -72,7 +73,7 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
                 ? prevIds.filter(fixedId => fixedId !== stringId)
                 : [...prevIds, stringId];
 
-            localStorage.setItem('@app:fixedLibraryItems', JSON.stringify(newIds))
+            localStorage.setItem('@app:fixedLibraryItems', JSON.stringify(newIds));
             return newIds;
         });
     }, []);
@@ -107,6 +108,7 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
                 owner,
                 fixed: isFixedLocally,
                 imagePath: '',
+                routeData: item as unknown as Record<string, unknown>,
             };
         });
 
@@ -119,10 +121,8 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
 
             return (matchName || matchOwner) && matchType;
         }).sort((a, b) => {
-
             const timeA = new Date(a.updatedAt || a.createdAt).getTime();
             const timeB = new Date(b.updatedAt || b.createdAt).getTime();
-
             return (timeB || 0) - (timeA || 0);
         });
 
@@ -185,6 +185,7 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
                     isLiked: item.displayName === "Músicas Curtidas",
                     onClickPlay: () => handlePlayClick(item.id),
                 }}
+                routeData={item.routeData}
                 text={{
                     itemName: item.displayName,
                     type: item.type,
