@@ -1,62 +1,55 @@
-import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
 import { ArtistHeader } from "../features/artist/components/ArtistHeader";
+import { useArtistAlbums } from "../hooks/useAlbum";
+import { ItemLargeCard } from "../components/card/ItemLargeCard";
 
 export function Artist() {
-    const { id } = useParams();
+    const { artistId } = useParams();
     const location = useLocation();
 
-    const [artistData, setArtistData] = useState<unknown>(null);
-    const [isLoading, setIsLoading] = useState(true);
+    const {
+        data: albums,
+        isLoading: isAlbumsLoading,
+    } = useArtistAlbums(artistId as string);
 
-    useEffect(() => {
-        async function fetchArtistInfo() {
-            if (location.state && location.state.name) {
-                setArtistData(location.state);
-                setIsLoading(false);
-                return;
-            }
+    const artistState = location.state;
 
-            if (id) {
-                setIsLoading(true);
-                try {
-                    const mockFromApi = {
-                        imagePath: "/artist/artist_header.png",
-                        name: "Artista Carregado via API",
-                        verified: true,
-                        listeners: 999999,
-                    };
-
-                    setArtistData(mockFromApi);
-                } catch (error) {
-                    console.error("Erro ao buscar o artista:", error);
-                } finally {
-                    setIsLoading(false);
-                }
-            }
-        }
-
-        fetchArtistInfo();
-    }, [id, location.state]);
-
-    if (isLoading) {
-        return <div className="p-4 text-white">Carregando artista...</div>;
-    }
-
-    if (!artistData) {
-        return <div className="p-4 text-white">Artista não encontrado.</div>;
-    }
+    const artistName = artistState?.name
+        || artistState?.itemText?.itemName
+        || (albums && albums.length > 0 ? albums[0].artistName : "Artista Desconhecido");
 
     const artistToRender = {
-        imagePath: artistData.imagePath || "/artist/artist_header.png",
-        name: artistData.name || artistData.itemText?.itemName || "Artista Desconhecido",
-        verified: artistData.verified ?? true,
-        qtdListeners: artistData.listeners || artistData.qtdListeners || 0,
+        imagePath: artistState?.imagePath || "/artist/artist_header.png",
+        name: artistName,
+        verified: artistState?.verified ?? true,
+        qtdListeners: artistState?.listeners || artistState?.qtdListeners || 0,
     };
 
     return (
-        <div className="w-full h-max gap-2.5 rounded-xl">
+        <div className="w-full h-max gap-2.5 rounded-xl flex-col">
             <ArtistHeader artist={artistToRender} />
+            <div>
+
+            </div>
+            <div>
+                {isAlbumsLoading && <div className="p-4 text-white">Carregando albums...</div>}
+
+                {albums?.length === 0 && (
+                    <p className="text-white p-4">Nenhum álbum encontrado.</p>
+                )}
+
+                {albums?.map((album) => (
+                    <ItemLargeCard
+                        key={album.id}
+                        imageDescription="Album image"
+                        imagePath="/card/album.png"
+                        playAction={() => { }}
+                        text={album.title}
+                        typeCard="Album"
+                        albumYear={album.year}
+                    />
+                ))}
+            </div>
         </div>
     );
 }

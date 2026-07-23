@@ -11,3 +11,17 @@ export interface MostPlayedMusics {
     createdAt: string,
     updatedAt: string | null,
 }
+
+export interface Music {
+    id: string;
+    title: string;
+    artistId: string;
+    albumId: string;
+    playlistsId: string[];
+    duration: number;
+    releaseDate: string;
+    timesListen: number;
+    explicit: boolean;
+    createdAt: string;
+    updatedAt: string | null;
+}
