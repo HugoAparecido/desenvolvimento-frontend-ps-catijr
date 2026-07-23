@@ -11,4 +11,8 @@ export const playlistService = {
         const response = await api.post<UserPlaylist>('/playlist/', data);
         return response.data;
     },
+
+    deletePlaylist: async (playlistId: string | number): Promise<void> => {
+        await api.delete(`/playlist/${playlistId}`);
+    },
 }
