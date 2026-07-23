@@ -1,10 +1,11 @@
 import clsx from "clsx";
+import type React from "react";
 import { Link } from "react-router-dom";
 
 interface LinkButtonProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
     text: string;
     route_link?: string;
-    onClick?: () => void;
+    onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void;
     variant: 'default_subdued_10' | 'default_white_12' | 'default_subdued_12' | 'default_white_10' | 'default_subdued_10_same_color' | 'default_white_12_bold';
 }
 

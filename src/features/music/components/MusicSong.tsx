@@ -1,9 +1,10 @@
 import { useState } from "react";
 import { NumberToTimeString } from "../../../utils/formatters";
 
-interface MusicProps {
+interface MusicSongProps {
     title: string;
     id: string | number;
+    index: number;
     albumUrl?: string;
     imageUrl: string;
     explicit?: boolean;
@@ -14,7 +15,7 @@ interface MusicProps {
     onClickSave?: () => void;
 }
 
-export function Music({
+export function MusicSong({
     title,
     id,
     albumUrl,
@@ -24,14 +25,15 @@ export function Music({
     totalViews,
     saved,
     onClick,
-    onClickSave
-}: MusicProps) {
+    onClickSave,
+    index,
+}: MusicSongProps) {
     const [musicSaved, setMusicSaved] = useState(saved);
     const [musicHovered, setMusicHovered] = useState(false);
 
     return (
         <div className="flex items-center justify-between font-poppins bg-transparent py-1 px-2 gap-2.5 rounded-sm hover:bg-divider" onClick={onClick} onMouseEnter={() => setMusicHovered(true)} onMouseLeave={() => setMusicHovered(false)}>
-            <div className="h-3 w-3 flex items-center justify-center ">{(!musicHovered ? <span className="font-medium text-xs text-text-subdued">{id}</span> : <img src="/player/play.svg" alt="Play" className="h-3" />)}</div>
+            <div className="h-3 w-3 flex items-center justify-center ">{(!musicHovered ? <span className="font-medium text-xs text-text-subdued">{index}</span> : <img src="/player/play.svg" alt="Play" className="h-3" />)}</div>
             <div className="flex flex-1 flex-row items-center gap-2">
                 <img src={imageUrl} alt="foto do álbum" />
                 <div className="flex flex-col items-start justify-center gap-1">
