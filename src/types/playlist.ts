@@ -34,3 +34,9 @@ export interface PlaylistDetailDTO {
     createdAt: string;
     updatedAt: string | null;
 }
+
+export interface PutPlaylistDTO {
+    name?: string;
+    description?: string;
+    isPublic?: boolean;
+}

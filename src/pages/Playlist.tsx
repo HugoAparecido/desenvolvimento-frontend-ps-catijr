@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { PlaylistHeader } from "../features/playlist/components/PlaylistHeader";
 import { mockUser } from "../mockData/mockUserInfos";
 import { PlayButton } from "../features/player/components/buttons/PlayButton";
-import { usePlaylistById } from "../hooks/usePlaylist";
+import { usePlaylistById, useUserPlaylists } from "../hooks/usePlaylist";
 import { FiClock } from "react-icons/fi";
 import { RightClickMusicOptions } from "../features/music/components/action/RightClickMusicOptions";
 
@@ -28,6 +28,9 @@ function useClickOutside(ref: React.RefObject<HTMLElement | null>, handler: () =
 export function Playlist() {
     const { playlistId } = useParams();
     const { data: playlist } = usePlaylistById(playlistId as string);
+
+    // Exemplo: Caso você tenha um hook para listar as playlists do usuário para o submenu
+    const { data: allPlaylists } = useUserPlaylists();
 
     // Guarda o índice da música que está com o menu aberto (null se nenhum estiver aberto)
     const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null);
@@ -68,7 +71,7 @@ export function Playlist() {
                 <div className="flex flex-col gap-2">
                     {playlist?.musics.map((music, index) => (
                         <div
-                            key={index + 1}
+                            key={music.id ?? index}
                             className="grid grid-cols-[16px_4fr_3fr_2fr_minmax(120px,1fr)] gap-4 px-4 py-2 items-center hover:bg-[#ffffff1a] rounded-md transition duration-200 group"
                         >
                             <span className="text-center text-sm">{index + 1}</span>
@@ -101,7 +104,12 @@ export function Playlist() {
 
                                     {openMenuIndex === index && (
                                         <div className="absolute right-0 top-full mt-1 z-50">
-                                            <RightClickMusicOptions music={music} />
+                                            {/* ALTERAÇÃO AQUI: Passando o ID da playlist atual e a lista de playlists */}
+                                            <RightClickMusicOptions
+                                                music={music}
+                                                currentPlaylistId={playlistId}
+                                                playlists={allPlaylists ?? []} // Substitua por sua listagem de playlists do usuário se houver
+                                            />
                                         </div>
                                     )}
                                 </div>
