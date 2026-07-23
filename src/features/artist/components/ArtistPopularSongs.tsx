@@ -11,9 +11,10 @@ export function ArtistPopularSongs({ musics }: ArtistPopularSongsProps) {
     const { songs, handleViewClick, hasMore } = useArtistSong(musics);
 
     return (
-        <div className="flex w-131 flex-col gap-2.5">
+        <div className="flex w-full max-w-131 flex-col gap-2.5">
             <span className="text-base text-text-base font-bold">Populares</span>
-            {songs.map((song, index) =>
+
+            {songs.map((song, index) => (
                 <MusicSong
                     index={index + 1}
                     title={song.title}
@@ -24,9 +25,9 @@ export function ArtistPopularSongs({ musics }: ArtistPopularSongsProps) {
                     totalTime={song.duration}
                     totalViews={song.timesListen}
                     saved={true}
-                    onClick={
-                        () => console.log("Clicked")
-                    } />)}
+                    onClick={() => console.log("Clicked")}
+                />
+            ))}
 
             <LinkButton
                 text={hasMore ? "Mostrar tudo" : "Mostrar menos"}
@@ -37,5 +38,5 @@ export function ArtistPopularSongs({ musics }: ArtistPopularSongsProps) {
                 variant="default_subdued_10"
             />
         </div>
-    )
+    );
 }

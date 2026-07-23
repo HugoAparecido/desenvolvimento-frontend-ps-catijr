@@ -33,7 +33,7 @@ export function Artist() {
     };
 
     return (
-        <div className="flex w-full h-max gap-2.5 rounded-xl flex-col bg-home-bg-gradient-variant">
+        <div className="flex w-full h-max gap-2.5 rounded-xl flex-col bg-home-bg-gradient-variant overflow-x-hidden">
             <ArtistHeader artist={artistToRender} />
 
             <div className="flex flex-col w-full h-max px-4 gap-6 justify-start items-start">
@@ -46,12 +46,15 @@ export function Artist() {
                     />
                 </div>
 
-                <ArtistPopularSongs
-                    musics={popularMusics ?? []}
-                />
-                <div className="flex flex-col w-full overflow-hidden gap-2.5">
-                    <div className="flex justify-between w-full">
-                        <span className="text-base text-text-base font-bold lining-none font-default-font">
+                <div className="w-full">
+                    <ArtistPopularSongs
+                        musics={popularMusics ?? []}
+                    />
+                </div>
+
+                <div className="flex flex-col  w-max max-w-full gap-2.5">
+                    <div className="flex justify-between items-center w-full">
+                        <span className="text-base text-text-base font-bold leading-none font-default-font">
                             Discografia
                         </span>
                         <LinkButton variant="default_subdued_10" text="Mostrar tudo"
@@ -60,21 +63,29 @@ export function Artist() {
                             }}
                         />
                     </div>
-                    <div className="flex gap-2.5">
-                        {isAlbumsLoading && <div className="p-4 text-white">Carregando albums...</div>}
+
+                    <div className="flex w-full gap-2.5">
+                        {isAlbumsLoading && (
+                            <span className="text-sm text-text-base font-bold leading-none font-default-font">
+                                Carregando albums...
+                            </span>
+                        )}
                         {albums?.length === 0 && (
-                            <p className="text-white p-4">Nenhum álbum encontrado.</p>
+                            <span className="text-sm text-text-base font-bold leading-none font-default-font">
+                                Nenhum álbum encontrado.
+                            </span>
                         )}
                         {albums?.map((album) => (
-                            <ItemLargeCard
-                                key={album.id}
-                                imageDescription="Album image"
-                                imagePath="/card/album.png"
-                                playAction={() => { }}
-                                text={album.title}
-                                typeCard="Album"
-                                albumYear={album.year}
-                            />
+                            <div key={album.id} className="shrink-0 sm:shrink">
+                                <ItemLargeCard
+                                    imageDescription="Album image"
+                                    imagePath="/card/album.png"
+                                    playAction={() => { }}
+                                    text={album.title}
+                                    typeCard="Album"
+                                    albumYear={album.year}
+                                />
+                            </div>
                         ))}
                     </div>
                 </div>

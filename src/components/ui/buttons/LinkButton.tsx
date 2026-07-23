@@ -11,7 +11,7 @@ interface LinkButtonProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> 
 
 export const LinkButton = ({
     text,
-    route_link = "#",
+    route_link = "/",
     variant,
     className,
     onClick,
