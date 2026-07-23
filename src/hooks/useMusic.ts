@@ -7,3 +7,11 @@ export const useMostPlayedMusics = () => {
         queryFn: musicService.getMostPlayedMusics,
     });
 };
+
+export const useArtistPopularMusics = (artistId: string) => {
+    return useQuery({
+        queryKey: ['artist', 'popular', 'musics', artistId],
+        queryFn: () => musicService.getArtistPopularMusic(artistId),
+        enabled: !!artistId,
+    });
+};
