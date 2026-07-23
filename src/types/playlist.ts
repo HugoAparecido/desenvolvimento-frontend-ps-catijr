@@ -16,3 +16,8 @@ export interface PlaylistInfo {
     isPublic: boolean,
     isFixed: boolean
 }
+
+export interface CreatePlaylistDTO {
+    name: string;
+    description: string;
+}

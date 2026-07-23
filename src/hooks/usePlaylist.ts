@@ -1,9 +1,21 @@
-import { useQuery } from "@tanstack/react-query"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { playlistService } from "../services/playlist.service";
+import type { CreatePlaylistDTO } from "../types/playlist";
 
 export const useUserPlaylists = () => {
     return useQuery({
         queryKey: ['playlist', 'user'],
         queryFn: playlistService.getUserPlaylists,
+    });
+};
+
+export const useCreatePlaylist = () => {
+    const queryClient = useQueryClient();
+
+    return useMutation({
+        mutationFn: (newPlaylist: CreatePlaylistDTO) => playlistService.getCreatePlaylist(newPlaylist),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['playlist', 'user'] });
+        },
     });
 };

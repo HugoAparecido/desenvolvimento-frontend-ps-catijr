@@ -3,14 +3,30 @@ import { LibraryBarItem } from "./components/bar/LibraryBarItem";
 import { LibraryFilter } from "./components/filter/LibraryFilter";
 import { LibrarySearch } from "./components/search/LibrarySearch";
 import type { LibraryFilterValue } from "./hooks/useLibraryFilter";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom"; // Removido o 'Link' daqui se não for usar em outro lugar
 import { Button } from "../../components/ui/buttons/Button";
 import { LibraryBarItemMobile } from "./components/bar/LibraryBarItemMobile";
+import { useCreatePlaylist } from "../../hooks/usePlaylist";
 
 export function Library() {
     const [currentFilter, setCurrentFilter] = useState<LibraryFilterValue>('all');
-
     const [searchQuery, setSearchQuery] = useState("");
+    const navigate = useNavigate();
+    const { mutate: createPlaylist, isPending } = useCreatePlaylist();
+
+    const handleCreatePlaylistClick = () => {
+        createPlaylist(
+            {
+                name: "New Playlist",
+                description: "",
+            },
+            {
+                onSuccess: (data: unknown) => {
+                    navigate('/new-playlist');
+                },
+            }
+        );
+    };
 
     return (
         <div className="flex flex-col w-max h-full pb-3 gap-3 overflow-y-scroll items-center justify-start bg-background-base rounded-lg [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none">
@@ -19,9 +35,11 @@ export function Library() {
                     <span className="text-sm text-white font-default-font font-bold">
                         Sua Biblioteca
                     </span>
-                    <Link to="new-playlist/">
-                        <Button text="Criar playlist" withIcon={false} />
-                    </Link>
+                    <Button
+                        text={isPending ? "Criando..." : "Criar playlist"}
+                        withIcon={false}
+                        onClick={handleCreatePlaylistClick}
+                    />
                 </div>
                 <LibraryFilter selectedFilter={currentFilter} onSelectFilter={setCurrentFilter} />
                 <LibrarySearch query={searchQuery} onQueryChange={setSearchQuery} />
@@ -34,5 +52,5 @@ export function Library() {
                 <LibraryBarItemMobile />
             </div>
         </div>
-    )
+    );
 }
