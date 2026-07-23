@@ -28,7 +28,7 @@ export function AppLayout() {
                         <Outlet />
                     </main>
                     {!isFullScreen && (
-                        <aside className='w-max'>
+                        <aside className='w-max hidden lg:block'>
                             <SongPanel />
                         </aside>
                     )}

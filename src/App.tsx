@@ -13,13 +13,14 @@ function App() {
     <Routes>
       <Route path="/" element={<AppLayout />}>
         <Route path="/" element={<Home />} />
-        <Route path="profile" element={<Profile />} />
+        <Route path="profile/teste" element={<Profile />} />
         <Route path="searchResult" element={<SearchResult />} />
 
         <Route path="artist/:artistId" element={<Artist />} />
         <Route path="playlist/:playlistId" element={<Playlist />} />
-        <Route path="new-playlist/" element={<NewPlaylist />} />
-        <Route path="song/" element={<SongFull />} />
+        <Route path="album/:albumId" element={<Playlist />} />
+        <Route path="newPlaylist" element={<NewPlaylist />} />
+        <Route path="song" element={<SongFull />} />
       </Route>
     </Routes>);
 }

@@ -1,7 +1,9 @@
 import { usePopup } from "../../../../components/popup/hook/usePopup";
 import { RightClickMenu } from "../../../../components/ui/options/RightClickMenu";
 import type { RightClickMenuNode } from "../../../../components/ui/options/RightClickMenuItem";
+import { useDeletePlaylist } from "../../../../hooks/usePlaylist";
 import type { PlaylistInfo } from "../../../../types/playlist";
+import { DeletePlaylistPopup } from "./DeletePlaylistPopup";
 import { EditPlaylistCard } from "./EditPlaylistCard";
 
 interface RightClickPlaylistOptionsProp {
@@ -13,6 +15,7 @@ interface RightClickPlaylistOptionsProp {
 
 export function RightClickPlaylistOptions({ playlist, actions }: RightClickPlaylistOptionsProp) {
     const { openPopup, closePopup } = usePopup();
+    const { mutate: deletePlaylist } = useDeletePlaylist();
 
     const optionItems: RightClickMenuNode[] = [
         {
@@ -33,6 +36,17 @@ export function RightClickPlaylistOptions({ playlist, actions }: RightClickPlayl
             iconPath: "/action/block.svg",
             iconDescription: "Block",
             text: "Apagar playlist",
+            onClick: () => {
+                openPopup(
+                    <DeletePlaylistPopup
+                        deleteAction={() => {
+                            deletePlaylist(playlist.id);
+                            closePopup();
+                        }}
+                        playlistName={playlist.name}
+                    />
+                )
+            },
         }, {
             iconPath: "/action/lock.svg",
             iconDescription: "Lock",

@@ -1,20 +1,20 @@
-import { NewPlaylistHeader } from "../features/playlist/components/NewPlaylistHeader"
-
-const mock = {
-    playlist: {
-        isPublic: true,
-        name: "you know",
-        owner: {
-            name: "Hugo Aparecido",
-            image: "/profile/profile.png",
-        },
-    }
-}
+import { NewPlaylistHeader } from "../features/playlist/components/NewPlaylistHeader";
 
 export function NewPlaylist() {
+
+    const playlistHeader = {
+        name: "Minha Lista Favorita",
+        isPublic: false,
+        description: "Músicas para relaxar",
+        owner: {
+            name: "João Silva",
+            image: "https://github.com/seu-usuario.png"
+        }
+    }
+
     return (
         <div className="w-full flex-col rounded-lg">
-            <NewPlaylistHeader playlist={mock.playlist} />
+            <NewPlaylistHeader playlist={playlistHeader} />
             <div className="flex flex-col w-max p-5 gap-3">
                 <span className="text-text-base text-[18px] font-bold lining-none font-default-font">
                     Nenhuma música adicionada ainda
@@ -24,5 +24,5 @@ export function NewPlaylist() {
                 </span>
             </div>
         </div>
-    )
+    );
 }
