@@ -17,7 +17,7 @@ export interface Music {
     title: string;
     artistId: string;
     albumId: string;
-    playlistsId: string[];
+    playlistsId: string[] | [];
     duration: number;
     releaseDate: string;
     timesListen: number;

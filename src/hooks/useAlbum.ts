@@ -15,3 +15,19 @@ export const useArtistAlbums = (artistId: string) => {
         enabled: !!artistId,
     });
 };
+
+export const useMusicsAlbumById = (albumId: string) => {
+    return useQuery({
+        queryKey: ['albums', 'musics', albumId],
+        queryFn: () => albumService.getMusicsAlbumById(albumId),
+        enabled: !!albumId,
+    });
+};
+
+export const useAlbumById = (albumId: string) => {
+    return useQuery({
+        queryKey: ['albums', albumId],
+        queryFn: () => albumService.getAlbumById(albumId),
+        enabled: !!albumId,
+    });
+};
