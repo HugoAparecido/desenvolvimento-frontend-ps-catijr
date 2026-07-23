@@ -5,10 +5,9 @@ import { mockUser } from "../mockData/mockUserInfos";
 import { PlayButton } from "../features/player/components/buttons/PlayButton";
 import { usePlaylistById, useUserPlaylists } from "../hooks/usePlaylist";
 import { FiClock } from "react-icons/fi";
-import { RightClickMusicOptions } from "../features/music/components/action/RightClickMusicOptions";
 import { formatMusicData } from "../features/music/utils/musicFormatter";
 import { useArtistAlbums } from "../hooks/useAlbum";
-import { FormatStringRawDate, NumberToTimeString } from "../utils/formatters";
+import { PlaylistRow } from "../features/playlist/components/PlaylistRow";
 
 function useClickOutside(ref: React.RefObject<HTMLElement | null>, handler: () => void) {
     useEffect(() => {
@@ -32,7 +31,6 @@ export function Playlist() {
     const { data: playlist } = usePlaylistById(playlistId as string);
     const { data: allPlaylists } = useUserPlaylists();
 
-    // Exemplo: Se você quiser buscar os dados do artista da primeira música para ilustrar o uso do hook:
     const firstArtistId = playlist?.musics?.[0]?.artistId;
     const { data: artistAlbums } = useArtistAlbums(firstArtistId as string);
 
@@ -59,8 +57,8 @@ export function Playlist() {
             <div className="flex px-5 gap-2.5">
                 <PlayButton isPlaying={false} onClick={() => { }} />
             </div>
-            <div className="bg-[#121212] text-[#b3b3b3] p-6 font-sans min-h-screen">
-                <div className="grid grid-cols-[16px_4fr_3fr_2fr_minmax(120px,1fr)] gap-4 px-4 py-2 border-b border-[#2a2a2a] text-sm uppercase tracking-wider mb-4">
+            <div className="px-5 flex flex-col gap-3">
+                <div className="grid grid-cols-[16px_4fr_3fr_2fr_minmax(120px,1fr)] px-4 py-2 border-b-0.5 border-gray text-sm font-default-font lining-none font-medium text-text-subdued">
                     <span className="text-center">#</span>
                     <span className="text-center">Título</span>
                     <span className="text-center">Álbum</span>
@@ -72,54 +70,19 @@ export function Playlist() {
 
                 <div className="flex flex-col gap-2">
                     {playlist?.musics.map((rawMusic, index) => {
-                        // Formata os dados usando a função utilitária
                         const music = formatMusicData(rawMusic, artistAlbums ?? []);
 
                         return (
-                            <div
+                            <PlaylistRow
                                 key={music.id ?? index}
-                                className="grid grid-cols-[16px_4fr_3fr_2fr_minmax(120px,1fr)] gap-4 px-4 py-2 items-center hover:bg-[#ffffff1a] rounded-md transition duration-200 group"
-                            >
-                                <span className="text-center text-sm">{index + 1}</span>
-
-                                <div className="flex items-center gap-3">
-                                    <img src="/card/playlist1.png" alt="Music Album" className="w-10 h-10 rounded object-cover" />
-                                    <div className="flex flex-col">
-                                        <span className="text-white font-medium text-sm">{music.title}</span>
-                                        <span className="text-xs hover:underline cursor-pointer">{music.artistName}</span>
-                                    </div>
-                                </div>
-
-                                <span className="text-sm truncate hover:underline cursor-pointer">{music.albumName}</span>
-
-                                <span className="text-sm">{FormatStringRawDate(music.createdAt)}</span>
-
-                                <div className="flex items-center justify-end gap-4 text-sm">
-                                    <span>{NumberToTimeString(music.duration)}</span>
-
-                                    <div className="relative" ref={openMenuIndex === index ? menuRef : null}>
-                                        <button
-                                            type="button"
-                                            className="flex items-center justify-center p-1 cursor-pointer"
-                                            onClick={() => {
-                                                setOpenMenuIndex(openMenuIndex === index ? null : index);
-                                            }}
-                                        >
-                                            <img src="/action/3dots.svg" alt="Three dots" className="w-3.25" />
-                                        </button>
-
-                                        {openMenuIndex === index && (
-                                            <div className="absolute right-0 top-full mt-1 z-50">
-                                                <RightClickMusicOptions
-                                                    music={music}
-                                                    currentPlaylistId={playlistId}
-                                                    playlists={allPlaylists ?? []}
-                                                />
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
-                            </div>
+                                index={index}
+                                music={music}
+                                playlistId={playlistId}
+                                allPlaylists={allPlaylists ?? []}
+                                openMenuIndex={openMenuIndex}
+                                setOpenMenuIndex={setOpenMenuIndex}
+                                menuRef={menuRef}
+                            />
                         );
                     })}
                 </div>

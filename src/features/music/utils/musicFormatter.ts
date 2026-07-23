@@ -7,9 +7,15 @@ export function formatMusicData(music: Music, artistAlbums: ArtistAlbum[] = []) 
     return {
         id: music.id,
         title: music.title ?? "Desconhecido",
-        artistName: currentAlbum?.artistName ?? "Artista Desconhecido",
-        albumName: currentAlbum?.title ?? music.albumId ?? "Álbum Desconhecido",
-        duration: music.duration ?? "0:00",
+        artist: {
+            id: music.artistId,
+            name: currentAlbum?.artistName ?? "Artista Desconhecido"
+        },
+        album: {
+            id: music.albumId,
+            name: currentAlbum?.title ?? "Álbum Desconhecido"
+        },
+        duration: music.duration ?? 0,
         createdAt: music.createdAt ?? "",
     };
 }
