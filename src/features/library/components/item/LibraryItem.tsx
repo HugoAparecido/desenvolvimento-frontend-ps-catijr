@@ -26,9 +26,10 @@ export interface LibraryItemProps {
     rightClickMenu?: React.ReactNode,
     onContextMenuOpen: (id: string | number) => void,
     toPath: string,
+    routeData?: Record<string, unknown>;
 }
 
-export function LibraryItem({ id, cover, text, isPlaying, onClick, query, isSelected, rightClickMenu, activeMenuId, onContextMenuOpen, toPath }: LibraryItemProps) {
+export function LibraryItem({ id, cover, text, isPlaying, onClick, query, isSelected, rightClickMenu, activeMenuId, onContextMenuOpen, toPath, routeData }: LibraryItemProps) {
     const [isHovered, setIsHovered] = useState(false);
 
     const actions = useLibraryItemAction();
@@ -42,6 +43,10 @@ export function LibraryItem({ id, cover, text, isPlaying, onClick, query, isSele
 
     return (<>
         <Link to={toPath}
+            state={{
+                itemText: text,
+                ...routeData
+            }}
             className={`flex w-72 h-max items-center justify-between ease-out duration-500 hover:bg-divider hover:rounded-sm hover:ring-4 hover:ring-divider cursor-pointer
                 ${isSelected ? 'bg-divider rounded-sm ring-4 ring-divider' : 'bg-transparent'}`}
             onClick={onClick}

@@ -1,16 +1,21 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button } from "../../../../components/ui/buttons/Button";
-import type { PlaylistInfo } from "../../types/playlist";
+import type { PlaylistInfo } from "../../../../types/playlist";
+import { useEditPlaylistAttributes } from "../../../../hooks/usePlaylist"; // Ajuste o caminho do seu import
 
 interface EditPlaylistCardProps {
-    playlist: PlaylistInfo,
-    onSaveClick: () => void,
+    playlist: PlaylistInfo;
+    onSaveClick: () => void;
 }
 
 export function EditPlaylistCard({ playlist, onSaveClick }: EditPlaylistCardProps) {
     const [nameValue, setNameValue] = useState(playlist.name);
     const [descriptionValue, setDescriptionValue] = useState(playlist.description);
     const [isPublicValue, setIsPublicValue] = useState(playlist.isPublic);
+
+    const playlistId = playlist.id.toString()
+
+    const editMutation = useEditPlaylistAttributes();
 
     const normalizedImage = Array.isArray(playlist.imagePath) ? playlist.imagePath : [playlist.imagePath];
     const quantitity = normalizedImage.length;
@@ -27,9 +32,25 @@ export function EditPlaylistCard({ playlist, onSaveClick }: EditPlaylistCardProp
         setDescriptionValue(e.target.value);
     }
 
-    const handleSubmit = (e: React.SubmitEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
-        onSaveClick();
+
+        // Dispara a mutation para atualizar os atributos no backend
+        editMutation.mutate(
+            {
+                playlistId,
+                data: {
+                    name: nameValue,
+                    description: descriptionValue,
+                    isPublic: isPublicValue
+                }
+            },
+            {
+                onSuccess: () => {
+                    onSaveClick();
+                }
+            }
+        );
     }
 
     return (
@@ -40,23 +61,25 @@ export function EditPlaylistCard({ playlist, onSaveClick }: EditPlaylistCardProp
                 Editar detalhes
             </span>
             <div className="flex w-max h-max gap-3 items-center">
-                <div className={`relative w-33.5 h-33.5 grid overflow-hidden rounded-sm ${gridClass}`}>{imagesForRendering.map((img, index) => {
-                    if (img) {
+                <div className={`relative w-33.5 h-33.5 grid overflow-hidden rounded-sm ${gridClass}`}>
+                    {imagesForRendering.map((img, index) => {
+                        if (img) {
+                            return (
+                                <img
+                                    key={index}
+                                    src={img}
+                                    alt={`Capa album ${index + 1}`}
+                                    className={`${imageClass} object-cover block`}
+                                />
+                            )
+                        }
                         return (
-                            <img
-                                key={index}
-                                src={img}
-                                alt={`Capa album ${index + 1}`}
-                                className={`${imageClass} object-cover block`} />
-                        )
-                    }
-                    return (
-                        <div
-                            key={`empty-${index}`}
-                            className={`${imageClass} bg-black`}
-                        />
-                    );
-                })}
+                            <div
+                                key={`empty-${index}`}
+                                className={`${imageClass} bg-black`}
+                            />
+                        );
+                    })}
                 </div>
                 <div className="flex w-max gap-2 flex-col">
                     <input type="text"
@@ -72,17 +95,26 @@ export function EditPlaylistCard({ playlist, onSaveClick }: EditPlaylistCardProp
                         "
                         onChange={handleInputDescriptionChange}
                         value={descriptionValue}
-
                     />
                 </div>
             </div>
             <div className="flex w-full justify-between items-start">
-                <Button text={isPublicValue ? "Tornar privada" : "Tornar pública"}
+                <Button
+                    type="button" // Importante colocar type="button" para não submeter o form ao clicar aqui
+                    text={isPublicValue ? "Tornar privada" : "Tornar pública"}
                     onClick={() => setIsPublicValue(!isPublicValue)}
                 />
-                <Button variant="CTA" text="Salvar" withIcon={false} type="submit" />
+                <Button
+                    variant="CTA"
+                    text={editMutation.isPending ? "Salvando..." : "Salvar"}
+                    withIcon={false}
+                    type="submit"
+                    disabled={editMutation.isPending}
+                />
             </div>
-            <span className="w-89 text-[8px] font-default-font font-bold lining-none text-white">Ao continuar, você autoriza o Spotify a acessar a imagem enviada. Certifique-se de que você tem o direito de fazer o upload dessa imagem.</span>
+            <span className="w-89 text-[8px] font-default-font font-bold lining-none text-white">
+                Ao continuar, você autoriza o Spotify a acessar a imagem enviada. Certifique-se de que você tem o direito de fazer o upload dessa imagem.
+            </span>
         </form>
     )
 }

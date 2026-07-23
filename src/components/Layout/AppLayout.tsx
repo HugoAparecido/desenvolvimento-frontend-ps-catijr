@@ -24,11 +24,11 @@ export function AppLayout() {
                             <Library />
                         </aside>
                     )}
-                    <main className='flex-1 h-full overflow-y-auto flex justify-center items-start [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none'>
+                    <main className='flex-1 h-full p-2 overflow-y-auto flex justify-center items-start [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] scrollbar-none'>
                         <Outlet />
                     </main>
                     {!isFullScreen && (
-                        <aside className='w-max'>
+                        <aside className='w-max hidden lg:block'>
                             <SongPanel />
                         </aside>
                     )}

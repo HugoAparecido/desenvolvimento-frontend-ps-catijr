@@ -26,12 +26,12 @@ export function Navbar() {
                 <SearchBar />
             </div>
             <div className="flex flex-1 min-w-0 gap-8 justify-end">
-                <Link to="" className="hidden md:flex gap-1.5 items-center justify-center cursor-pointer">
+                <div className="hidden md:flex gap-1.5 items-center justify-center cursor-pointer">
                     <img src="navbar/download.svg" alt="Download" className="w-3" />
                     <LinkButton
                         text="Instalar aplicativo"
                         variant="default_subdued_10" />
-                </Link>
+                </div>
                 <div className="flex items-center justify-center gap-3">
                     <Link to="" className="hidden md:flex w-3 items-center justify-center cursor-pointer"
                         onMouseEnter={() => setNotificationIsHovered(true)}
