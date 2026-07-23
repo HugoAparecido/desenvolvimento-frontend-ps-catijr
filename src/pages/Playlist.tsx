@@ -1,20 +1,29 @@
+import { useLocation, useParams } from "react-router-dom";
 import { PlaylistHeader } from "../features/playlist/components/PlaylistHeader"
-
-const mock = {
-    playlist: {
-        images: ["/card/playlist1.png", "/card/playlist1.png", "/card/playlist1.png", "/card/playlist1.png"],
-        isPublic: true,
-        name: "you know",
-        owner: {
-            name: "Hugo Aparecido",
-            image: "/profile/profile.png",
-        },
-        qtdMusics: 21,
-        totalPlayTime: 71,
-    }
-}
+import { mockUser } from "../mockData/mockUserInfos";
+import type { UserPlaylist } from "../types/playlist";
 
 export function Playlist() {
+
+    const { playlistId } = useParams();
+    const location = useLocation();
+
+    const playlistState: UserPlaylist = location.state
+
+    const mock = {
+        playlist: {
+            images: ["/card/playlist1.png", "/card/playlist1.png", "/card/playlist1.png", "/card/playlist1.png"],
+            isPublic: true,
+            name: playlistState.name,
+            owner: {
+                name: mockUser.name,
+                image: mockUser.imagePath,
+            },
+            qtdMusics: playlistState.musicQtd,
+            totalPlayTime: playlistState.duration,
+        }
+    }
+
     return (
         <div className="w-full h-max">
             <PlaylistHeader playlist={mock.playlist} />
