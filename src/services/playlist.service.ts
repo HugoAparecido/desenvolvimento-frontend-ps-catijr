@@ -1,5 +1,5 @@
 import { api } from "../api/axios";
-import type { CreatePlaylistDTO, UserPlaylist } from "../types/playlist";
+import type { CreatePlaylistDTO, PlaylistDetailDTO, UserPlaylist } from "../types/playlist";
 
 export const playlistService = {
     getUserPlaylists: async (): Promise<UserPlaylist[]> => {
@@ -14,5 +14,10 @@ export const playlistService = {
 
     deletePlaylist: async (playlistId: string | number): Promise<void> => {
         await api.delete(`/playlist/${playlistId}`);
+    },
+
+    getPlaylistById: async (id: string): Promise<PlaylistDetailDTO> => {
+        const response = await api.get(`/playlist/${id}`);
+        return response.data;
     },
 }

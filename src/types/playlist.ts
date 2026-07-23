@@ -1,3 +1,5 @@
+import type { Music } from "./musics";
+
 export interface UserPlaylist {
     id: string,
     name: string,
@@ -20,4 +22,15 @@ export interface PlaylistInfo {
 export interface CreatePlaylistDTO {
     name: string;
     description: string;
+}
+
+export interface PlaylistDetailDTO {
+    id: string;
+    name: string;
+    description: string;
+    musicQtd: number;
+    duration: number;
+    musics: Music[];
+    createdAt: string;
+    updatedAt: string | null;
 }

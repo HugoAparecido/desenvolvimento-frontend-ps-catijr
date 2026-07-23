@@ -30,3 +30,11 @@ export const useDeletePlaylist = () => {
         },
     });
 };
+
+export const usePlaylistById = (id: string) => {
+    return useQuery({
+        queryKey: ['playlist', id],
+        queryFn: () => playlistService.getPlaylistById(id),
+        enabled: !!id,
+    });
+};
