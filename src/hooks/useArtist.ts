@@ -7,3 +7,10 @@ export const useRecentArtistsQuery = () => {
         queryFn: artistService.getRecentArtists,
     });
 };
+
+export const useMostPlayedArtists = () => {
+    return useQuery({
+        queryKey: ['artists', 'most', 'played'],
+        queryFn: artistService.getMostPlayedArtists,
+    });
+};
