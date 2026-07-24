@@ -1,16 +1,30 @@
+import { useParams } from "react-router-dom";
 import { NewPlaylistHeader } from "../features/playlist/components/NewPlaylistHeader";
+import { usePlaylistById } from "../hooks/usePlaylist";
+import { mockUser } from "../mockData/mockUserInfos";
 
 export function NewPlaylist() {
+    const { playlistId } = useParams();
+
+    const { data: playlist, isLoading } = usePlaylistById(playlistId as string);
+
+    if (isLoading || !playlist) {
+        return (
+            <div className="w-full flex-col rounded-lg p-5">
+                <span className="text-text-base">Carregando playlist...</span>
+            </div>
+        );
+    }
 
     const playlistHeader = {
-        name: "Minha Lista Favorita",
+        name: playlist.name || "Sem título",
         isPublic: false,
-        description: "Músicas para relaxar",
+        description: playlist.description || "",
         owner: {
-            name: "João Silva",
-            image: "https://github.com/seu-usuario.png"
+            name: mockUser.name,
+            image: mockUser.imagePath
         }
-    }
+    };
 
     return (
         <div className="w-full flex-col rounded-lg">

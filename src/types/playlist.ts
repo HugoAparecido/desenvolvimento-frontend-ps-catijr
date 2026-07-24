@@ -40,3 +40,13 @@ export interface PutPlaylistDTO {
     description?: string;
     isPublic?: boolean;
 }
+
+export interface PlaylistCreateReturn {
+    id: string,
+    name: string,
+    description: string,
+    musicQtd: number;
+    duration: number;
+    createdAt: string;
+    updatedAt: string | null;
+}

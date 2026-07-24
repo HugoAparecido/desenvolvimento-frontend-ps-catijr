@@ -12,7 +12,7 @@ interface NewPlaylistHeaderProps {
 export function NewPlaylistHeader({ playlist }: NewPlaylistHeaderProps) {
 
     return (
-        <div className="flex w-full h-max flex-col gap-2.5 px-5 pt-10 pb-4 bg-playlist-header rounded-t-xl">
+        <div className="flex w-full h-max flex-col gap-2.5 px-5 pt-10 pb-4 bg-playlist-header overflow-hidden rounded-t-xl">
             <div className="flex gap-3 items-center">
                 <div className={`relative w-43.5 h-max rounded-sm`}>
                     <img src="/playlist/new_playlist.png" alt="Song Icon"
