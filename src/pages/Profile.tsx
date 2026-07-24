@@ -7,9 +7,9 @@ import { mockUser } from "../mockData/mockUserInfos";
 import { FormatIntegersToBrazilianFormat, NumberToTimeString } from "../utils/formatters";
 
 export function Profile() {
-    const { data: mostPlayedArtists = [], isLoadingMostPlayedArtists } = useMostPlayedArtists();
-    const { data: mostPlayedMusics = [], isLoadingMostPlayedMusics } = useMostPlayedMusics();
-    const { data: userPlaylists = [], isLoadingUserPlaylist } = useUserPlaylists();
+    const { data: mostPlayedArtists = [] } = useMostPlayedArtists();
+    const { data: mostPlayedMusics = [] } = useMostPlayedMusics();
+    const { data: userPlaylists = [] } = useUserPlaylists();
 
     return (
         <div className="flex w-full flex-col gap-8 bg-home-bg-gradient-variant rounded-xl pb-2">
