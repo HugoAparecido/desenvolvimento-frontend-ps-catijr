@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "../../../../components/ui/buttons/Button";
 import type { PlaylistInfo } from "../../../../types/playlist";
-import { useEditPlaylistAttributes } from "../../../../hooks/usePlaylist"; // Ajuste o caminho do seu import
+import { useEditPlaylistAttributes } from "../../../../hooks/usePlaylist";
 
 interface EditPlaylistCardProps {
     playlist: PlaylistInfo;
@@ -35,7 +35,6 @@ export function EditPlaylistCard({ playlist, onSaveClick }: EditPlaylistCardProp
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Dispara a mutation para atualizar os atributos no backend
         editMutation.mutate(
             {
                 playlistId,
@@ -100,7 +99,7 @@ export function EditPlaylistCard({ playlist, onSaveClick }: EditPlaylistCardProp
             </div>
             <div className="flex w-full justify-between items-start">
                 <Button
-                    type="button" // Importante colocar type="button" para não submeter o form ao clicar aqui
+                    type="button"
                     text={isPublicValue ? "Tornar privada" : "Tornar pública"}
                     onClick={() => setIsPublicValue(!isPublicValue)}
                 />

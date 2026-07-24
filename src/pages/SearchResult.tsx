@@ -28,7 +28,6 @@ export function SearchResult() {
 
     const [activeMenuId, setActiveMenuId] = useState<string | number | null>(null);
 
-    // Consumindo os dados reais incluindo as playlists do usuário
     const { data: recentAlbums, isLoading: isLoadingAlbums } = useRecentAlbums();
     const { data: recentArtists, isLoading: isLoadingArtists } = useRecentArtistsQuery();
     const { data: mostPlayedMusics, isLoading: isLoadingMusics } = useMostPlayedMusics();
@@ -53,7 +52,6 @@ export function SearchResult() {
         { value: 'playlist', text: 'Playlist' },
     ];
 
-    // Mapeando e unificando os dados para o formato de ResultItem
     const formattedResults: ResultItem[] = [
         ...(recentArtists?.map((artist): ResultItem => ({
             itemID: artist.id,
