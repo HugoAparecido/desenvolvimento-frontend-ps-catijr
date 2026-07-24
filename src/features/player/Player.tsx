@@ -1,26 +1,26 @@
-import { GoScreenFull, GoScreenNormal } from "react-icons/go";
+import { Link } from "react-router-dom";
 import { MiniMusicInformation } from "../music/components/MiniMusicInformation";
 import { PlayControl } from "./components/PlayControl";
 import { PlayerProgressBar } from "./components/PlayerProgressBar";
 import { VolumeControl } from "./components/VolumeControl";
-import { usePlayerStore } from "./store/usePlayerStore";
 import { useAudioPlayer } from "./hooks/useAudioPlayer";
+import { usePlayerStore } from "./store/usePlayerStore";
+import { GoScreenFull, GoScreenNormal } from "react-icons/go";
 import { PlayButtonPlayer } from "./components/buttons/PlayButtonPlayer";
 import { MdSkipNext } from "react-icons/md";
-import { Link } from "react-router-dom";
 
 export function Player() {
-    const {
-        currentTrack,
-        isPlaying,
-        currentTime,
-        fullTime,
-        isFullScreen,
-        togglePlay,
-        nextTrack,
-        previousTrack,
-        toggleFullScreen
-    } = usePlayerStore();
+    // Selecione apenas o que cada pedaço do componente precisa de forma isolada
+    const currentTrack = usePlayerStore((state) => state.currentTrack);
+    const isPlaying = usePlayerStore((state) => state.isPlaying);
+    const currentTime = usePlayerStore((state) => state.currentTime);
+    const fullTime = usePlayerStore((state) => state.fullTime);
+    const isFullScreen = usePlayerStore((state) => state.isFullScreen);
+
+    const togglePlay = usePlayerStore((state) => state.togglePlay);
+    const nextTrack = usePlayerStore((state) => state.nextTrack);
+    const previousTrack = usePlayerStore((state) => state.previousTrack);
+    const toggleFullScreen = usePlayerStore((state) => state.toggleFullScreen);
 
     const { audioRef } = useAudioPlayer();
 
@@ -79,7 +79,6 @@ export function Player() {
                     <MdSkipNext size={20} />
                 </button>
             </div>
-
         </div>
-    )
+    );
 }
