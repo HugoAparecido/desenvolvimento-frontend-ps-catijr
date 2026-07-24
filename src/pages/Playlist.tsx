@@ -40,7 +40,7 @@ export function Playlist() {
     useClickOutside(menuRef, () => setOpenMenuIndex(null));
 
     const headerInfo = {
-        images: ["/card/playlist1.png", "/card/playlist1.png", "/card/playlist1.png", "/card/playlist1.png"],
+        images: ["/card/playlist1.png", "/card/playlist2.png", "/card/playlist3.png", "/card/playlist4.png"],
         isPublic: true,
         name: playlist?.name ?? 'new',
         owner: {

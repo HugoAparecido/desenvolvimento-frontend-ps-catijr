@@ -18,9 +18,9 @@ export function PlaylistHeader({ playlist }: PlaylistHeaderProps) {
     const normalizedImages = Array.isArray(playlist.images) ? playlist.images : [playlist.images];
 
     return (
-        <div className="flex w-full h-max flex-col gap-2.5 px-5 pt-10 pb-4 bg-playlist-header">
+        <div className="flex w-full h-max flex-col gap-2.5 px-5 pt-10 pb-4 bg-playlist-header overflow-hidden">
             <div className="flex gap-3 items-center">
-                <div className={`relative w-43.5 h-43.5 grid overflow-hidden grid-cols-2 grid-rows-2 rounded-sm`}>
+                <div className={`relative w-43.5 h-43.5 grid overflow-hidden grid-cols-2 grid-rows-2 rounded-sm shrink-0`}>
                     {normalizedImages.map((img, index) => {
                         if (img) {
                             return (
@@ -39,7 +39,7 @@ export function PlaylistHeader({ playlist }: PlaylistHeaderProps) {
                         );
                     })}
                 </div>
-                <div className="flex flex-col gap-2.5">
+                <div className="flex flex-col gap-2.5 truncate">
                     <span className="text-text-base text-xs font-medium lining-none font-default-font">
                         Playlist {playlist.isPublic ? 'pública' : 'privada'}
                     </span>
@@ -49,7 +49,7 @@ export function PlaylistHeader({ playlist }: PlaylistHeaderProps) {
                     <div className="flex gap-1 items-center">
                         <div className="flex gap-1 items-center">
                             <img src={playlist.owner.image} alt="Owner"
-                                className="w-4 h-4 object-cover rounded-full"
+                                className="w-4 h-4 object-cover rounded-full shrink-0"
                             />
                             <span className="text-text-base text-xs font-bold lining-none font-default-font">
                                 {playlist.owner.name}
@@ -57,7 +57,7 @@ export function PlaylistHeader({ playlist }: PlaylistHeaderProps) {
                         </div>
                         <div className="w-0.75 h-0.75 bg-text-subdued rounded-full" />
                         <span className="text-text-subdued text-xs font-medium lining-none font-default-font">
-                            {playlist.qtdMusics} músicas, {FormatPlaylistTime(playlist.totalPlayTime)}
+                            {playlist.qtdMusics} {playlist.qtdMusics <= 1 && playlist.qtdMusics > 0 ? "música" : "músicas"}, {FormatPlaylistTime(playlist.totalPlayTime)}
                         </span>
                     </div>
                 </div>

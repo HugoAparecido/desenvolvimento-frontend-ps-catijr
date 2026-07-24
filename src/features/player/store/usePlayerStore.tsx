@@ -11,20 +11,18 @@ export interface Track {
 }
 
 interface PlayerState {
-    // === State ===
     currentTrack: Track | null;
     isPlaying: boolean;
-    currentTime: number;
     fullTime: number;
+    currentTime: number;
     isFullScreen: boolean;
 
-    // === Actoins ===
     playTrack: (track: Track) => void;
     togglePlay: () => void;
     nextTrack: () => void;
     previousTrack: () => void;
-    setCurrentTime: (time: number) => void;
     setFullTime: (time: number) => void;
+    setCurrentTime: (time: number) => void;
     toggleFullScreen: () => void;
 }
 
@@ -41,20 +39,15 @@ const mockTrack: Track = {
 export const usePlayerStore = create<PlayerState>((set) => ({
     currentTrack: mockTrack,
     isPlaying: true,
-    currentTime: 45,
+    currentTime: 0,
     fullTime: 245,
     isFullScreen: false,
 
     playTrack: (track) => set({ currentTrack: track, isPlaying: true }),
-
     togglePlay: () => set((state) => ({ isPlaying: !state.isPlaying })),
-
     nextTrack: () => console.log('Next Music'),
     previousTrack: () => console.log('Previous music'),
-
-    setCurrentTime: (time) => set({ currentTime: time }),
-
     setFullTime: (time) => set({ fullTime: time }),
-
+    setCurrentTime: (time) => set({ currentTime: time }),
     toggleFullScreen: () => set((state) => ({ isFullScreen: !state.isFullScreen })),
 }));
