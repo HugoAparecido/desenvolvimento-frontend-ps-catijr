@@ -12,40 +12,54 @@ export function SearchRecent() {
     const isLoading = isLoadingAlbums || isLoadingArtists || isLoadingMostPlayed;
     const error = errorAlbums || errorArtists || errorMostPlayed;
 
-    // Mapeia e unifica os dados de cada endpoint para o formato do componente
-    const data: SearchRecentResultItemProps[] = [
+    // 1. Mapeia os dados e inclui as datas para poder ordenar em seguida
+    const rawData = [
         // Mapeando Artistas
-        ...(recentArtists?.map((artist): SearchRecentResultItemProps => ({
+        ...(recentArtists?.map((artist) => ({
             itemId: artist.id,
             itemName: artist.name,
-            itemType: 'artist',
-            imagePath: '/card/artist.png', // Substitua pelo campo de imagem real se houver no model
-            artistVerified: false, // Defina conforme sua regra de negócio
+            itemType: 'artist' as const,
+            imagePath: '/card/artist.png',
+            artistVerified: false,
             musicOwners: [],
             explicit: false,
+            updatedAt: artist.updatedAt,
+            createdAt: artist.createdAt,
         })) || []),
 
-        // Mapeando Álbuns (ajuste os campos conforme o model de álbum que você possui)
-        ...(recentAlbums?.map((album): SearchRecentResultItemProps => ({
+        // Mapeando Álbuns
+        ...(recentAlbums?.map((album) => ({
             itemId: album.id,
             itemName: album.title, // ou album.name
-            itemType: 'album',
-            imagePath: '/card/album.png', // Ajuste para a propriedade correta de imagem
+            itemType: 'album' as const,
+            imagePath: '/card/album.png',
             artistVerified: false,
             musicOwners: [album.artistName],
             explicit: false,
+            updatedAt: album.updatedAt,
+            createdAt: album.createdAt,
         })) || []),
 
-        ...(mostPlayed?.map((music): SearchRecentResultItemProps => ({
+        // Mapeando Músicas
+        ...(mostPlayed?.map((music) => ({
             itemId: music.id,
             itemName: music.title,
-            itemType: 'music',
-            imagePath: '/music/music.png', // Música geralmente pega do álbum ou possui capa própria
+            itemType: 'music' as const,
+            imagePath: '/music/music.png',
             artistVerified: false,
-            musicOwners: ["Desconhecido"], // Aqui você pode passar os nomes dos artistas se tiver a relação populada
+            musicOwners: ["Desconhecido"],
             explicit: music.explicit,
+            updatedAt: music.updatedAt,
+            createdAt: music.createdAt,
         })) || [])
     ];
+
+    // 2. Ordena usando updatedAt com fallback para createdAt
+    const data: SearchRecentResultItemProps[] = rawData.sort((a, b) => {
+        const timeA = new Date(a.updatedAt || a.createdAt).getTime();
+        const timeB = new Date(b.updatedAt || b.createdAt).getTime();
+        return (timeB || 0) - (timeA || 0); // Ordenação decrescente (mais recentes primeiro)
+    }).slice(0, 7);
 
     if (error) {
         console.error("Erro ao carregar buscas recentes:", error);
