@@ -3,7 +3,6 @@ import { ItemLargeCard } from "../components/card/ItemLargeCard";
 import { FilterButton } from "../components/ui/buttons/FilterButton";
 import { RecentArtists } from "../features/artist/components/RecentArtists";
 import { HomePageRecentItem } from "../features/music/components/HomePageRecentItem";
-import { mockRecentItems } from "../mockData/mockHome";
 import { useUserPlaylists } from "../hooks/usePlaylist";
 import { mockUser } from "../mockData/mockUserInfos";
 import { useRecentAlbums } from "../hooks/useAlbum";
@@ -23,9 +22,6 @@ const FILTER_OPTIONS = [
 export function Home() {
     const [currentFilter, setCurrentFilter] = useState('all');
 
-    const initialItemPlaying = mockRecentItems.find(item => item.initialIsPlaying)?.id || null;
-    const [idPlaying, setIdPlaying] = useState<string | number | null>(initialItemPlaying);
-
     const { data: userPlaylists = [] } = useUserPlaylists();
     const { data: recentAlbums = [] } = useRecentAlbums();
     const { data: recentArtists = [] } = useRecentArtistsQuery();
@@ -39,18 +35,18 @@ export function Home() {
         .sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())
         .slice(0, 8)
         .map(item => {
-            let redirectPath = '';
-            let displayName = '';
+            let redirectPath: string;
+            let displayName: string;
 
             if ('description' in item) {
                 displayName = item.name;
-                redirectPath = '/playlist/';
+                redirectPath = `/playlist/${item.id}`;
             } else if ('title' in item) {
                 displayName = item.title;
-                redirectPath = '/song/';
+                redirectPath = `/album/${item.id}`;
             } else {
                 displayName = item.name;
-                redirectPath = '/artist/';
+                redirectPath = `/artist/${item.id}`;
             }
 
             return {
@@ -59,6 +55,11 @@ export function Home() {
                 redirectPath,
             };
         });
+
+
+
+    const initialItemPlaying = recentItems.find(item => item.id)?.id || null;
+    const [idPlaying, setIdPlaying] = useState<string | number | null>(initialItemPlaying);
 
     return (
         <div className="flex flex-col w-full min-h-screen px-5 py-6 gap-8 justify-start items-start bg-black rounded-lg overflow-hidden">

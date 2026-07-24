@@ -10,7 +10,6 @@ import { PlayButtonPlayer } from "./components/buttons/PlayButtonPlayer";
 import { MdSkipNext } from "react-icons/md";
 
 export function Player() {
-    // Selecione apenas o que cada pedaço do componente precisa de forma isolada
     const currentTrack = usePlayerStore((state) => state.currentTrack);
     const isPlaying = usePlayerStore((state) => state.isPlaying);
     const currentTime = usePlayerStore((state) => state.currentTime);

@@ -7,7 +7,7 @@ export function SongFull() {
         <div className="w-full h-full flex border p-2.5 gap-2.5 items-center justify-center bg-song-full rounded-2xl">
             <img
                 src={currentTrack?.imagePath} alt="Album image"
-                className="w-full h-auto aspect-square max-w-157.25 rounded-2xl object-cover shadow-song-full"
+                className="w-full h-auto aspect-square max-w-157.25 max-h-full rounded-2xl object-cover shadow-song-full"
             />
         </div>
     )
