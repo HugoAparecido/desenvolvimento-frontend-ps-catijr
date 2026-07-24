@@ -3,10 +3,11 @@ import { LibraryBarItem } from "./components/bar/LibraryBarItem";
 import { LibraryFilter } from "./components/filter/LibraryFilter";
 import { LibrarySearch } from "./components/search/LibrarySearch";
 import type { LibraryFilterValue } from "./hooks/useLibraryFilter";
-import { useNavigate } from "react-router-dom"; // Removido o 'Link' daqui se não for usar em outro lugar
+import { useNavigate } from "react-router-dom";
 import { Button } from "../../components/ui/buttons/Button";
 import { LibraryBarItemMobile } from "./components/bar/LibraryBarItemMobile";
 import { useCreatePlaylist } from "../../hooks/usePlaylist";
+import type { PlaylistCreateReturn } from "../../types/playlist";
 
 export function Library() {
     const [currentFilter, setCurrentFilter] = useState<LibraryFilterValue>('all');
@@ -21,8 +22,8 @@ export function Library() {
                 description: "",
             },
             {
-                onSuccess: (data: unknown) => {
-                    navigate('/newPlaylist', { state: data });
+                onSuccess: (data: PlaylistCreateReturn) => {
+                    navigate(`/newPlaylist/${data.id}`);
                 },
             }
         );
