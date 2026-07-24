@@ -4,6 +4,10 @@ import { PlayButton } from "../features/player/components/buttons/PlayButton";
 import { FiClock } from "react-icons/fi";
 import { useAlbumById } from "../hooks/useAlbum";
 import { AlbumHeader } from "../features/album/AlbumHeader";
+import { LinkButton } from "../components/ui/buttons/LinkButton";
+import { FormatStringRawDate, NumberToTimeString } from "../utils/formatters";
+import { RightClickMusicOptions } from "../features/music/components/action/RightClickMusicOptions";
+import { useUserPlaylists } from "../hooks/usePlaylist";
 
 function useClickOutside(ref: React.RefObject<HTMLElement | null>, handler: () => void) {
     useEffect(() => {
@@ -26,6 +30,7 @@ export function Album() {
     const { albumId } = useParams();
 
     const { data: album, isLoading } = useAlbumById(albumId as string);
+    const { data: playlists } = useUserPlaylists();
 
     const [openMenuIndex, setOpenMenuIndex] = useState<number | null>(null);
     const menuRef = useRef<HTMLDivElement>(null);
@@ -36,6 +41,10 @@ export function Album() {
         return <div className="text-white p-8">Carregando...</div>;
     }
 
+    const totalAlbumPlayTime = album?.musics.reduce(
+        (acumulator, music) => acumulator + music.duration, 0
+    ) ?? 0;
+
     const headerInfo = {
         image: "/card/album.png",
         name: album?.title ?? 'Desconhecido',
@@ -43,8 +52,8 @@ export function Album() {
             name: album?.artistName ?? 'Desconhecido',
             image: "/card/artist.png",
         },
-        qtdMusics: album?.musics?.length ?? 0,
-        totalPlayTime: 0,
+        qtdMusics: album?.musics.length ?? 0,
+        totalPlayTime: totalAlbumPlayTime,
     };
 
     return (
@@ -80,27 +89,30 @@ export function Album() {
                                     <span className="text-xs font-arial lining-none font-bold text-white">
                                         {music.title}
                                     </span>
-                                    <span className="text-xs hover:underline cursor-pointer text-text-subdued">
-                                        {music.artistId}
-                                    </span>
+                                    <LinkButton variant="default_subdued_10"
+                                        text={album.artistName}
+                                        route_link={`/artist/${music.artistId}`}
+                                    />
                                 </div>
                             </div>
 
                             <div className="flex items-center justify-center">
-                                <span className="text-xs hover:underline cursor-pointer truncate text-text-subdued">
-                                    {music.albumId}
-                                </span>
+
+                                <LinkButton variant="default_subdued_10"
+                                    text={album.title}
+                                    route_link={`/album/${music.albumId}`}
+                                />
                             </div>
 
                             <div className="flex items-center justify-center">
                                 <span className="text-xs font-default-font lining-none font-medium text-text-subdued">
-                                    {music.createdAt}
+                                    {FormatStringRawDate(music.createdAt)}
                                 </span>
                             </div>
 
                             <div className="flex items-center justify-end gap-4">
                                 <span className="text-xs font-default-font lining-none font-medium text-text-subdued">
-                                    {music.duration}
+                                    {NumberToTimeString(music.duration)}
                                 </span>
 
                                 <div className="relative" ref={openMenuIndex === index ? menuRef : null}>
@@ -116,6 +128,8 @@ export function Album() {
 
                                     {openMenuIndex === index && (
                                         <div className="absolute right-0 top-full mt-1 z-50">
+                                            <RightClickMusicOptions music={music} playlists={playlists ?? []}
+                                            />
                                         </div>
                                     )}
                                 </div>
