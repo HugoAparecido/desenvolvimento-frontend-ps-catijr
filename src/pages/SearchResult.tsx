@@ -12,6 +12,7 @@ import { RightClickArtistOptions } from "../features/artist/components/action/Ri
 import { FilterButton } from "../components/ui/buttons/FilterButton";
 import { SearchResultItem } from "../features/explore/components/search/result/components/SearchResultItem";
 import { RightClickMusicOptions } from "../features/music/components/action/RightClickMusicOptions";
+import { mockUser } from "../mockData/mockUserInfos";
 
 
 type ItemDomainData =
@@ -83,7 +84,8 @@ export function SearchResult() {
             itemName: playlist.name,
             type: 'playlist',
             imagePath: "/card/playlist1.png",
-            itemToPath: `/playlist/${playlist.id}`
+            itemToPath: `/playlist/${playlist.id}`,
+            ownerName: mockUser.name
         })) || [])
     ];
 

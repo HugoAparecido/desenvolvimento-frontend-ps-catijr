@@ -3,7 +3,6 @@ import { useSearchResultItemActions, type ResultItem } from "../../../../hooks/u
 import { tagResultDisplayNames } from "../../../../hooks/useSearchResultItemTag";
 import { SearchResultItemTag } from "./SearchResultItemTag";
 import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router-dom";
 
 interface SearchResultItem {
     item: ResultItem,
@@ -61,7 +60,7 @@ export function SearchResultItem({ item, activeMenuId, onContextMenuOpen, rightC
 
                             {!(item.type === 'artist') &&
                                 (<>
-                                    <div className="h-0.75 w-0.75 bg-result-item-divider"></div>
+                                    <div className="h-0.75 w-0.75 bg-result-item-divider rounded-full"></div>
                                     <span className="text-text-subdued">{item.ownerName}</span>
                                 </>)}
                         </span>
