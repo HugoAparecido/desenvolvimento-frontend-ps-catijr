@@ -8,10 +8,12 @@ export function FormatIntegersToBrazilianFormat(unformattedInteger: number): str
     return unformattedInteger.toLocaleString('pt-BR');
 }
 
-export function FormatPlaylistTime(playlistTime: number): string {
-    const hours = Math.floor(playlistTime / 60)
-    const minutes = playlistTime % 60
-    return `${hours > 0 ? hours + 'h' : ''}${Math.floor(minutes).toString().padStart(2, '0')}min`;
+export function FormatPlaylistTime(playlistTimeInSeconds: number): string {
+    const totalMinutes = Math.floor(playlistTimeInSeconds / 60);
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+
+    return `${hours > 0 ? hours + 'h ' : ''}${minutes.toString().padStart(2, '0')}min`;
 }
 
 export function FormatStringRawDate(dataString: string) {
