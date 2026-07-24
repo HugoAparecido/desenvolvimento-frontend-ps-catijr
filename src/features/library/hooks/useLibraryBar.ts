@@ -58,18 +58,22 @@ export function useLibraryBar(query: string, filter: string) {
             let displayName: string;
             let type: 'playlist' | 'album' | 'artist';
             let owner: string | undefined;
+            let imagePath: string;
 
             if ('description' in item) {
                 displayName = item.name;
                 type = 'playlist';
                 owner = mockUser.name;
+                imagePath = '/card/playlist1.png';
             } else if ('title' in item) {
                 displayName = item.title;
                 type = 'album';
                 owner = item.artistName;
+                imagePath = '/card/album.png'
             } else {
                 displayName = item.name;
                 type = 'artist';
+                imagePath = '/card/artist.png'
             }
 
             return {
@@ -78,7 +82,7 @@ export function useLibraryBar(query: string, filter: string) {
                 type,
                 owner,
                 fixed: fixedIds.includes(String(item.id)),
-                imagePath: '',
+                imagePath,
                 routeData: item as unknown as Record<string, unknown>,
             };
         });

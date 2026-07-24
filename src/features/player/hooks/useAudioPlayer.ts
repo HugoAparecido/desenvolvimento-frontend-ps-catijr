@@ -36,8 +36,6 @@ export function useAudioPlayer() {
             setCurrentTime(0);
 
             if (isPlaying) togglePlay();
-
-            // nextTrack(); 
         };
 
         audio.addEventListener('timeupdate', handleTimeUpdate);

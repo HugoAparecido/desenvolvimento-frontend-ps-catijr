@@ -52,7 +52,7 @@ export function LibraryBarItem({ query, filter }: LibraryBarItemProps) {
                 isSelected={item.id === selectedId}
                 onClick={() => handleItemClick(item.id)}
                 cover={{
-                    imagePath: "/card/album.png",
+                    imagePath: item.imagePath,
                     isArtist: item.type === "artist",
                     isLiked: item.displayName === "Músicas Curtidas",
                     onClickPlay: () => handlePlayClick(item.id),
