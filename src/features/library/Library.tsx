@@ -22,7 +22,7 @@ export function Library() {
             },
             {
                 onSuccess: (data: unknown) => {
-                    navigate('/new-playlist', { state: data });
+                    navigate('/newPlaylist', { state: data });
                 },
             }
         );
