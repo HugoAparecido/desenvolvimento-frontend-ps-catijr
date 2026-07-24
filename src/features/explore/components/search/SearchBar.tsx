@@ -13,11 +13,6 @@ export function SearchBar() {
     const inputRef = useRef<HTMLInputElement>(null);
     const containerRef = useRef<HTMLFormElement>(null);
 
-    const handleImageClick = () => {
-        if (inputRef.current)
-            inputRef.current.focus();
-    }
-
     const toggleMobileSearch = () => {
         setIsMobileExpanded(true);
         setTimeout(() => {
@@ -52,14 +47,19 @@ export function SearchBar() {
             <div className={`relative 
                 ${isMobileExpanded ? 'flex w-full' : 'hidden'}
                 md:w-88.75 h-9 md:flex items-center justify-center rounded-2xl bg-background-highlight cursor-text`}>
-                <span className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400" onClick={handleImageClick}>
+
+                {/* Lupa transformada em botão de submit */}
+                <button
+                    type="submit"
+                    className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400 cursor-pointer"
+                >
                     <img
                         src={selectedInput === 'search' ? "/search_bar/search_active.svg" : "/search_bar/search.svg"}
                         alt="Search"
                         className="h-4"
-
                     />
-                </span>
+                </button>
+
                 <input
                     type="text"
                     placeholder="O que você quer ouvir?"
@@ -102,7 +102,9 @@ export function SearchBar() {
 
             {!isMobileExpanded && (
                 <div className="md:hidden w-max h-9 flex px-3.5 gap-8 items-center justify-center rounded-2xl bg-background-highlight cursor-text">
-                    <button className="flex items-center justify-center text-gray-400" onClick={toggleMobileSearch}>
+                    <button
+                        type="button"
+                        className="flex items-center justify-center text-gray-400" onClick={toggleMobileSearch}>
                         <img
                             src={selectedInput === 'search' ? "/search_bar/search_active.svg" : "/search_bar/search.svg"}
                             alt="Search"

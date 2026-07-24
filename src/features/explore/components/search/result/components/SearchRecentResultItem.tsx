@@ -73,7 +73,9 @@ export function SearchRecentResultItem({ itemId, itemName, itemType, imagePath, 
             </div>
 
             <div className="shrink-0 flex items-center justify-center w-max h-max">
-                <button className="w-max h-max cursor-pointer"
+                <button
+                    type="button"
+                    className="w-max h-max cursor-pointer"
                     onClick={handleRemoveClick}>
                     <img src="/action/x.svg" alt="Excluir do recente" className="w-2.5 hover:opacity-55" />
                 </button>

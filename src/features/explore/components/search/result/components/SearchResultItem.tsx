@@ -71,7 +71,7 @@ export function SearchResultItem({ item, activeMenuId, onContextMenuOpen, rightC
                 <div className="flex min-w-0 flex-1 justify-between items-center">
                     <SearchResultItemTag tagValue={item.type} />
                     <div className="flex gap-8 justify-center items-center">
-                        <button
+                        <button type="button"
                             onClick={handleThreeDotsClick}
                             className="cursor-pointer w-6.25 h-6.25 p-1 flex items-center justify-center"
                             aria-label={actions.isSaved ? "Remover da biblioteca" : "Adicionar à biblioteca"}
@@ -84,6 +84,7 @@ export function SearchResultItem({ item, activeMenuId, onContextMenuOpen, rightC
                         </button>
 
                         <button
+                            type="button"
                             onClick={actions.handleToggleSave}
                             className="w-max cursor-pointer"
                             aria-label={actions.isSaved ? "Remover da biblioteca" : "Adicionar à biblioteca"}
