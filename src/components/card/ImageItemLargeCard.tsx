@@ -13,7 +13,7 @@ export function ImageItemLargeCard({ imagePath, imageDescription, className }: I
     const imageClass = 'w-full h-full';
 
     return (
-        <div className={`relative sm:w-33 sm:h-33 w-15 h-15  grid overflow-hidden ${gridClass} ${className}`}>
+        <div className={`relative md:w-33 md:h-33 w-15 h-15  grid overflow-hidden ${gridClass} ${className}`}>
             {imagesForRendering.map((img, index) => {
                 if (img) {
                     return (

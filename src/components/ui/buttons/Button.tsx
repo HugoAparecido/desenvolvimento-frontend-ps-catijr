@@ -4,11 +4,13 @@ import clsx from 'clsx';
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     text?: string;
     variant?: 'default' | 'CTA' | 'Danger';
+    withIcon?: boolean
 }
 
 export const Button = ({
     text = 'Seguir',
     variant = 'default',
+    withIcon = true,
     className,
     ...props
 }: ButtonProps) => {
@@ -18,7 +20,7 @@ export const Button = ({
 
     const variantsConfig = {
         default: {
-            button: "h-auto bg-transparent border border-subdued-essential hover:border-text-base hover:ring-[0.5px] hover:ring-text-base",
+            button: "h-auto bg-transparent border border-essential-subdued hover:border-text-base hover:ring-[0.5px] hover:ring-text-base",
             text: "text-xs text-text-base",
             icon: "invert",
         },
@@ -33,7 +35,7 @@ export const Button = ({
             className={clsx(baseButtonStyles, currentVariant.button, className)}
             {...props}
         >
-            <img className={clsx(baseIconStyles, currentVariant.icon)} src="/action/lock.svg" alt="Lock" />
+            {withIcon && (<img className={clsx(baseIconStyles, currentVariant.icon)} src="/action/lock.svg" alt="Lock" />)}
             <span className={clsx(baseTextStyles, currentVariant.text)}>{text}</span>
         </button>
     );

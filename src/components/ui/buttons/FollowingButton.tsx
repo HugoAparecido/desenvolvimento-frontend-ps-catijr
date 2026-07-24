@@ -1,7 +1,7 @@
 interface FollowingButtonProps {
     isFollowing: boolean;
     unfollow: boolean;
-    onClick: () => void;
+    onClick: (e: React.MouseEvent) => void;
 }
 
 export const FollowingButton: React.FC<FollowingButtonProps> = ({ isFollowing, unfollow, onClick }) => {
