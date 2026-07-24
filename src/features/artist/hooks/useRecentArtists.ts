@@ -4,7 +4,7 @@ import { useRecentArtistsQuery } from "../../../hooks/useArtist";
 export const useRecentArtists = (maximumNumberOfInlineItems: number) => {
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const { data: recentArtists = [], isLoading } = useRecentArtistsQuery();
+    const { data: recentArtists = [] } = useRecentArtistsQuery();
     console.log(recentArtists)
 
     const visibleCount = isExpanded ? recentArtists?.length : maximumNumberOfInlineItems;

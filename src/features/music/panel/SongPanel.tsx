@@ -27,7 +27,7 @@ function renderRightClickMenu(type: string) {
         case 'playlist':
             return <RightClickPlaylistOptions />;
         default:
-            return null; // Caso não tenha menu específico
+            return null;
     }
 }
 

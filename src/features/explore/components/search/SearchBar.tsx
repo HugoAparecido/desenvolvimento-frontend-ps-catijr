@@ -48,7 +48,6 @@ export function SearchBar() {
                 ${isMobileExpanded ? 'flex w-full' : 'hidden'}
                 md:w-88.75 h-9 md:flex items-center justify-center rounded-2xl bg-background-highlight cursor-text`}>
 
-                {/* Lupa transformada em botão de submit */}
                 <button
                     type="submit"
                     className="absolute inset-y-0 left-0 flex items-center pl-3.5 text-gray-400 cursor-pointer"

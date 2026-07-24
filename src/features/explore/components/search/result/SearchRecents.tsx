@@ -12,9 +12,7 @@ export function SearchRecent() {
     const isLoading = isLoadingAlbums || isLoadingArtists || isLoadingMostPlayed;
     const error = errorAlbums || errorArtists || errorMostPlayed;
 
-    // 1. Mapeia os dados e inclui as datas para poder ordenar em seguida
     const rawData = [
-        // Mapeando Artistas
         ...(recentArtists?.map((artist) => ({
             itemId: artist.id,
             itemName: artist.name,
@@ -27,10 +25,9 @@ export function SearchRecent() {
             createdAt: artist.createdAt,
         })) || []),
 
-        // Mapeando Álbuns
         ...(recentAlbums?.map((album) => ({
             itemId: album.id,
-            itemName: album.title, // ou album.name
+            itemName: album.title,
             itemType: 'album' as const,
             imagePath: '/card/album.png',
             artistVerified: false,
@@ -40,7 +37,6 @@ export function SearchRecent() {
             createdAt: album.createdAt,
         })) || []),
 
-        // Mapeando Músicas
         ...(mostPlayed?.map((music) => ({
             itemId: music.id,
             itemName: music.title,
@@ -54,11 +50,10 @@ export function SearchRecent() {
         })) || [])
     ];
 
-    // 2. Ordena usando updatedAt com fallback para createdAt
     const data: SearchRecentResultItemProps[] = rawData.sort((a, b) => {
         const timeA = new Date(a.updatedAt || a.createdAt).getTime();
         const timeB = new Date(b.updatedAt || b.createdAt).getTime();
-        return (timeB || 0) - (timeA || 0); // Ordenação decrescente (mais recentes primeiro)
+        return (timeB || 0) - (timeA || 0);
     }).slice(0, 7);
 
     if (error) {
